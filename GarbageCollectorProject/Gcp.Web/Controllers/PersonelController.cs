@@ -32,7 +32,7 @@ namespace Gcp.Web.Controllers
             if (!responseMessage.IsSuccessStatusCode) return Json("Error", JsonRequestBehavior.DenyGet);
 
             var responseData = responseMessage.Content.ReadAsStringAsync().Result;
-            var personel = JsonConvert.DeserializeObject<List<Personel>>(responseData);
+            var personel = JsonConvert.DeserializeObject<PersonelModel>(responseData);
             return Json(personel, JsonRequestBehavior.AllowGet);
         }
     }

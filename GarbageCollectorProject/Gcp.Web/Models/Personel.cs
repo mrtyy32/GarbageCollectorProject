@@ -10,5 +10,8 @@ namespace Gcp.Web.Models
         public int PersonelID { get; set; }
         public string PersonelAd { get; set; }
         public string PersonelSoyad { get; set; }
+        public DateTime? DogumTarihi { get; set; }
+
+        public IEnumerable<PersonelDetay> PersonelDetay { get; set; }
     }
 }

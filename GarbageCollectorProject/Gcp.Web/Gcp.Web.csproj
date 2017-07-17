@@ -106,7 +106,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Araclar.cs" />
+    <Compile Include="Models\AraclarDetay.cs" />
+    <Compile Include="Models\Egitim.cs" />
+    <Compile Include="Models\Kurumlar.cs" />
+    <Compile Include="Models\Marka.cs" />
+    <Compile Include="Models\Model.cs" />
     <Compile Include="Models\Personel.cs" />
+    <Compile Include="Models\PersonelDetay.cs" />
+    <Compile Include="Models\PersonelModel.cs" />
+    <Compile Include="Models\Vardiya.cs" />
+    <Compile Include="Models\Vergi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
