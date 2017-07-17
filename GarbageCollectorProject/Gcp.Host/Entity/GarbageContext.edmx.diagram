@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1a6190a3fa1e4ea9b320235d83f11afe" Name="Diagram1">
+        <EntityTypeShape EntityType="GarbageCollectorsModel.Araclar" Width="1.5" PointX="8" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarbageCollectorsModel.AraclarDetay" Width="1.5" PointX="10.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarbageCollectorsModel.Egitim" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarbageCollectorsModel.Kurumlar" Width="1.5" PointX="2.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarbageCollectorsModel.Marka" Width="1.5" PointX="5.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarbageCollectorsModel.Model" Width="1.5" PointX="8" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarbageCollectorsModel.Personel" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarbageCollectorsModel.PersonelDetay" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarbageCollectorsModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarbageCollectorsModel.Vardiya" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarbageCollectorsModel.Vergi" Width="1.5" PointX="5" PointY="7.125" IsExpanded="true" />
+        <AssociationConnector Association="GarbageCollectorsModel.FK_Araclar_Marka" ManuallyRouted="false" />
+        <AssociationConnector Association="GarbageCollectorsModel.FK_AraclarDetay_Araclar" ManuallyRouted="false" />
+        <AssociationConnector Association="GarbageCollectorsModel.FK_PersonelDetay_Egitim" ManuallyRouted="false" />
+        <AssociationConnector Association="GarbageCollectorsModel.FK_Vergi_Kurumlar" ManuallyRouted="false" />
+        <AssociationConnector Association="GarbageCollectorsModel.FK_Model_Marka" ManuallyRouted="false" />
+        <AssociationConnector Association="GarbageCollectorsModel.FK_PersonelDetay_Personel" ManuallyRouted="false" />
+        <AssociationConnector Association="GarbageCollectorsModel.FK_PersonelDetay_Vardiya" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
