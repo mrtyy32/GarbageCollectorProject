@@ -17,15 +17,15 @@ namespace Gcp.Host.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Vardiya()
         {
-            this.PersonelDetay = new HashSet<PersonelDetay>();
+            this.Personel = new HashSet<Personel>();
         }
     
         public int VardiyaID { get; set; }
         public string Aciklama { get; set; }
-        public Nullable<System.DateTime> BaslamaSaati { get; set; }
-        public Nullable<System.DateTime> BitirmeSaati { get; set; }
+        public System.DateTime BaslamaSaati { get; set; }
+        public System.DateTime BitirmeSaati { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PersonelDetay> PersonelDetay { get; set; }
+        public virtual ICollection<Personel> Personel { get; set; }
     }
 }

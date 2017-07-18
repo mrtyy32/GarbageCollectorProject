@@ -12,16 +12,16 @@ namespace Gcp.Host.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class Egitim
+    public partial class Unvanlar
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Egitim()
+        public Unvanlar()
         {
             this.Personel = new HashSet<Personel>();
         }
     
-        public int EgitimID { get; set; }
-        public string EgitimAd { get; set; }
+        public int UnvanID { get; set; }
+        public string UnvanAd { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Personel> Personel { get; set; }

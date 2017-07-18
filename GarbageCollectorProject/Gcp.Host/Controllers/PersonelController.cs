@@ -15,12 +15,7 @@ namespace Gcp.Host.Controllers
         // GET: api/Personel
         public dynamic GetPersonel()
         {
-            var personelModel = new PersonelModel
-            {
-                ListPersonel = db.Personel.Include(i => i.PersonelDetay)
-
-            };
-            return personelModel;
+            return db.Personel;
 
         }
 
@@ -31,7 +26,7 @@ namespace Gcp.Host.Controllers
             var personel = new PersonelModel();
             try
             {
-                personel.Personel = db.Personel.Include(i => i.PersonelDetay).Single(x => x.PersonelID == id);
+                personel.Personel = db.Personel.Find(id);
             }
             catch
             {

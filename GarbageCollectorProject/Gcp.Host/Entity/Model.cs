@@ -15,8 +15,8 @@ namespace Gcp.Host.Entity
     public partial class Model
     {
         public int ModelID { get; set; }
-        public string Aciklama { get; set; }
-        public Nullable<int> MarkaID { get; set; }
+        public string ModelAd { get; set; }
+        public int MarkaID { get; set; }
     
         public virtual Marka Marka { get; set; }
     }

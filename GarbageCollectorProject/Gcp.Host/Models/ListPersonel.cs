@@ -18,19 +18,19 @@ namespace Gcp.Host.Models
                     x.PersonelAd,
                     x.PersonelSoyad,
                     x.DogumTarihi,
-                    x.PersonelDetay.UnvanID,
-                    //UnvanAd = x.PersonelDetay.Unvan.Aciklama,
-                    x.PersonelDetay.GirisTarihi,
-                    x.PersonelDetay.CikisTarihi,
-                    x.PersonelDetay.IzinTarihi,
-                    x.PersonelDetay.Maas,
-                    x.PersonelDetay.EgitimID,
-                    EgitimAd = x.PersonelDetay.Egitim.Aciklama,
-                    x.PersonelDetay.VardiyaID,
-                    VardiyaAd = x.PersonelDetay.Vardiya.Aciklama,
-                    x.PersonelDetay.CalismaDurumu,
-                    x.PersonelDetay.AmirMi,
-                    x.PersonelDetay.AmirID
+                    x.UnvanID,
+                    x.Unvanlar.UnvanAd,
+                    x.GirisTarihi,
+                    x.CikisTarihi,
+                    x.izinTarihi,
+                    x.Maas,
+                    x.EgitimID,
+                    x.Egitim.EgitimAd,
+                    x.VardiyaID,
+                    x.Vardiya.Aciklama,
+                    x.CalismaDurumu,
+                    x.AmirMi,
+                    x.AmirID
                 })
                 .ToList();
 

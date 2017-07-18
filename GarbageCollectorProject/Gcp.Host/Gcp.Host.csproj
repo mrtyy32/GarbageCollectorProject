@@ -64,6 +64,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -223,10 +224,10 @@
     <Compile Include="Entity\Personel.cs">
       <DependentUpon>GarbageContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\PersonelDetay.cs">
+    <Compile Include="Entity\sysdiagrams.cs">
       <DependentUpon>GarbageContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\sysdiagrams.cs">
+    <Compile Include="Entity\Unvanlar.cs">
       <DependentUpon>GarbageContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Vardiya.cs">
@@ -248,8 +249,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Entity\GarbageContext.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>GarbageContext.Context.cs</LastGenOutput>
       <DependentUpon>GarbageContext.edmx</DependentUpon>
+      <LastGenOutput>GarbageContext.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Entity\GarbageContext.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

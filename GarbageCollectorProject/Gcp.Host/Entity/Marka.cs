@@ -22,7 +22,7 @@ namespace Gcp.Host.Entity
         }
     
         public int MarkaID { get; set; }
-        public string Aciklama { get; set; }
+        public string MarkaAd { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Araclar> Araclar { get; set; }

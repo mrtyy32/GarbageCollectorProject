@@ -10,25 +10,25 @@
             <PropertyRef Name="AracID" />
           </Key>
           <Property Name="AracID" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="MarkaID" Type="int" />
+          <Property Name="MarkaID" Type="int" Nullable="false" />
           <Property Name="PersonelID" Type="int" />
+          <Property Name="AktifMi" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="AraclarDetay">
           <Key>
-            <PropertyRef Name="AracID" />
+            <PropertyRef Name="AracDetayID" />
           </Key>
-          <Property Name="AracID" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="AlinisTarihi" Type="date" />
-          <Property Name="BakimTarihi" Type="date" />
+          <Property Name="AracDetayID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="AlinisTarihi" Type="date" Nullable="false" />
+          <Property Name="BakimTarihi" Type="date" Nullable="false" />
           <Property Name="MuayeneTarihi" Type="date" />
-          <Property Name="AktifMi" Type="bit" />
         </EntityType>
         <EntityType Name="Egitim">
           <Key>
             <PropertyRef Name="EgitimID" />
           </Key>
           <Property Name="EgitimID" Type="int" Nullable="false" />
-          <Property Name="Aciklama" Type="nvarchar" MaxLength="50" />
+          <Property Name="EgitimAd" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Kurumlar">
           <Key>
@@ -47,40 +47,34 @@
             <PropertyRef Name="MarkaID" />
           </Key>
           <Property Name="MarkaID" Type="int" Nullable="false" />
-          <Property Name="Aciklama" Type="nvarchar" MaxLength="150" />
+          <Property Name="MarkaAd" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
         <EntityType Name="Model">
           <Key>
             <PropertyRef Name="ModelID" />
           </Key>
           <Property Name="ModelID" Type="int" Nullable="false" />
-          <Property Name="Aciklama" Type="nvarchar" MaxLength="150" />
-          <Property Name="MarkaID" Type="int" />
+          <Property Name="ModelAd" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="MarkaID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Personel">
           <Key>
             <PropertyRef Name="PersonelID" />
           </Key>
-          <Property Name="PersonelID" Type="int" Nullable="false" />
+          <Property Name="PersonelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PersonelAd" Type="nvarchar" MaxLength="50" />
           <Property Name="PersonelSoyad" Type="nvarchar" MaxLength="50" />
           <Property Name="DogumTarihi" Type="date" />
-        </EntityType>
-        <EntityType Name="PersonelDetay">
-          <Key>
-            <PropertyRef Name="PersonelID" />
-          </Key>
-          <Property Name="PersonelID" Type="int" Nullable="false" />
           <Property Name="UnvanID" Type="int" />
           <Property Name="GirisTarihi" Type="date" />
           <Property Name="CikisTarihi" Type="date" />
-          <Property Name="IzinTarihi" Type="date" />
+          <Property Name="izinTarihi" Type="date" />
           <Property Name="Maas" Type="decimal" Precision="18" Scale="0" />
           <Property Name="EgitimID" Type="int" />
           <Property Name="VardiyaID" Type="int" />
-          <Property Name="CalismaDurumu" Type="bit" />
+          <Property Name="CalismaDurumu" Type="bit" Nullable="false" />
           <Property Name="AmirID" Type="int" />
-          <Property Name="AmirMi" Type="bit" />
+          <Property Name="AmirMi" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -92,27 +86,34 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <EntityType Name="Unvanlar">
+          <Key>
+            <PropertyRef Name="UnvanID" />
+          </Key>
+          <Property Name="UnvanID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UnvanAd" Type="nchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Vardiya">
           <Key>
             <PropertyRef Name="VardiyaID" />
           </Key>
           <Property Name="VardiyaID" Type="int" Nullable="false" />
-          <Property Name="Aciklama" Type="nvarchar" MaxLength="250" />
-          <Property Name="BaslamaSaati" Type="datetime" />
-          <Property Name="BitirmeSaati" Type="datetime" />
+          <Property Name="Aciklama" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="BaslamaSaati" Type="datetime" Nullable="false" />
+          <Property Name="BitirmeSaati" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Vergi">
           <Key>
             <PropertyRef Name="VergiID" />
           </Key>
           <Property Name="VergiID" Type="int" Nullable="false" />
-          <Property Name="VergiDairesi" Type="nvarchar" MaxLength="250" />
-          <Property Name="VergiNo" Type="int" />
-          <Property Name="VergiDairesiAdresi" Type="nvarchar" MaxLength="250" />
-          <Property Name="KurumID" Type="int" />
+          <Property Name="VergiDairesi" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="VergiNo" Type="int" Nullable="false" />
+          <Property Name="VergiDairesiAdresi" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="KurumID" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Araclar_Marka">
-          <End Role="Marka" Type="Self.Marka" Multiplicity="0..1" />
+          <End Role="Marka" Type="Self.Marka" Multiplicity="1" />
           <End Role="Araclar" Type="Self.Araclar" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Marka">
@@ -120,6 +121,18 @@
             </Principal>
             <Dependent Role="Araclar">
               <PropertyRef Name="MarkaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Araclar_Personel">
+          <End Role="Personel" Type="Self.Personel" Multiplicity="0..1" />
+          <End Role="Araclar" Type="Self.Araclar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personel">
+              <PropertyRef Name="PersonelID" />
+            </Principal>
+            <Dependent Role="Araclar">
+              <PropertyRef Name="PersonelID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -131,12 +144,12 @@
               <PropertyRef Name="AracID" />
             </Principal>
             <Dependent Role="AraclarDetay">
-              <PropertyRef Name="AracID" />
+              <PropertyRef Name="AracDetayID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Model_Marka">
-          <End Role="Marka" Type="Self.Marka" Multiplicity="0..1" />
+          <End Role="Marka" Type="Self.Marka" Multiplicity="1" />
           <End Role="Model" Type="Self.Model" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Marka">
@@ -147,44 +160,44 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PersonelDetay_Egitim">
+        <Association Name="FK_Personel_Egitim">
           <End Role="Egitim" Type="Self.Egitim" Multiplicity="0..1" />
-          <End Role="PersonelDetay" Type="Self.PersonelDetay" Multiplicity="*" />
+          <End Role="Personel" Type="Self.Personel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Egitim">
               <PropertyRef Name="EgitimID" />
             </Principal>
-            <Dependent Role="PersonelDetay">
+            <Dependent Role="Personel">
               <PropertyRef Name="EgitimID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PersonelDetay_Personel">
-          <End Role="Personel" Type="Self.Personel" Multiplicity="1" />
-          <End Role="PersonelDetay" Type="Self.PersonelDetay" Multiplicity="0..1" />
+        <Association Name="FK_Personel_Unvanlar">
+          <End Role="Unvanlar" Type="Self.Unvanlar" Multiplicity="0..1" />
+          <End Role="Personel" Type="Self.Personel" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Personel">
-              <PropertyRef Name="PersonelID" />
+            <Principal Role="Unvanlar">
+              <PropertyRef Name="UnvanID" />
             </Principal>
-            <Dependent Role="PersonelDetay">
-              <PropertyRef Name="PersonelID" />
+            <Dependent Role="Personel">
+              <PropertyRef Name="UnvanID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PersonelDetay_Vardiya">
+        <Association Name="FK_Personel_Vardiya">
           <End Role="Vardiya" Type="Self.Vardiya" Multiplicity="0..1" />
-          <End Role="PersonelDetay" Type="Self.PersonelDetay" Multiplicity="*" />
+          <End Role="Personel" Type="Self.Personel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Vardiya">
               <PropertyRef Name="VardiyaID" />
             </Principal>
-            <Dependent Role="PersonelDetay">
+            <Dependent Role="Personel">
               <PropertyRef Name="VardiyaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Vergi_Kurumlar">
-          <End Role="Kurumlar" Type="Self.Kurumlar" Multiplicity="0..1" />
+          <End Role="Kurumlar" Type="Self.Kurumlar" Multiplicity="1" />
           <End Role="Vergi" Type="Self.Vergi" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Kurumlar">
@@ -203,12 +216,16 @@
           <EntitySet Name="Marka" EntityType="Self.Marka" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Model" EntityType="Self.Model" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Personel" EntityType="Self.Personel" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PersonelDetay" EntityType="Self.PersonelDetay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Unvanlar" EntityType="Self.Unvanlar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vardiya" EntityType="Self.Vardiya" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vergi" EntityType="Self.Vergi" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Araclar_Marka" Association="Self.FK_Araclar_Marka">
             <End Role="Marka" EntitySet="Marka" />
+            <End Role="Araclar" EntitySet="Araclar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Araclar_Personel" Association="Self.FK_Araclar_Personel">
+            <End Role="Personel" EntitySet="Personel" />
             <End Role="Araclar" EntitySet="Araclar" />
           </AssociationSet>
           <AssociationSet Name="FK_AraclarDetay_Araclar" Association="Self.FK_AraclarDetay_Araclar">
@@ -219,17 +236,17 @@
             <End Role="Marka" EntitySet="Marka" />
             <End Role="Model" EntitySet="Model" />
           </AssociationSet>
-          <AssociationSet Name="FK_PersonelDetay_Egitim" Association="Self.FK_PersonelDetay_Egitim">
+          <AssociationSet Name="FK_Personel_Egitim" Association="Self.FK_Personel_Egitim">
             <End Role="Egitim" EntitySet="Egitim" />
-            <End Role="PersonelDetay" EntitySet="PersonelDetay" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PersonelDetay_Personel" Association="Self.FK_PersonelDetay_Personel">
             <End Role="Personel" EntitySet="Personel" />
-            <End Role="PersonelDetay" EntitySet="PersonelDetay" />
           </AssociationSet>
-          <AssociationSet Name="FK_PersonelDetay_Vardiya" Association="Self.FK_PersonelDetay_Vardiya">
+          <AssociationSet Name="FK_Personel_Unvanlar" Association="Self.FK_Personel_Unvanlar">
+            <End Role="Unvanlar" EntitySet="Unvanlar" />
+            <End Role="Personel" EntitySet="Personel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Personel_Vardiya" Association="Self.FK_Personel_Vardiya">
             <End Role="Vardiya" EntitySet="Vardiya" />
-            <End Role="PersonelDetay" EntitySet="PersonelDetay" />
+            <End Role="Personel" EntitySet="Personel" />
           </AssociationSet>
           <AssociationSet Name="FK_Vergi_Kurumlar" Association="Self.FK_Vergi_Kurumlar">
             <End Role="Kurumlar" EntitySet="Kurumlar" />
@@ -246,20 +263,21 @@
             <PropertyRef Name="AracID" />
           </Key>
           <Property Name="AracID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MarkaID" Type="Int32" />
+          <Property Name="MarkaID" Type="Int32" Nullable="false" />
           <Property Name="PersonelID" Type="Int32" />
+          <Property Name="AktifMi" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Marka" Relationship="Self.FK_Araclar_Marka" FromRole="Araclar" ToRole="Marka" />
+          <NavigationProperty Name="Personel" Relationship="Self.FK_Araclar_Personel" FromRole="Araclar" ToRole="Personel" />
           <NavigationProperty Name="AraclarDetay" Relationship="Self.FK_AraclarDetay_Araclar" FromRole="Araclar" ToRole="AraclarDetay" />
         </EntityType>
         <EntityType Name="AraclarDetay">
           <Key>
-            <PropertyRef Name="AracID" />
+            <PropertyRef Name="AracDetayID" />
           </Key>
-          <Property Name="AracID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="AlinisTarihi" Type="DateTime" Precision="0" />
-          <Property Name="BakimTarihi" Type="DateTime" Precision="0" />
+          <Property Name="AracDetayID" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AlinisTarihi" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="BakimTarihi" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="MuayeneTarihi" Type="DateTime" Precision="0" />
-          <Property Name="AktifMi" Type="Boolean" />
           <NavigationProperty Name="Araclar" Relationship="Self.FK_AraclarDetay_Araclar" FromRole="AraclarDetay" ToRole="Araclar" />
         </EntityType>
         <EntityType Name="Egitim">
@@ -267,8 +285,8 @@
             <PropertyRef Name="EgitimID" />
           </Key>
           <Property Name="EgitimID" Type="Int32" Nullable="false" />
-          <Property Name="Aciklama" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="PersonelDetay" Relationship="Self.FK_PersonelDetay_Egitim" FromRole="Egitim" ToRole="PersonelDetay" />
+          <Property Name="EgitimAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Personel" Relationship="Self.FK_Personel_Egitim" FromRole="Egitim" ToRole="Personel" />
         </EntityType>
         <EntityType Name="Kurumlar">
           <Key>
@@ -288,7 +306,7 @@
             <PropertyRef Name="MarkaID" />
           </Key>
           <Property Name="MarkaID" Type="Int32" Nullable="false" />
-          <Property Name="Aciklama" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="MarkaAd" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Araclar" Relationship="Self.FK_Araclar_Marka" FromRole="Marka" ToRole="Araclar" />
           <NavigationProperty Name="Model" Relationship="Self.FK_Model_Marka" FromRole="Marka" ToRole="Model" />
         </EntityType>
@@ -297,38 +315,32 @@
             <PropertyRef Name="ModelID" />
           </Key>
           <Property Name="ModelID" Type="Int32" Nullable="false" />
-          <Property Name="Aciklama" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="MarkaID" Type="Int32" />
+          <Property Name="ModelAd" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MarkaID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Marka" Relationship="Self.FK_Model_Marka" FromRole="Model" ToRole="Marka" />
         </EntityType>
         <EntityType Name="Personel">
           <Key>
             <PropertyRef Name="PersonelID" />
           </Key>
-          <Property Name="PersonelID" Type="Int32" Nullable="false" />
+          <Property Name="PersonelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PersonelAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PersonelSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DogumTarihi" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="PersonelDetay" Relationship="Self.FK_PersonelDetay_Personel" FromRole="Personel" ToRole="PersonelDetay" />
-        </EntityType>
-        <EntityType Name="PersonelDetay">
-          <Key>
-            <PropertyRef Name="PersonelID" />
-          </Key>
-          <Property Name="PersonelID" Type="Int32" Nullable="false" />
           <Property Name="UnvanID" Type="Int32" />
           <Property Name="GirisTarihi" Type="DateTime" Precision="0" />
           <Property Name="CikisTarihi" Type="DateTime" Precision="0" />
-          <Property Name="IzinTarihi" Type="DateTime" Precision="0" />
+          <Property Name="izinTarihi" Type="DateTime" Precision="0" />
           <Property Name="Maas" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="EgitimID" Type="Int32" />
           <Property Name="VardiyaID" Type="Int32" />
-          <Property Name="CalismaDurumu" Type="Boolean" />
+          <Property Name="CalismaDurumu" Type="Boolean" Nullable="false" />
           <Property Name="AmirID" Type="Int32" />
-          <Property Name="AmirMi" Type="Boolean" />
-          <NavigationProperty Name="Egitim" Relationship="Self.FK_PersonelDetay_Egitim" FromRole="PersonelDetay" ToRole="Egitim" />
-          <NavigationProperty Name="Personel" Relationship="Self.FK_PersonelDetay_Personel" FromRole="PersonelDetay" ToRole="Personel" />
-          <NavigationProperty Name="Vardiya" Relationship="Self.FK_PersonelDetay_Vardiya" FromRole="PersonelDetay" ToRole="Vardiya" />
+          <Property Name="AmirMi" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Araclar" Relationship="Self.FK_Araclar_Personel" FromRole="Personel" ToRole="Araclar" />
+          <NavigationProperty Name="Egitim" Relationship="Self.FK_Personel_Egitim" FromRole="Personel" ToRole="Egitim" />
+          <NavigationProperty Name="Unvanlar" Relationship="Self.FK_Personel_Unvanlar" FromRole="Personel" ToRole="Unvanlar" />
+          <NavigationProperty Name="Vardiya" Relationship="Self.FK_Personel_Vardiya" FromRole="Personel" ToRole="Vardiya" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -340,29 +352,37 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
+        <EntityType Name="Unvanlar">
+          <Key>
+            <PropertyRef Name="UnvanID" />
+          </Key>
+          <Property Name="UnvanID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UnvanAd" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Personel" Relationship="Self.FK_Personel_Unvanlar" FromRole="Unvanlar" ToRole="Personel" />
+        </EntityType>
         <EntityType Name="Vardiya">
           <Key>
             <PropertyRef Name="VardiyaID" />
           </Key>
           <Property Name="VardiyaID" Type="Int32" Nullable="false" />
-          <Property Name="Aciklama" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="BaslamaSaati" Type="DateTime" Precision="3" />
-          <Property Name="BitirmeSaati" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="PersonelDetay" Relationship="Self.FK_PersonelDetay_Vardiya" FromRole="Vardiya" ToRole="PersonelDetay" />
+          <Property Name="Aciklama" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BaslamaSaati" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BitirmeSaati" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Personel" Relationship="Self.FK_Personel_Vardiya" FromRole="Vardiya" ToRole="Personel" />
         </EntityType>
         <EntityType Name="Vergi">
           <Key>
             <PropertyRef Name="VergiID" />
           </Key>
           <Property Name="VergiID" Type="Int32" Nullable="false" />
-          <Property Name="VergiDairesi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="VergiNo" Type="Int32" />
-          <Property Name="VergiDairesiAdresi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="KurumID" Type="Int32" />
+          <Property Name="VergiDairesi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VergiNo" Type="Int32" Nullable="false" />
+          <Property Name="VergiDairesiAdresi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KurumID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Kurumlar" Relationship="Self.FK_Vergi_Kurumlar" FromRole="Vergi" ToRole="Kurumlar" />
         </EntityType>
         <Association Name="FK_Araclar_Marka">
-          <End Role="Marka" Type="Self.Marka" Multiplicity="0..1" />
+          <End Role="Marka" Type="Self.Marka" Multiplicity="1" />
           <End Role="Araclar" Type="Self.Araclar" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Marka">
@@ -370,6 +390,18 @@
             </Principal>
             <Dependent Role="Araclar">
               <PropertyRef Name="MarkaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Araclar_Personel">
+          <End Role="Personel" Type="Self.Personel" Multiplicity="0..1" />
+          <End Role="Araclar" Type="Self.Araclar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personel">
+              <PropertyRef Name="PersonelID" />
+            </Principal>
+            <Dependent Role="Araclar">
+              <PropertyRef Name="PersonelID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -381,24 +413,24 @@
               <PropertyRef Name="AracID" />
             </Principal>
             <Dependent Role="AraclarDetay">
-              <PropertyRef Name="AracID" />
+              <PropertyRef Name="AracDetayID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PersonelDetay_Egitim">
+        <Association Name="FK_Personel_Egitim">
           <End Role="Egitim" Type="Self.Egitim" Multiplicity="0..1" />
-          <End Role="PersonelDetay" Type="Self.PersonelDetay" Multiplicity="*" />
+          <End Role="Personel" Type="Self.Personel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Egitim">
               <PropertyRef Name="EgitimID" />
             </Principal>
-            <Dependent Role="PersonelDetay">
+            <Dependent Role="Personel">
               <PropertyRef Name="EgitimID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Vergi_Kurumlar">
-          <End Role="Kurumlar" Type="Self.Kurumlar" Multiplicity="0..1" />
+          <End Role="Kurumlar" Type="Self.Kurumlar" Multiplicity="1" />
           <End Role="Vergi" Type="Self.Vergi" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Kurumlar">
@@ -410,7 +442,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Model_Marka">
-          <End Role="Marka" Type="Self.Marka" Multiplicity="0..1" />
+          <End Role="Marka" Type="Self.Marka" Multiplicity="1" />
           <End Role="Model" Type="Self.Model" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Marka">
@@ -421,26 +453,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PersonelDetay_Personel">
-          <End Role="Personel" Type="Self.Personel" Multiplicity="1" />
-          <End Role="PersonelDetay" Type="Self.PersonelDetay" Multiplicity="0..1" />
+        <Association Name="FK_Personel_Unvanlar">
+          <End Role="Unvanlar" Type="Self.Unvanlar" Multiplicity="0..1" />
+          <End Role="Personel" Type="Self.Personel" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Personel">
-              <PropertyRef Name="PersonelID" />
+            <Principal Role="Unvanlar">
+              <PropertyRef Name="UnvanID" />
             </Principal>
-            <Dependent Role="PersonelDetay">
-              <PropertyRef Name="PersonelID" />
+            <Dependent Role="Personel">
+              <PropertyRef Name="UnvanID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PersonelDetay_Vardiya">
+        <Association Name="FK_Personel_Vardiya">
           <End Role="Vardiya" Type="Self.Vardiya" Multiplicity="0..1" />
-          <End Role="PersonelDetay" Type="Self.PersonelDetay" Multiplicity="*" />
+          <End Role="Personel" Type="Self.Personel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Vardiya">
               <PropertyRef Name="VardiyaID" />
             </Principal>
-            <Dependent Role="PersonelDetay">
+            <Dependent Role="Personel">
               <PropertyRef Name="VardiyaID" />
             </Dependent>
           </ReferentialConstraint>
@@ -453,21 +485,25 @@
           <EntitySet Name="Marka" EntityType="Self.Marka" />
           <EntitySet Name="Model" EntityType="Self.Model" />
           <EntitySet Name="Personel" EntityType="Self.Personel" />
-          <EntitySet Name="PersonelDetay" EntityType="Self.PersonelDetay" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Unvanlar" EntityType="Self.Unvanlar" />
           <EntitySet Name="Vardiya" EntityType="Self.Vardiya" />
           <EntitySet Name="Vergi" EntityType="Self.Vergi" />
           <AssociationSet Name="FK_Araclar_Marka" Association="Self.FK_Araclar_Marka">
             <End Role="Marka" EntitySet="Marka" />
             <End Role="Araclar" EntitySet="Araclar" />
           </AssociationSet>
+          <AssociationSet Name="FK_Araclar_Personel" Association="Self.FK_Araclar_Personel">
+            <End Role="Personel" EntitySet="Personel" />
+            <End Role="Araclar" EntitySet="Araclar" />
+          </AssociationSet>
           <AssociationSet Name="FK_AraclarDetay_Araclar" Association="Self.FK_AraclarDetay_Araclar">
             <End Role="Araclar" EntitySet="Araclar" />
             <End Role="AraclarDetay" EntitySet="AraclarDetay" />
           </AssociationSet>
-          <AssociationSet Name="FK_PersonelDetay_Egitim" Association="Self.FK_PersonelDetay_Egitim">
+          <AssociationSet Name="FK_Personel_Egitim" Association="Self.FK_Personel_Egitim">
             <End Role="Egitim" EntitySet="Egitim" />
-            <End Role="PersonelDetay" EntitySet="PersonelDetay" />
+            <End Role="Personel" EntitySet="Personel" />
           </AssociationSet>
           <AssociationSet Name="FK_Vergi_Kurumlar" Association="Self.FK_Vergi_Kurumlar">
             <End Role="Kurumlar" EntitySet="Kurumlar" />
@@ -477,13 +513,13 @@
             <End Role="Marka" EntitySet="Marka" />
             <End Role="Model" EntitySet="Model" />
           </AssociationSet>
-          <AssociationSet Name="FK_PersonelDetay_Personel" Association="Self.FK_PersonelDetay_Personel">
+          <AssociationSet Name="FK_Personel_Unvanlar" Association="Self.FK_Personel_Unvanlar">
+            <End Role="Unvanlar" EntitySet="Unvanlar" />
             <End Role="Personel" EntitySet="Personel" />
-            <End Role="PersonelDetay" EntitySet="PersonelDetay" />
           </AssociationSet>
-          <AssociationSet Name="FK_PersonelDetay_Vardiya" Association="Self.FK_PersonelDetay_Vardiya">
+          <AssociationSet Name="FK_Personel_Vardiya" Association="Self.FK_Personel_Vardiya">
             <End Role="Vardiya" EntitySet="Vardiya" />
-            <End Role="PersonelDetay" EntitySet="PersonelDetay" />
+            <End Role="Personel" EntitySet="Personel" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -498,17 +534,17 @@
                 <ScalarProperty Name="AracID" ColumnName="AracID" />
                 <ScalarProperty Name="MarkaID" ColumnName="MarkaID" />
                 <ScalarProperty Name="PersonelID" ColumnName="PersonelID" />
+                <ScalarProperty Name="AktifMi" ColumnName="AktifMi" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AraclarDetay">
             <EntityTypeMapping TypeName="GarbageCollectorsModel.AraclarDetay">
               <MappingFragment StoreEntitySet="AraclarDetay">
-                <ScalarProperty Name="AracID" ColumnName="AracID" />
+                <ScalarProperty Name="AracDetayID" ColumnName="AracDetayID" />
                 <ScalarProperty Name="AlinisTarihi" ColumnName="AlinisTarihi" />
                 <ScalarProperty Name="BakimTarihi" ColumnName="BakimTarihi" />
                 <ScalarProperty Name="MuayeneTarihi" ColumnName="MuayeneTarihi" />
-                <ScalarProperty Name="AktifMi" ColumnName="AktifMi" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -516,7 +552,7 @@
             <EntityTypeMapping TypeName="GarbageCollectorsModel.Egitim">
               <MappingFragment StoreEntitySet="Egitim">
                 <ScalarProperty Name="EgitimID" ColumnName="EgitimID" />
-                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+                <ScalarProperty Name="EgitimAd" ColumnName="EgitimAd" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -537,7 +573,7 @@
             <EntityTypeMapping TypeName="GarbageCollectorsModel.Marka">
               <MappingFragment StoreEntitySet="Marka">
                 <ScalarProperty Name="MarkaID" ColumnName="MarkaID" />
-                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+                <ScalarProperty Name="MarkaAd" ColumnName="MarkaAd" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -545,7 +581,7 @@
             <EntityTypeMapping TypeName="GarbageCollectorsModel.Model">
               <MappingFragment StoreEntitySet="Model">
                 <ScalarProperty Name="ModelID" ColumnName="ModelID" />
-                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+                <ScalarProperty Name="ModelAd" ColumnName="ModelAd" />
                 <ScalarProperty Name="MarkaID" ColumnName="MarkaID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -557,17 +593,10 @@
                 <ScalarProperty Name="PersonelAd" ColumnName="PersonelAd" />
                 <ScalarProperty Name="PersonelSoyad" ColumnName="PersonelSoyad" />
                 <ScalarProperty Name="DogumTarihi" ColumnName="DogumTarihi" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PersonelDetay">
-            <EntityTypeMapping TypeName="GarbageCollectorsModel.PersonelDetay">
-              <MappingFragment StoreEntitySet="PersonelDetay">
-                <ScalarProperty Name="PersonelID" ColumnName="PersonelID" />
                 <ScalarProperty Name="UnvanID" ColumnName="UnvanID" />
                 <ScalarProperty Name="GirisTarihi" ColumnName="GirisTarihi" />
                 <ScalarProperty Name="CikisTarihi" ColumnName="CikisTarihi" />
-                <ScalarProperty Name="IzinTarihi" ColumnName="IzinTarihi" />
+                <ScalarProperty Name="izinTarihi" ColumnName="izinTarihi" />
                 <ScalarProperty Name="Maas" ColumnName="Maas" />
                 <ScalarProperty Name="EgitimID" ColumnName="EgitimID" />
                 <ScalarProperty Name="VardiyaID" ColumnName="VardiyaID" />
@@ -585,6 +614,14 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Unvanlar">
+            <EntityTypeMapping TypeName="GarbageCollectorsModel.Unvanlar">
+              <MappingFragment StoreEntitySet="Unvanlar">
+                <ScalarProperty Name="UnvanID" ColumnName="UnvanID" />
+                <ScalarProperty Name="UnvanAd" ColumnName="UnvanAd" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

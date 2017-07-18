@@ -14,11 +14,31 @@ namespace Gcp.Host.Entity
     
     public partial class Personel
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Personel()
+        {
+            this.Araclar = new HashSet<Araclar>();
+        }
+    
         public int PersonelID { get; set; }
         public string PersonelAd { get; set; }
         public string PersonelSoyad { get; set; }
         public Nullable<System.DateTime> DogumTarihi { get; set; }
+        public Nullable<int> UnvanID { get; set; }
+        public Nullable<System.DateTime> GirisTarihi { get; set; }
+        public Nullable<System.DateTime> CikisTarihi { get; set; }
+        public Nullable<System.DateTime> izinTarihi { get; set; }
+        public Nullable<decimal> Maas { get; set; }
+        public Nullable<int> EgitimID { get; set; }
+        public Nullable<int> VardiyaID { get; set; }
+        public bool CalismaDurumu { get; set; }
+        public Nullable<int> AmirID { get; set; }
+        public bool AmirMi { get; set; }
     
-        public virtual PersonelDetay PersonelDetay { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Araclar> Araclar { get; set; }
+        public virtual Egitim Egitim { get; set; }
+        public virtual Unvanlar Unvanlar { get; set; }
+        public virtual Vardiya Vardiya { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using Gcp.Web.Models;
 using Newtonsoft.Json;
 
@@ -32,7 +33,9 @@ namespace Gcp.Web.Controllers
             if (!responseMessage.IsSuccessStatusCode) return Json("Error", JsonRequestBehavior.DenyGet);
 
             var responseData = responseMessage.Content.ReadAsStringAsync().Result;
-            var personel = JsonConvert.DeserializeObject<PersonelModel>(responseData);
+            var serializer = new JavaScriptSerializer();
+            var personel = serializer.Serialize(responseData);
+            //var personel = JsonConvert.DeserializeObject<List<Personel>>(responseData);
             return Json(personel, JsonRequestBehavior.AllowGet);
         }
     }

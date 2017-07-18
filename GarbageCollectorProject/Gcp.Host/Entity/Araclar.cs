@@ -15,10 +15,12 @@ namespace Gcp.Host.Entity
     public partial class Araclar
     {
         public string AracID { get; set; }
-        public Nullable<int> MarkaID { get; set; }
+        public int MarkaID { get; set; }
         public Nullable<int> PersonelID { get; set; }
+        public bool AktifMi { get; set; }
     
         public virtual Marka Marka { get; set; }
+        public virtual Personel Personel { get; set; }
         public virtual AraclarDetay AraclarDetay { get; set; }
     }
 }

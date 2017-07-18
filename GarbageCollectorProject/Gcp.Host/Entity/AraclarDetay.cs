@@ -14,11 +14,10 @@ namespace Gcp.Host.Entity
     
     public partial class AraclarDetay
     {
-        public string AracID { get; set; }
-        public Nullable<System.DateTime> AlinisTarihi { get; set; }
-        public Nullable<System.DateTime> BakimTarihi { get; set; }
+        public string AracDetayID { get; set; }
+        public System.DateTime AlinisTarihi { get; set; }
+        public System.DateTime BakimTarihi { get; set; }
         public Nullable<System.DateTime> MuayeneTarihi { get; set; }
-        public Nullable<bool> AktifMi { get; set; }
     
         public virtual Araclar Araclar { get; set; }
     }

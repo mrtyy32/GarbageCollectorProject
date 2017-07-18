@@ -32,8 +32,8 @@ namespace Gcp.Host.Entity
         public virtual DbSet<Marka> Marka { get; set; }
         public virtual DbSet<Model> Model { get; set; }
         public virtual DbSet<Personel> Personel { get; set; }
-        public virtual DbSet<PersonelDetay> PersonelDetay { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Unvanlar> Unvanlar { get; set; }
         public virtual DbSet<Vardiya> Vardiya { get; set; }
         public virtual DbSet<Vergi> Vergi { get; set; }
     }

@@ -16,9 +16,9 @@ namespace Gcp.Host.Entity
     {
         public int VergiID { get; set; }
         public string VergiDairesi { get; set; }
-        public Nullable<int> VergiNo { get; set; }
+        public int VergiNo { get; set; }
         public string VergiDairesiAdresi { get; set; }
-        public Nullable<int> KurumID { get; set; }
+        public int KurumID { get; set; }
     
         public virtual Kurumlar Kurumlar { get; set; }
     }

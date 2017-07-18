@@ -12,6 +12,6 @@ namespace Gcp.Web.Models
         public DateTime? BaslamaSaati { get; set; }
         public DateTime? BitirmeSaati { get; set; }
 
-        public IEnumerable<PersonelDetay> PersonelDetay { get; set; }
+        public IEnumerable<Personel> Personel { get; set; }
     }
 }

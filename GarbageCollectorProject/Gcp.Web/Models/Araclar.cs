@@ -13,5 +13,6 @@ namespace Gcp.Web.Models
 
         public IEnumerable<Marka> Marka { get; set; }
         public IEnumerable<AraclarDetay> AraclarDetay { get; set; }
+        public Personel Personel { get; set; }
     }
 }
