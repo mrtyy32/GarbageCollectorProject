@@ -37,10 +37,13 @@
           <Property Name="KurumID" Type="int" Nullable="false" />
           <Property Name="KurumIsmi" Type="nvarchar" MaxLength="250" />
           <Property Name="KurumAdresi" Type="nvarchar" MaxLength="250" />
+          <Property Name="TemsilciKisi" Type="nvarchar" MaxLength="50" />
           <Property Name="TemsilciKisiNo" Type="varchar" MaxLength="50" />
           <Property Name="TemsilciKisiEmail" Type="nvarchar" MaxLength="250" />
           <Property Name="CalismaDurumu" Type="bit" />
-          <Property Name="VergiID" Type="nchar" MaxLength="10" />
+          <Property Name="VergiDairesi" Type="nvarchar" MaxLength="250" />
+          <Property Name="VergiNo" Type="int" />
+          <Property Name="VergiDairesiAdresi" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Marka">
           <Key>
@@ -101,16 +104,6 @@
           <Property Name="Aciklama" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="BaslamaSaati" Type="datetime" Nullable="false" />
           <Property Name="BitirmeSaati" Type="datetime" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Vergi">
-          <Key>
-            <PropertyRef Name="VergiID" />
-          </Key>
-          <Property Name="VergiID" Type="int" Nullable="false" />
-          <Property Name="VergiDairesi" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="VergiNo" Type="int" Nullable="false" />
-          <Property Name="VergiDairesiAdresi" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="KurumID" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Araclar_Marka">
           <End Role="Marka" Type="Self.Marka" Multiplicity="1" />
@@ -196,18 +189,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Vergi_Kurumlar">
-          <End Role="Kurumlar" Type="Self.Kurumlar" Multiplicity="1" />
-          <End Role="Vergi" Type="Self.Vergi" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Kurumlar">
-              <PropertyRef Name="KurumID" />
-            </Principal>
-            <Dependent Role="Vergi">
-              <PropertyRef Name="KurumID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="GarbageCollectorsModelStoreContainer">
           <EntitySet Name="Araclar" EntityType="Self.Araclar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AraclarDetay" EntityType="Self.AraclarDetay" Schema="dbo" store:Type="Tables" />
@@ -219,7 +200,6 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Unvanlar" EntityType="Self.Unvanlar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vardiya" EntityType="Self.Vardiya" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Vergi" EntityType="Self.Vergi" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Araclar_Marka" Association="Self.FK_Araclar_Marka">
             <End Role="Marka" EntitySet="Marka" />
             <End Role="Araclar" EntitySet="Araclar" />
@@ -247,10 +227,6 @@
           <AssociationSet Name="FK_Personel_Vardiya" Association="Self.FK_Personel_Vardiya">
             <End Role="Vardiya" EntitySet="Vardiya" />
             <End Role="Personel" EntitySet="Personel" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Vergi_Kurumlar" Association="Self.FK_Vergi_Kurumlar">
-            <End Role="Kurumlar" EntitySet="Kurumlar" />
-            <End Role="Vergi" EntitySet="Vergi" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -295,11 +271,13 @@
           <Property Name="KurumID" Type="Int32" Nullable="false" />
           <Property Name="KurumIsmi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="KurumAdresi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="TemsilciKisi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TemsilciKisiNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TemsilciKisiEmail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="CalismaDurumu" Type="Boolean" />
-          <Property Name="VergiID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Vergi" Relationship="Self.FK_Vergi_Kurumlar" FromRole="Kurumlar" ToRole="Vergi" />
+          <Property Name="VergiDairesi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="VergiNo" Type="Int32" />
+          <Property Name="VergiDairesiAdresi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Marka">
           <Key>
@@ -370,17 +348,6 @@
           <Property Name="BitirmeSaati" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Personel" Relationship="Self.FK_Personel_Vardiya" FromRole="Vardiya" ToRole="Personel" />
         </EntityType>
-        <EntityType Name="Vergi">
-          <Key>
-            <PropertyRef Name="VergiID" />
-          </Key>
-          <Property Name="VergiID" Type="Int32" Nullable="false" />
-          <Property Name="VergiDairesi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="VergiNo" Type="Int32" Nullable="false" />
-          <Property Name="VergiDairesiAdresi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="KurumID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Kurumlar" Relationship="Self.FK_Vergi_Kurumlar" FromRole="Vergi" ToRole="Kurumlar" />
-        </EntityType>
         <Association Name="FK_Araclar_Marka">
           <End Role="Marka" Type="Self.Marka" Multiplicity="1" />
           <End Role="Araclar" Type="Self.Araclar" Multiplicity="*" />
@@ -426,18 +393,6 @@
             </Principal>
             <Dependent Role="Personel">
               <PropertyRef Name="EgitimID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Vergi_Kurumlar">
-          <End Role="Kurumlar" Type="Self.Kurumlar" Multiplicity="1" />
-          <End Role="Vergi" Type="Self.Vergi" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Kurumlar">
-              <PropertyRef Name="KurumID" />
-            </Principal>
-            <Dependent Role="Vergi">
-              <PropertyRef Name="KurumID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -488,7 +443,6 @@
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Unvanlar" EntityType="Self.Unvanlar" />
           <EntitySet Name="Vardiya" EntityType="Self.Vardiya" />
-          <EntitySet Name="Vergi" EntityType="Self.Vergi" />
           <AssociationSet Name="FK_Araclar_Marka" Association="Self.FK_Araclar_Marka">
             <End Role="Marka" EntitySet="Marka" />
             <End Role="Araclar" EntitySet="Araclar" />
@@ -504,10 +458,6 @@
           <AssociationSet Name="FK_Personel_Egitim" Association="Self.FK_Personel_Egitim">
             <End Role="Egitim" EntitySet="Egitim" />
             <End Role="Personel" EntitySet="Personel" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Vergi_Kurumlar" Association="Self.FK_Vergi_Kurumlar">
-            <End Role="Kurumlar" EntitySet="Kurumlar" />
-            <End Role="Vergi" EntitySet="Vergi" />
           </AssociationSet>
           <AssociationSet Name="FK_Model_Marka" Association="Self.FK_Model_Marka">
             <End Role="Marka" EntitySet="Marka" />
@@ -562,10 +512,13 @@
                 <ScalarProperty Name="KurumID" ColumnName="KurumID" />
                 <ScalarProperty Name="KurumIsmi" ColumnName="KurumIsmi" />
                 <ScalarProperty Name="KurumAdresi" ColumnName="KurumAdresi" />
+                <ScalarProperty Name="TemsilciKisi" ColumnName="TemsilciKisi" />
                 <ScalarProperty Name="TemsilciKisiNo" ColumnName="TemsilciKisiNo" />
                 <ScalarProperty Name="TemsilciKisiEmail" ColumnName="TemsilciKisiEmail" />
                 <ScalarProperty Name="CalismaDurumu" ColumnName="CalismaDurumu" />
-                <ScalarProperty Name="VergiID" ColumnName="VergiID" />
+                <ScalarProperty Name="VergiDairesi" ColumnName="VergiDairesi" />
+                <ScalarProperty Name="VergiNo" ColumnName="VergiNo" />
+                <ScalarProperty Name="VergiDairesiAdresi" ColumnName="VergiDairesiAdresi" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -632,17 +585,6 @@
                 <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
                 <ScalarProperty Name="BaslamaSaati" ColumnName="BaslamaSaati" />
                 <ScalarProperty Name="BitirmeSaati" ColumnName="BitirmeSaati" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Vergi">
-            <EntityTypeMapping TypeName="GarbageCollectorsModel.Vergi">
-              <MappingFragment StoreEntitySet="Vergi">
-                <ScalarProperty Name="VergiID" ColumnName="VergiID" />
-                <ScalarProperty Name="VergiDairesi" ColumnName="VergiDairesi" />
-                <ScalarProperty Name="VergiNo" ColumnName="VergiNo" />
-                <ScalarProperty Name="VergiDairesiAdresi" ColumnName="VergiDairesiAdresi" />
-                <ScalarProperty Name="KurumID" ColumnName="KurumID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

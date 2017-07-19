@@ -35,6 +35,5 @@ namespace Gcp.Host.Entity
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Unvanlar> Unvanlar { get; set; }
         public virtual DbSet<Vardiya> Vardiya { get; set; }
-        public virtual DbSet<Vergi> Vergi { get; set; }
     }
 }

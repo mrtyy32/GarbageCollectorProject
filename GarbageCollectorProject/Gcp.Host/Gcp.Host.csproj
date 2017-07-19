@@ -233,13 +233,9 @@
     <Compile Include="Entity\Vardiya.cs">
       <DependentUpon>GarbageContext.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\Vergi.cs">
-      <DependentUpon>GarbageContext.tt</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ListPersonel.cs" />
     <Compile Include="Models\PersonelModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

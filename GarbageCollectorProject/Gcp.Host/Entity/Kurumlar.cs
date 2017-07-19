@@ -14,21 +14,15 @@ namespace Gcp.Host.Entity
     
     public partial class Kurumlar
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Kurumlar()
-        {
-            this.Vergi = new HashSet<Vergi>();
-        }
-    
         public int KurumID { get; set; }
         public string KurumIsmi { get; set; }
         public string KurumAdresi { get; set; }
+        public string TemsilciKisi { get; set; }
         public string TemsilciKisiNo { get; set; }
         public string TemsilciKisiEmail { get; set; }
         public Nullable<bool> CalismaDurumu { get; set; }
-        public string VergiID { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vergi> Vergi { get; set; }
+        public string VergiDairesi { get; set; }
+        public Nullable<int> VergiNo { get; set; }
+        public string VergiDairesiAdresi { get; set; }
     }
 }

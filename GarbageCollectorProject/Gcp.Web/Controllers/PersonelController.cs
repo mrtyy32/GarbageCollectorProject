@@ -34,8 +34,8 @@ namespace Gcp.Web.Controllers
 
             var responseData = responseMessage.Content.ReadAsStringAsync().Result;
             var serializer = new JavaScriptSerializer();
-            var personel = serializer.Serialize(responseData);
-            //var personel = JsonConvert.DeserializeObject<List<Personel>>(responseData);
+            //var personel = serializer.Serialize(responseData);
+            var personel = JsonConvert.DeserializeObject<List<Personel>>(responseData);
             return Json(personel, JsonRequestBehavior.AllowGet);
         }
     }

@@ -13,8 +13,8 @@ namespace Gcp.Web.Models
         public string TemsilciKisiNo { get; set; }
         public string TemsilciKisiEmail { get; set; }
         public bool? CalismaDurumu { get; set; }
-        public string VergiID { get; set; }
-
-        public virtual IEnumerable<Vergi> Vergi { get; set; }
+        public string VergiDairesi { get; set; }
+        public int? VergiNo { get; set; }
+        public string VergiDairesiAdresi { get; set; }
     }
 }

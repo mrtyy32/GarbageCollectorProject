@@ -11,8 +11,7 @@ namespace Gcp.Web.Models
         public DateTime? AlinisTarihi { get; set; }
         public DateTime? BakimTarihi { get; set; }
         public DateTime? MuayeneTarihi { get; set; }
-        public bool? AktifMi { get; set; }
-
-        public IEnumerable<Araclar>  Araclar { get; set; }
+        
+        public Araclar Araclar { get; set; }
     }
 }
