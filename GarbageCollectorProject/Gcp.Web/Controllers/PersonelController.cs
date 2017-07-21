@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -21,22 +22,28 @@ namespace Gcp.Web.Controllers
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
         // GET: Personel
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        public async Task<ActionResult> GetAllAsync()
+        public async Task<ActionResult> Index()
         {
             var responseMessage = await _client.GetAsync(_url);
 
             if (!responseMessage.IsSuccessStatusCode) return Json("Error", JsonRequestBehavior.DenyGet);
 
             var responseData = responseMessage.Content.ReadAsStringAsync().Result;
-            var serializer = new JavaScriptSerializer();
-            //var personel = serializer.Serialize(responseData);
             var personel = JsonConvert.DeserializeObject<List<Personel>>(responseData);
-            return Json(personel, JsonRequestBehavior.AllowGet);
+            return View(personel.ToList());
         }
+
+        //public async Task<ActionResult> GetAllAsync()
+        //{
+        //    var responseMessage = await _client.GetAsync(_url);
+
+        //    if (!responseMessage.IsSuccessStatusCode) return Json("Error", JsonRequestBehavior.DenyGet);
+
+        //    var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+        //    var serializer = new JavaScriptSerializer();
+        //    //var personel = serializer.Serialize(responseData);
+        //    var personel = JsonConvert.DeserializeObject<List<Personel>>(responseData);
+        //    return personel;
+        //}
     }
 }
