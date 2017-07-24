@@ -97,7 +97,7 @@
 
   Confirmation.DEFAULTS = $.extend({}, $.fn.popover.Constructor.DEFAULTS, {
     placement: 'top',
-    title: 'Are you sure?',
+    title: 'Emin Misiniz?',
     html: true,
     popout: false,
     singleton: false,
@@ -106,10 +106,10 @@
     onCancel: $.noop,
     btnOkClass: 'btn-xs btn-primary',
     btnOkIcon: 'glyphicon glyphicon-ok',
-    btnOkLabel: 'Yes',
+    btnOkLabel: 'Evet',
     btnCancelClass: 'btn-xs btn-default',
     btnCancelIcon: 'glyphicon glyphicon-remove',
-    btnCancelLabel: 'No',
+    btnCancelLabel: 'Hayir',
     template:
       '<div class="popover confirmation">' +
         '<div class="arrow"></div>' +

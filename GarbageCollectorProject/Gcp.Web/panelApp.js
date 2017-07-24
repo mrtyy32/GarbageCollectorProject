@@ -11,6 +11,7 @@ app.controller("panelController", function ($scope, $http) {
         });
         return $scope.personel;
     };
+    files:
     $scope.getAllpersonel();
 
 });

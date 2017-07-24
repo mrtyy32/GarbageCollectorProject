@@ -1,14 +1,17 @@
-﻿@model List<Gcp.Web.Models.Personel>
+﻿@*@model List<Gcp.Web.Models.Personel>*@
 @{
     ViewBag.Title = "Personel Index";
     Layout = "~/Views/Shared/_panelLayout.cshtml";
 }
-@section pagescript
-{
+@section pagescript{
     <script src="../assets/global/scripts/datatable.js" type="text/javascript"></script>
     <script src="../assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
     <script src="../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
-    <script src="../assets/pages/scripts/table-datatables-managed.min.js" type="text/javascript"></script>
+    <script src="../assets/pages/scripts/table-datatables-responsive.js" type="text/javascript"></script>
+    <script src="../assets/pages/scripts/ui-confirmations.min.js" type="text/javascript"></script>
+    <script src="../assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.js" type="text/javascript"></script>
+
+
 }
 @section pagestyle{
 
@@ -16,274 +19,180 @@
     <link href="../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
 }
 
-@*<div class="row">
+
+
+
+
+<div class="row">
+
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
-        <div class="portlet light portlet-fit bordered">
+        <div class="portlet light bordered">
             <div class="portlet-title">
-                <div class="caption">
-                    <i class="icon-settings font-red"></i>
-                    <span class="caption-subject font-red sbold uppercase">Personeller</span>
+                <div class="caption font-green">
+                    <i class="icon-briefcase font-green"></i>
+                    <span class="caption-subject bold uppercase">Personel Listesi &nbsp;</span>
+                    <a @*href="Giris"*@ data-toggle="modal" data-target="#yeniKayit">
+                        <span class="btn btn-xs btn-info">Yeni Kayıt</span>
+
+                    </a>
                 </div>
-                @*<div class="actions">
-                        <div class="btn-group btn-group-devided" data-toggle="buttons">
-                            <label class="btn btn-transparent red btn-outline btn-circle btn-sm active">
-                                <input type="radio" name="options" class="toggle" id="option1">Actions</label>
-                            <label class="btn btn-transparent red btn-outline btn-circle btn-sm">
-                                <input type="radio" name="options" class="toggle" id="option2">Settings</label>
-                        </div>
-                    </div>*@
-@*</div>
-    <div class="portlet-body">
-        <div class="table-toolbar">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="btn-group">
-                        <button id="sample_editable_1_new" class="btn green">
-                            Add New
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="btn-group pull-right">
-                        <button class="btn green btn-outline dropdown-toggle" data-toggle="dropdown">
-                            Tools
-                            <i class="fa fa-angle-down"></i>
-                        </button>
-                        <ul class="dropdown-menu pull-right">
-                            <li>
-                                <a href="javascript:;"> Print </a>
-                            </li>
-                            <li>
-                                <a href="javascript:;"> Save as PDF </a>
-                            </li>
-                            <li>
-                                <a href="javascript:;"> Export to Excel </a>
-                            </li>
-                        </ul>
+                <div class="tools"> </div>
+            </div>
+            <div class="portlet-body">
+                <div id="sample_2_wrapper" class="dataTables_wrapper no-footer">
+
+                    <div>
+                        <table class="table table-striped table-bordered table-hover dt-responsive dataTable no-footer dtr-column collapsed" width="100%" id="sample_2" role="grid" aria-describedby="sample_2_info" style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+                                    <th id="detail" class="control sorting_disabled" @*rowspan="1" colspan="1" style="width: 0px;" aria-label=""*@></th>
+                                    <th class="all sorting_asc" @*tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" style="width: 37px;" aria-sort="ascending" aria-label="First name: activate to sort column descending"*@>Ad</th>
+                                    <th class="min-phone-l sorting" @*tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" style="width: 37px;" aria-label="Last name: activate to sort column ascending"*@>Soyad</th>
+                                    <th class="min-tablet sorting" @*tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" style="width: 72px;" aria-label="Position: activate to sort column ascending"*@>Pozisyon</th>
+                                    <th class="none sorting" @*tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" style="width: 0px; display: none;" aria-label="Office: activate to sort column ascending"*@>Giriş Tarihi</th>
+                                    <th class="none sorting" @*tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" style="width: 0px; display: none;" aria-label="Age: activate to sort column ascending"*@>Doğum Tarihi</th>
+                                    <th class="none sorting" @*tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" style="width: 0px; display: none;" aria-label="Start date: activate to sort column ascending"*@>Vardiya</th>
+                                    <th class="desktop sorting" @*tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" style="width: 44px;" aria-label="Salary: activate to sort column ascending"*@>Maaş</th>
+                                    <th class="none sorting" @*tabindex="0" aria-controls="sample_2" rowspan="1" colspan="1" style="width: 0px; display: none;" aria-label="Extn.: activate to sort column ascending"*@>Eğitim</th>
+                                    <th>İşlemler</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody"></tbody>
+
+                            @*<tbody>
+                                @foreach (var p in Model)
+                                {
+                                    <tr role="row" class="odd">
+                                        <th class=" control"></th>
+                                        <td class="sorting_1">@p.PersonelAd</td>
+                                        <td>@p.PersonelSoyad</td>
+                                        <td>@p.UnvanID</td>
+                                        <td style="display: none;">@p.GirisTarihi</td>
+                                        <td style="display: none;">@p.DogumTarihi</td>
+                                        <td style="display: none;">@p.Vardiya</td>
+                                        <td>@p.Maas</td>
+                                        <td style="display: none;">@p.EgitimID</td>
+                                        <td>
+
+                                            <a href="/Personel/Edit/@p.PersonelID" class="btn btn-circle btn-icon-only btn-default">
+                                                <i class="icon-pencil"></i>
+                                            </a>
+                                            <a href="/Personel/Delete/@p.PersonelID" data-toggle="confirmation" data-original-title="@p.PersonelAd @p.PersonelSoyad personelini silmek istediğinize emin misiniz?" class="btn btn-circle btn-icon-only btn-default">
+                                                <i class="icon-trash"></i>
+                                            </a>
+                                            @*<a href="/Personel/Delete/@p.PersonelID" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove"></span></a>*@
+                            @*</td>
+                                        </tr>
+                                    }
+                                </tbody>*@
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-        <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
-            <thead>
-                <tr>
-                    <th> ID</th>
-                    <th> Ad  </th>
-                    <th>Soyad</th>
-                    <th> Unvan </th>
-                    <th> Eğitim </th>
-                    <th> Vardiya </th>
-                    <th> Giriş Tarihi </th>
-                    <th> Çıkış Tarihi </th>
-                    <th> Çalışma Durumu </th>*@
-@*@*<th> Çalışma Durumu </th>*@
-@*<th>Edit</th>
-            <th>Delete</th>
-        </tr>
-    </thead>
-    <tbody>*@
-@*<tr ng-repeat="p in personel">
-    <td class="sorting_1"> {{p.PersonelID}} </td>
-    <td> {{p.PersonelAd}} {{p.PersonelSoyad}} </td>
-    <td> {{p.UnvanAd}} </td>
-    <td> {{p.EgitimAd}} </td>
-    <td> {{p.VardiyaAd}} </td>
-    <td> {{p.GirisTarihi}} </td>
-    <td> {{p.CikisTarihi}} </td>
-    <td> {{p.Amir}} </td>
-    @*<td> {{p.CalismaDurumu}} </td>*@
+        <!-- END EXAMPLE TABLE PORTLET-->
+    </div>
 
-@*<td>
-        <a class="edit" id="edit" href="javascript:;"> Edit </a>
-    </td>
-    <td>
-        @*<a class="delete" href="javascript:;"> Delete </a>*@
-@*</td>
-    </tr>*@
+</div>
 
-@*<tr>
-    <td class="sorting_1"> @personel.PersonelID </td>
-    <td> @personel.PersonelAd</td>
-    <td>@personel.PersonelSoyad </td>
-    <td> @personel.UnvanID </td>
-    <td> @personel.EgitimID </td>
-    <td> @personel.VardiyaID </td>
-    <td> @personel.GirisTarihi </td>
-    <td> @personel.CikisTarihi </td>
-    <td> @personel.CalismaDurumu </td>*@@*@
-    @*<td> {{p.CalismaDurumu}} </td>*@
 
-    @*<td>
-                                <a class="edit" id="edit" href="javascript:;"> Edit </a>
-                            </td>
-                            <td>
-                                <a class="delete" href="javascript:;"> Delete </a>
-                            </td>
-                        </tr>
-                        }
 
-                    </tbody>
-                </table>
+<!--MODALs-->
+
+<div class="modal fade" id="yeniKayit" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Yeni Kayıt</h4>
             </div>
-        </div>*@
-    <!-- END EXAMPLE TABLE PORTLET-->
-    @*</div>*@
-    @*</div>*@
+            <div class="modal-body">
 
 
 
-    <div class="row">
-        <div class="col-md-12">
-            <!-- BEGIN EXAMPLE TABLE PORTLET-->
-            <div class="portlet light bordered">
-                <div class="portlet-title">
-                    <div class="caption font-dark">
-                        <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject bold uppercase"> Individual column searching (select inputs)</span>
-                    </div>
-                    <div class="actions">
-                        <div class="btn-group btn-group-devided" data-toggle="buttons">
-                            <label class="btn btn-transparent dark btn-outline btn-circle btn-sm active">
-                                <input type="radio" name="options" class="toggle" id="option1">Actions
-                            </label>
-                            <label class="btn btn-transparent dark btn-outline btn-circle btn-sm">
-                                <input type="radio" name="options" class="toggle" id="option2">Settings
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="portlet-body">
-                    <div class="table-toolbar">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="btn-group">
-                                    <button id="sample_editable_1_2_new" class="btn sbold green">
-                                        Add New
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="btn-group pull-right">
-                                    <button class="btn green  btn-outline dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                        Tools
-                                        <i class="fa fa-angle-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li>
-                                            <a href="javascript:;">
-                                                <i class="fa fa-print"></i> Print
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;">
-                                                <i class="fa fa-file-pdf-o"></i> Save as PDF
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:;">
-                                                <i class="fa fa-file-excel-o"></i> Export to Excel
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="sample_1_2_wrapper" class="dataTables_wrapper">
-                        <div class="row"><div class="col-md-6 col-sm-6"><div class="dataTables_length" id="sample_1_2_length"><label>Show <select name="sample_1_2_length" aria-controls="sample_1_2" class="form-control input-sm input-xsmall input-inline"><option value="5">5</option><option value="15">15</option><option value="20">20</option><option value="-1">All</option></select></label></div></div><div class="col-md-6 col-sm-6"><div id="sample_1_2_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control input-sm input-small input-inline" placeholder="" aria-controls="sample_1_2"></label></div></div></div><div class="table-scrollable">
-                            <table class="table table-striped table-bordered table-hover table-checkable order-column dataTable" id="sample_1_2" role="grid" aria-describedby="sample_1_2_info">
-                                <thead>
-                                    <tr role="row">
-                                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="
+                <input type="text" id="pName" />
+                <input type="text" id="pLastName" />
+                <input type="number" id="unvanID" />
+                <input type="number" id="pMaas" />
+                <button type="submit" id="saveBtn">Kaydet</button>
 
 
-
-
-                                                " style="width: 60px;">
-                                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-                                                <input type="checkbox" class="group-checkable" data-set="#sample_1_2 .checkboxes">
-                                                <span></span>
-                                            </label>
-                                        </th>
-                                        <th class="sorting_asc" tabindex="0" aria-controls="sample_1_2" rowspan="1" colspan="1" aria-label=" Username : activate to sort column descending" style="width: 125px;" aria-sort="ascending"> Username </th>
-                                        <th class="sorting" tabindex="0" aria-controls="sample_1_2" rowspan="1" colspan="1" aria-label=" Email : activate to sort column ascending" style="width: 191px;"> Email </th>
-                                        <th class="sorting" tabindex="0" aria-controls="sample_1_2" rowspan="1" colspan="1" aria-label=" Status : activate to sort column ascending" style="width: 100px;"> Status </th>
-                                        <th class="sorting" tabindex="0" aria-controls="sample_1_2" rowspan="1" colspan="1" aria-label=" Joined : activate to sort column ascending" style="width: 100px;"> Joined </th>
-                                        <th class="sorting" tabindex="0" aria-controls="sample_1_2" rowspan="1" colspan="1" aria-label=" Actions : activate to sort column ascending" style="width: 103px;"> Actions </th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr><th rowspan="1" colspan="1"> </th><th rowspan="1" colspan="1"><select class="form-control input-sm"><option value="">Select</option><option value="coop">coop</option><option value="foopl">foopl</option><option value="fop">fop</option><option value="goop">goop</option><option value="kop">kop</option><option value="looper">looper</option><option value="pppol">pppol</option><option value="restest">restest</option><option value="shuxer">shuxer</option><option value="tes21t">tes21t</option><option value="test">test</option><option value="toop">toop</option><option value="toopl">toopl</option><option value="user1wow">user1wow</option><option value="userwow">userwow</option><option value="vopl">vopl</option><option value="wap">wap</option><option value="weep">weep</option></select></th><th rowspan="1" colspan="1"> </th><th rowspan="1" colspan="1"> </th><th rowspan="1" colspan="1"> </th><th rowspan="1" colspan="1"> </th></tr>
-                                </tfoot>
-                                <tbody>
-
-                                    @foreach (var p in Model)
-                                    {
-                                        <tr class="gradeX odd" role="row">
-                                            <td>
-                                                <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-                                                    <input type="checkbox" class="checkboxes" value="1">
-                                                    <span></span>
-                                                </label>
-                                            </td>
-                                            <td class="sorting_1"> @p.PersonelID </td>
-                                            <td class="">
-                                                <a href="mailto:userwow@gmail.com"> @p.PersonelAd </a>
-                                            </td>
-                                            <td class="">
-                                                <span class="label label-sm label-info"> @p.PersonelSoyad </span>
-                                            </td>
-                                            <td class="center"> 12.12.2011 </td>
-                                            <td class="">
-                                                <div class="btn-group">
-                                                    <button class="btn btn-xs green dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                                                        Actions
-                                                        <i class="fa fa-angle-down"></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu" role="menu">
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                <i class="icon-docs"></i> New Post
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:;">
-                                                                <i class="icon-tag"></i> New Comment
-                                                            </a>
-                                                        </li>
-                                                        
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>}
-                                </tbody>
-                            </table>
-                        </div><div class="row">
-                            
-                            <div class="col-md-5 col-sm-5">
-                                <div class="dataTables_info" id="sample_1_2_info" role="status" aria-live="polite">Showing 1 to 5 of 25 records</div>
-                            </div>
-                            <div class="col-md-7 col-sm-7">
-                                <div class="dataTables_paginate paging_bootstrap_full_number" id="sample_1_2_paginate">
-                                    <ul class="pagination" style="visibility: visible;"><li class="prev disabled">
-                                            <a href="#" title="First"><i class="fa fa-angle-double-left"></i></a>
-                                        </li>
-                                    <li class="prev disabled"><a href="#" title="Prev"><i class="fa fa-angle-left"></i></a>
-                                    </li>
-                                        <li class="active"><a href="#">1</a>
-                                        </li>
-                                        <li><a href="#">2</a>
-                                        </li>
-                                    <li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li class="next"><a href="#" title="Next"><i class="fa fa-angle-right"></i></a></li><li class="next"><a href="#" title="Last"><i class="fa fa-angle-double-right"></i></a></li></ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-            <!-- END EXAMPLE TABLE PORTLET-->
+            <div class="modal-footer">
+                <button data-bb-handler="ok" type="button" class="btn green">Ekle</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
+            </div>
         </div>
     </div>
+</div>
+<div class="modal fade" id="guncelleKayit" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Yeni Kayıt</h4>
+            </div>
+            <div class="modal-body">
+
+                @*<input type="text" value= />*@
+
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button data-bb-handler="ok" type="button" class="btn green">Ekle</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    getListe();
+    var _url = "http://localhost:53723/api/Personel";
+    var personelIdGlobal = 0;
+
+    function getListe() {
+
+        $.ajax({
+            url: "/Personel/GetProductsHtml",
+            
+            success: (data) => {
+                console.log(data);
+                $("#tableBody").html(data);
+            }
+        });
+    };
+    function deletePersonel(id) {
+        $.ajax({
+            url: "/Personel/Delete/" + id,
+            type: "POST",
+            success: () => {
+                getListe();
+            }
+        });
+    };
+
+    $("#saveBtn").click(() => {
+        $.ajax({
+            url: "/Personel/Create",
+            type: "POST",
+            data: {
+                
+                PersonelAd: $("#pName").val(),
+                PersonelSoyAd: $("#pLastName").val(),
+                UnvanID: $("#unvanID").val(),
+                Maas: $("#Maas").val()
+            },
+            success: () => {
+                getListe();
+            }
+        });
+    });
+</script>
+

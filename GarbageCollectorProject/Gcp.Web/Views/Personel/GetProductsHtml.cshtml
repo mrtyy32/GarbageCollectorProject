@@ -1,0 +1,32 @@
+﻿@model List<Gcp.Web.Models.Personel>
+@{
+    Layout = null;
+}
+
+
+
+@foreach (var p in Model)
+{
+    <tr role="row" class="odd">
+        <th class=" control"></th>
+        <td class="sorting_1">@p.PersonelAd</td>
+        <td>@p.PersonelSoyad</td>
+        <td>@p.UnvanID</td>
+        <td style="display: none;">@p.GirisTarihi</td>
+        <td style="display: none;">@p.DogumTarihi</td>
+        <td style="display: none;">@p.Vardiya</td>
+        <td>@p.Maas</td>
+        <td style="display: none;">@p.EgitimID</td>
+        <td>
+
+            <a class="btn btn-circle btn-icon-only btn-default">
+                <i class="icon-pencil"></i>
+            </a>
+            <a onclick="deletePersonel(@p.PersonelID)" data-toggle="confirmation" data-original-title="@p.PersonelAd @p.PersonelSoyad personelini silmek istediğinize emin misiniz?" class="btn btn-circle btn-icon-only btn-default">
+                <i class="icon-trash"></i>
+            </a>
+            @*<a href="/Personel/Delete/@p.PersonelID" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove"></span></a>*@
+        </td>
+    </tr>
+}
+
