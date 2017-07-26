@@ -10,6 +10,7 @@ using Gcp.Web.Models;
 using Newtonsoft.Json;
 using System.Net;
 using Newtonsoft.Json.Linq;
+using System.Text;
 
 namespace Gcp.Web.Controllers
 {
@@ -59,8 +60,9 @@ namespace Gcp.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(Personel p)
         {
-            HttpContent content = new StringContent(p.ToString()); //VERi TİPİ DUZELTİLECEK
-            HttpResponseMessage responseMessage = await _client.PostAsync(_url, content);
+            var jsonString = JsonConvert.SerializeObject(p);
+            var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            HttpResponseMessage responseMessage = await _client.PostAsync(_url,content);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");

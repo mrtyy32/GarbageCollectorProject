@@ -99,8 +99,8 @@
     placement: 'top',
     title: 'Emin Misiniz?',
     html: true,
-    popout: false,
-    singleton: false,
+    popout: true,
+    singleton: true,
     copyAttributes: 'href target',
     onConfirm: $.noop,
     onCancel: $.noop,
@@ -111,6 +111,7 @@
     btnCancelIcon: 'glyphicon glyphicon-remove',
     btnCancelLabel: 'Hayir',
     template:
+    
       '<div class="popover confirmation">' +
         '<div class="arrow"></div>' +
         '<h3 class="popover-title"></h3>' +
@@ -120,7 +121,7 @@
             '<a class="btn" data-dismiss="confirmation"></a>'+
           '</div>'+
         '</div>'+
-      '</div>'
+       '</div>' 
   });
 
   Confirmation.prototype = $.extend({}, $.fn.popover.Constructor.prototype);
@@ -140,16 +141,17 @@
 
     // configure 'ok' button
     $tip.find('[data-apply="confirmation"]')
-      .addClass(o.btnOkClass)
-      .html(o.btnOkLabel)
-      .attr(this.options._attributes)
-      .prepend($('<i></i>').addClass(o.btnOkIcon), ' ')
-      .off('click')
-      .one('click', function(e) {
+        .addClass(o.btnOkClass)
+        .html(o.btnOkLabel)
+        .attr(this.options._attributes)
+        .prepend($('<i></i>').addClass(o.btnOkIcon), ' ')
+        .off('click')
+        .one('click', function (e) {
         that.getOnConfirm.call(that).call(that.$element);
         that.$element.trigger('confirmed.bs.confirmation');
         that.$element.trigger(that.options.trigger, [true]);
         that.$element.confirmation('hide');
+        
       });
 
     // configure 'cancel' button
@@ -175,8 +177,8 @@
   };
 
   Confirmation.prototype.getOnConfirm = function() {
-    if (this.$element.attr('data-on-confirm')) {
-      return getFunctionFromString(this.$element.attr('data-on-confirm'));
+      if (this.$element.attr('data-on-confirm')) {
+          return getFunctionFromString(this.$element.attr('data-on-confirm'));
     }
     else {
       return this.options.onConfirm;

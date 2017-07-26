@@ -7,7 +7,7 @@
 
 @foreach (var p in Model)
 {
-    <tr role="row" class="odd">
+    <tr role="row" class="odd" data-id="@p.PersonelID">
         <th class=" control"></th>
         <td class="sorting_1">@p.PersonelAd</td>
         <td>@p.PersonelSoyad</td>
@@ -22,9 +22,11 @@
             <a class="btn btn-circle btn-icon-only btn-default">
                 <i class="icon-pencil"></i>
             </a>
-            <a onclick="deletePersonel(@p.PersonelID)" data-toggle="confirmation" data-original-title="@p.PersonelAd @p.PersonelSoyad personelini silmek istediğinize emin misiniz?" class="btn btn-circle btn-icon-only btn-default">
+            <a onclick="deletePersonel(@p.PersonelID)" data-toggle="confirmation" data-original-title="@p.PersonelID @p.PersonelAd @p.PersonelSoyad personelini silmek istediğinize emin misiniz?" class="btn btn-circle btn-icon-only btn-default">
                 <i class="icon-trash"></i>
             </a>
+
+
             @*<a href="/Personel/Delete/@p.PersonelID" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove"></span></a>*@
         </td>
     </tr>
