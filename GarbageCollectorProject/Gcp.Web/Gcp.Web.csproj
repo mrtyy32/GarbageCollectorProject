@@ -5454,7 +5454,6 @@
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
-    <Content Include="Views\Personel\getPersonel.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -5833,7 +5832,7 @@
     <Content Include="assets\pages\media\blog\Thumbs.db" />
     <Content Include="assets\pages\media\pages\Thumbs.db" />
     <Content Include="Views\Personel\Index.cshtml" />
-    <Content Include="Views\Personel\GetProductsHtml.cshtml" />
+    <Content Include="Views\Personel\GetPersonelHtml.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -84,7 +84,7 @@ namespace Gcp.Web.Controllers
             }
             return RedirectToAction("Error");
         }
-        public async Task<ActionResult> GetProductsHtml()
+        public async Task<ActionResult> GetPersonelHtml()
         {
             var responseMessage = await _client.GetAsync(_url);
 
