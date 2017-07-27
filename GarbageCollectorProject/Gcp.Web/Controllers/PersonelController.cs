@@ -70,7 +70,20 @@ namespace Gcp.Web.Controllers
             return RedirectToAction("Error");
 
         }
+        //GET Method
+        public async Task<ActionResult> Edit(int id)
+        {
+            HttpResponseMessage responseMessage = await _client.GetAsync($"{_url}/{id}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
+                var personel = JsonConvert.DeserializeObject<Personel>(responseData);
+
+                return View(personel);
+            }
+            return View("Error");
+        }
         //PUT (Update) Method
         [HttpPost]
         public async Task<ActionResult> Edit(int id, Personel p)

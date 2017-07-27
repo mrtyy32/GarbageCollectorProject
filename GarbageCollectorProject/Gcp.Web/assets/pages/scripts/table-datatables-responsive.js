@@ -68,13 +68,13 @@ var TableDatatablesResponsive = function () {
                     "sortAscending": ": activate to sort column ascending",
                     "sortDescending": ": activate to sort column descending"
                 },
-                "emptyTable": "No data available in table",
-                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
-                "infoEmpty": "No entries found",
-                "infoFiltered": "(filtered1 from _MAX_ total entries)",
-                "lengthMenu": "_MENU_ entries",
-                "search": "Search:",
-                "zeroRecords": "No matching records found"
+                "emptyTable": "Tablo için herhangi bir veri bulunamadý.",
+                "info": "_START_ ile _END_ arasindaki _TOTAL_ girdi gosteriliyor",
+                "infoEmpty": "Girdi bulunamadý.",
+                "infoFiltered": "(filtered1 from _MAX_ toplam girdi)",
+                "lengthMenu": "Filtre _MENU_",
+                "search": "Arama:",
+                "zeroRecords": "Eþleþen bir sonuç yok."
             },
 
             // Or you can use remote translation file
@@ -107,7 +107,7 @@ var TableDatatablesResponsive = function () {
             // pagination control
             "lengthMenu": [
                 [5, 10, 15, 20, -1],
-                [5, 10, 15, 20, "All"] // change per page values here
+                [5, 10, 15, 20, "Tümü"] // change per page values here
             ],
             // set the initial value
             "pageLength": 10,
