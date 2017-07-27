@@ -290,9 +290,11 @@
     };
     function getPersonel(id) {
         $.ajax({
-            url: "/Personel/" + id,
+            url: "/Personel/Edit/" + id,
             type: "GET",
-            success: () => {
+            success: (per) => {
+               
+                $("#pLastName").val(per.PersonelSoyAd);
                 getListe();
             }
         });

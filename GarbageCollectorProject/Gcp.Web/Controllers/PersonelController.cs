@@ -80,7 +80,7 @@ namespace Gcp.Web.Controllers
 
                 var personel = JsonConvert.DeserializeObject<Personel>(responseData);
 
-                return View(personel);
+                return Json(personel,JsonRequestBehavior.AllowGet);
             }
             return View("Error");
         }

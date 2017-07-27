@@ -19,7 +19,7 @@
         <td style="display: none;">@p.EgitimID</td>
         <td>
 
-            <a class="btn btn-circle btn-icon-only btn-default">
+            <a data-toggle="modal" data-target="#guncelleKayit" onclick="getPersonel(@p.PersonelID)" class="btn btn-circle btn-icon-only btn-default">
                 <i class="icon-pencil"></i>
             </a>
             <a  data-toggle="confirmation" data-on-confirm="deletePersonel" data-id="@p.PersonelID" data-original-title="@p.PersonelID @p.PersonelAd @p.PersonelSoyad personelini silmek istediğinize emin misiniz?" class="btn btn-circle btn-icon-only btn-default">

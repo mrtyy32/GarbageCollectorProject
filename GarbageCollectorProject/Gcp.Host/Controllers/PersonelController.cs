@@ -32,7 +32,7 @@ namespace Gcp.Host.Controllers
             {
                 return NotFound();
             }
-            return Ok(personel);
+            return Ok(personel.Personel);
         }
 
         // PUT: api/Personel/5
