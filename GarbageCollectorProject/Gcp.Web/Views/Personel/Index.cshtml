@@ -61,7 +61,7 @@
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
-
+<input type="text" id="deneme" />
 
 
 <!--MODALs-->
@@ -119,7 +119,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Doğum Tarihi:</label>
-                                <input id="dogumTarihi" class="form-control spinner" type="date" placeholder="Doğum Tarihi">
+                                <input id="dogumTarihi" class="form-control spinner" type="datetime" placeholder="Doğum Tarihi">
                             </div>
                             <div class="form-group">
                                 <label>Giriş Tarihi:</label>
@@ -153,13 +153,13 @@
                 </div>
             </div>
 
-        
-        <div class="modal-footer">
-            <button data-bb-handler="ok" type="button" class="btn green" id="saveBtn">Kaydet</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
+
+            <div class="modal-footer">
+                <button data-bb-handler="ok" type="button" class="btn green" id="saveBtn">Kaydet</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
+            </div>
         </div>
     </div>
-</div>
 </div>
 <div class="modal fade" id="guncelleKayit" role="dialog">
     <div class="modal-dialog">
@@ -176,7 +176,7 @@
                         <div class="portlet-title">
                             <div class="caption font-red-sunglo">
                                 <i class="icon-settings font-red-sunglo"></i>
-                                <span class="caption-subject bold uppercase"> Personel Ekleme Formu</span>
+                                <span class="caption-subject bold uppercase"> Personel Güncelleme Formu</span>
                             </div>
 
                         </div>
@@ -185,12 +185,12 @@
                             <div class="form-body">
                                 <div class="form-group">
                                     <label>Adı:</label>
-                                    <input id="pName" class="form-control spinner" type="text" placeholder="Personel Adı">
+                                    <input id="peditName" class="form-control spinner" type="text">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Soyadı:</label>
-                                    <input id="pLastName" class="form-control spinner" type="text" placeholder="Personel Soyadı">
+                                    <input id="peditLastName" class="form-control spinner" type="text">
                                 </div>
                                 <div class="form-group">
                                     <label>Ünvan</label>
@@ -200,7 +200,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Maaş:</label>
-                                    <input id="pMaas" class="form-control spinner" type="number" placeholder="Personel Maaşı">
+                                    <input id="peditMaas" class="form-control spinner" type="number">
                                 </div>
                                 <div class="form-group">
                                     <label>Eğitim</label>
@@ -216,19 +216,19 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Doğum Tarihi:</label>
-                                    <input id="dogumTarihi" class="form-control spinner" type="date" placeholder="Doğum Tarihi">
+                                    <input id="editdogumTarihi" class="form-control spinner" type="date">
                                 </div>
                                 <div class="form-group">
                                     <label>Giriş Tarihi:</label>
-                                    <input id="girisTarihi" class="form-control spinner" type="date" placeholder="Giriş Tarihi">
+                                    <input id="editgirisTarihi" class="form-control spinner" type="date">
                                 </div>
                                 <div class="form-group">
                                     <label>Çıkış Tarihi:</label>
-                                    <input id="cikisTarihi" class="form-control spinner" type="date" placeholder="Çıkış Tarihi">
+                                    <input id="editcikisTarihi" class="form-control spinner" type="date">
                                 </div>
                                 <div class="form-group">
                                     <label>İzin Tarihi:</label>
-                                    <input id="izinTarihi" class="form-control spinner" type="date" placeholder="İzin Tarihi">
+                                    <input id="editizinTarihi" class="form-control spinner" type="date">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -236,12 +236,12 @@
                                 <div class="mt-checkbox-list">
                                     <label class="mt-checkbox">
                                         Çalışmıyor
-                                        <input type="checkbox" value="0" name="calisma">
+                                        <input type="checkbox" value="0" name="editcalisma">
                                         <span></span>
                                     </label>
                                     <label class="mt-checkbox">
                                         Amir
-                                        <input type="checkbox" value="1" name="amir">
+                                        <input type="checkbox" value="1" name="editamir">
                                         <span></span>
                                     </label>
                                 </div>
@@ -254,7 +254,7 @@
 
             </div>
             <div class="modal-footer">
-                <button data-bb-handler="ok" type="button" class="btn green">Ekle</button>
+                <button data-bb-handler="ok" type="button" class="btn green" id="updateBtn">Güncelle</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
             </div>
         </div>
@@ -265,20 +265,16 @@
 <script>
     getListe();
     var _url = "http://localhost:53723/api/Personel";
-    var personelIdGlobal = 0;
-
     function getListe() {
 
         $.ajax({
             url: "/Personel/GetPersonelHtml",
-
             success: (data) => {
-                console.log(data);
                 $("#tableBody").html(data);
             }
         });
     };
-    function deletePersonel(id) {
+    function deletePersonel() {
         var id = $(this)[0].getAttribute('data-id');
         $.ajax({
             url: "/Personel/Delete/" + id,
@@ -287,18 +283,32 @@
                 getListe();
             }
         });
+
+    };
+    function editDoldur(data) {
+        $("#peditName").val((data.PersonelAd));
+        $("#peditLastName").val((data.PersonelSoyad));
+        $("#editMaas").val((data.Maas));
+        $("#editdogumTarihi").val((data.DogumTarihi));
+        $("#editgirisTarihi").val((data.GirisTarihi));
+        $("#editcikisTarihi").val((data.CikisTarihi));
+        $("#editizinTarihi").val((data.izinTarihi));
+        $("#editcalisma").val((data.CalismaDurumu));
+        $("#editamir").val((data.AmirMi));
     };
     function getPersonel(id) {
         $.ajax({
             url: "/Personel/Edit/" + id,
             type: "GET",
-            success: (per) => {
-               
-                $("#pLastName").val(per.PersonelSoyAd);
-                getListe();
+            data: { id: id },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: (data) => {
+                editDoldur(data);
             }
         });
     };
+
     $("#saveBtn").click(() => {
         $.ajax({
             url: "/Personel/Create",
@@ -308,8 +318,35 @@
                 PersonelAd: $("#pName").val(),
                 PersonelSoyAd: $("#pLastName").val(),
                 UnvanID: $("#unvanID").val(),
-                Maas: $("#Maas").val()
+                Maas: $("#pMaas").val(),
+                DogumTarihi: $("#dogumTarihi").val(),
+                GirisTarihi: $("#girisTarihi").val(),
+                CikisTarihi: $("#cikisTarihi").val(),
+                izinTarihi: $("#izinTarihi").val(),
+                CalismaDurumu: $("#calisma").val(),
+                AmirMi: $("#amir").val()
 
+            },
+            success: () => {
+                getListe();
+            }
+        });
+    });
+    $("#updateBtn").click((id) => {
+        $.ajax({
+            url: "/Personel/Edit/" + id,
+            type: "POST",
+            data: {
+                PersonelAd: $("#peditName").val(),
+                PersonelSoyAd: $("#peditLastName").val(),
+                UnvanID: $("#unvanID").val(),
+                Maas: $("#editMaas").val(),
+                DogumTarihi: $("#editdogumTarihi").val(),
+                GirisTarihi: $("#editgirisTarihi").val(),
+                CikisTarihi: $("#editcikisTarihi").val(),
+                izinTarihi: $("#editizinTarihi").val(),
+                CalismaDurumu: $("#editcalisma").val(),
+                AmirMi: $("#editamir").val()
             },
             success: () => {
                 getListe();

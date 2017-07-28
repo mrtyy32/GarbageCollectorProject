@@ -62,40 +62,32 @@ namespace Gcp.Web.Controllers
         {
             var jsonString = JsonConvert.SerializeObject(p);
             var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-            HttpResponseMessage responseMessage = await _client.PostAsync(_url,content);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
-            return RedirectToAction("Error");
-
+            var responseMessage = await _client.PostAsync(_url,content);
+            return RedirectToAction(responseMessage.IsSuccessStatusCode ? "Index" : "Error");
         }
         //GET Method
         public async Task<ActionResult> Edit(int id)
         {
-            HttpResponseMessage responseMessage = await _client.GetAsync($"{_url}/{id}");
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+            var responseMessage = await _client.GetAsync($"{_url}/{id}");
+            if (!responseMessage.IsSuccessStatusCode) return View("Error");
 
-                var personel = JsonConvert.DeserializeObject<Personel>(responseData);
+            var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-                return Json(personel,JsonRequestBehavior.AllowGet);
-            }
-            return View("Error");
+            var personel = JsonConvert.DeserializeObject<Personel>(responseData);
+
+            return Json(personel, JsonRequestBehavior.AllowGet);
+
         }
         //PUT (Update) Method
         [HttpPost]
         public async Task<ActionResult> Edit(int id, Personel p)
         {
-            var responseMessage = await _client.GetAsync($"{_url}/{id}");
-            var a = responseMessage.Content.ReadAsStringAsync().Result;
-            HttpContent _contentData = new StringContent(p.ToString());
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
-            return RedirectToAction("Error");
+            
+            var jsonString = JsonConvert.SerializeObject(p);
+            var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            var responseMessage = await _client.PutAsync(_url, content);
+
+            return RedirectToAction(responseMessage.IsSuccessStatusCode ? "Index" : "Error");
         }
         public async Task<ActionResult> GetPersonelHtml()
         {
@@ -110,13 +102,8 @@ namespace Gcp.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Delete(int id)
         {
-
-            HttpResponseMessage responseMessage = await _client.DeleteAsync(_url + "/" + id);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
-            return RedirectToAction("Error");
+            var responseMessage = await _client.DeleteAsync(_url + "/" + id);
+            return RedirectToAction(responseMessage.IsSuccessStatusCode ? "Index" : "Error");
         }
     }
 }
