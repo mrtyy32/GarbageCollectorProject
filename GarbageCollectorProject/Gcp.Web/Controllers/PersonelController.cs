@@ -5,18 +5,16 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 using Gcp.Web.Models;
 using Newtonsoft.Json;
 using System.Net;
-using Newtonsoft.Json.Linq;
 using System.Text;
 
 namespace Gcp.Web.Controllers
 {
     public class PersonelController : Controller
     {
-        readonly HttpClient _client;
+		readonly HttpClient _client;
         string _url = "http://localhost:53723/api/Personel";
         public PersonelController()
         {
@@ -74,20 +72,17 @@ namespace Gcp.Web.Controllers
             var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
             var personel = JsonConvert.DeserializeObject<Personel>(responseData);
-
-            return Json(personel, JsonRequestBehavior.AllowGet);
+			return Json(personel, JsonRequestBehavior.AllowGet);
 
         }
         //PUT (Update) Method
         [HttpPost]
-        public async Task<ActionResult> Edit(int id, Personel p)
+        public async Task<ActionResult> Edit(Personel p)
         {
-            
-            var jsonString = JsonConvert.SerializeObject(p);
-            var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-            var responseMessage = await _client.PutAsync(_url, content);
-
-            return RedirectToAction(responseMessage.IsSuccessStatusCode ? "Index" : "Error");
+			var jsonString = JsonConvert.SerializeObject(p);
+			var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+			var responseMessage = await _client.PutAsync($"{_url}/{p.PersonelID}", content);
+	        return RedirectToAction(responseMessage.IsSuccessStatusCode ? "Index" : "Error");
         }
         public async Task<ActionResult> GetPersonelHtml()
         {

@@ -14,8 +14,9 @@ namespace Gcp.Web.Models
         public string PersonelSoyad { get; set; }
         public DateTime? DogumTarihi { get; set; }
         public int? UnvanID { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime? GirisTarihi { get; set; }
+		[DataType(DataType.Date)]
+		//[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+		public DateTime? GirisTarihi { get; set; }
         public DateTime? CikisTarihi { get; set; }
         public DateTime? izinTarihi { get; set; }
         public decimal? Maas { get; set; }
