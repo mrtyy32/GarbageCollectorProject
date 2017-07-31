@@ -7,7 +7,7 @@
 {
     <tr role="row" class="odd" data-id="@v.VardiyaID">
         <th class=" control"></th>
-		<td class="sorting_1">@v.Aciklama</td>
+		<td class="sorting_1">@v.VardiyaAd</td>
 		<td >@v.BaslamaSaati</td>
         <td>@v.BitirmeSaati</td>
         <td>
@@ -15,7 +15,7 @@
             <a data-toggle="modal" data-target="#guncelleKayit" onclick="getVardiya(@v.VardiyaID)" class="btn btn-circle btn-icon-only btn-default">
                 <i class="icon-pencil"></i>
             </a>
-            <a data-toggle="confirmation" data-on-confirm="deleteVardiya" data-id="@v.VardiyaID" data-original-title="@v.Aciklama vardiyasını silmek istediğinize emin misiniz?" class="btn btn-circle btn-icon-only btn-default">
+            <a data-toggle="confirmation" data-on-confirm="deleteVardiya" data-id="@v.VardiyaID" data-original-title="@v.VardiyaAd vardiyasını silmek istediğinize emin misiniz?" class="btn btn-circle btn-icon-only btn-default">
                 <i class="icon-trash"></i>
             </a>
         </td>

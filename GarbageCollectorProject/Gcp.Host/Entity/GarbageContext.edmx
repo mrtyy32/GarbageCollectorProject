@@ -101,7 +101,7 @@
             <PropertyRef Name="VardiyaID" />
           </Key>
           <Property Name="VardiyaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Aciklama" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="VardiyaAd" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="BaslamaSaati" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="BitirmeSaati" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
@@ -343,7 +343,7 @@
             <PropertyRef Name="VardiyaID" />
           </Key>
           <Property Name="VardiyaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Aciklama" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VardiyaAd" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BaslamaSaati" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BitirmeSaati" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Personel" Relationship="Self.FK_Personel_Vardiya1" FromRole="Vardiya" ToRole="Personel" />
@@ -582,7 +582,7 @@
             <EntityTypeMapping TypeName="GarbageCollectorsModel.Vardiya">
               <MappingFragment StoreEntitySet="Vardiya">
                 <ScalarProperty Name="VardiyaID" ColumnName="VardiyaID" />
-                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+                <ScalarProperty Name="VardiyaAd" ColumnName="VardiyaAd" />
                 <ScalarProperty Name="BaslamaSaati" ColumnName="BaslamaSaati" />
                 <ScalarProperty Name="BitirmeSaati" ColumnName="BitirmeSaati" />
               </MappingFragment>

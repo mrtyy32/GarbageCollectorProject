@@ -213,7 +213,7 @@
 
 	function editDoldur(data) {
 		$("#peditId").val((data.VardiyaID));
-		$("#peditAciklama").val((data.Aciklama));
+		$("#peditAciklama").val((data.VardiyaAd));
 		$("#peditBaslama").val((data.BaslamaSaati));
 		$("#peditBitirme").val((data.BitirmeSaati));
 	};
@@ -235,7 +235,7 @@
 			url: "/Vardiya/Create",
 			type: "POST",
 			data: {
-				Aciklama: $("#vAciklama").val(),
+				VardiyaAd: $("#vAciklama").val(),
 				BaslamaSaati: $("#baslamaDrop").val(),
 				BitirmeSaati: $("#bitirmeDrop").val()
 			},

@@ -21,7 +21,7 @@ namespace Gcp.Host.Entity
         }
     
         public int VardiyaID { get; set; }
-        public string Aciklama { get; set; }
+        public string VardiyaAd { get; set; }
         public string BaslamaSaati { get; set; }
         public string BitirmeSaati { get; set; }
     

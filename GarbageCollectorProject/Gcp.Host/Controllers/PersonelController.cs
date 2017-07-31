@@ -7,6 +7,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Gcp.Host.Entity;
 using Gcp.Host.Models;
+using Microsoft.Ajax.Utilities;
 
 namespace Gcp.Host.Controllers
 {
@@ -15,7 +16,9 @@ namespace Gcp.Host.Controllers
         // GET: api/Personel
         public dynamic GetPersonel()
         {
-			var personels = db.Personel.Include(i=> i.Vardiya).Include(i=> i.Egitim).Include(i=> i.Unvanlar).ToList();
+			var personels = db.Personel.Include(i=> i.Vardiya).Where(i=> i.VardiyaID == i.Vardiya.VardiyaID)
+				.Include(i=> i.Egitim).Where(i=> i.EgitimID == i.Egitim.EgitimID)
+				.Include(i=> i.Unvanlar).Where(i=> i.UnvanID == i.Unvanlar.UnvanID).ToList();
 	        return personels;
 
         }

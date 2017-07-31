@@ -50,11 +50,11 @@
 									<th class="all sorting_asc">Ad</th>
 									<th class="min-phone-l sorting">Soyad</th>
 									<th class="min-tablet sorting">Pozisyon</th>
-									<th class="none sorting">Giriş Tarihi</th>
-									<th class="none sorting">Doğum Tarihi</th>
-									<th class="none sorting">Vardiya</th>
+									<th class="none sorting">Giriş Tarihi : </th>
+									<th class="none sorting">Doğum Tarihi : </th>
+									<th class="none sorting">Vardiya : </th>
 									<th class="desktop sorting">Maaş</th>
-									<th class="none sorting">Eğitim</th>
+									<th class="none sorting">Eğitim : </th>
 									<th>İşlemler</th>
 
 								</tr>
@@ -243,12 +243,12 @@
 								<div class="mt-checkbox-list">
 									<label class="mt-checkbox">
 										Çalışmıyor
-										<input type="checkbox" value="0" name="editcalisma">
+										<input type="checkbox" value="0" id="editcalisma" name="editcalisma">
 										<span></span>
 									</label>
 									<label class="mt-checkbox">
 										Amir
-										<input type="checkbox" value="1" name="editamir">
+										<input type="checkbox" value="1" id="editamir" name="editamir">
 										<span></span>
 									</label>
 								</div>
@@ -315,12 +315,23 @@
 		$("#peditId").val((data.PersonelID));
 		$("#peditName").val((data.PersonelAd));
 		$("#peditLastName").val((data.PersonelSoyad));
-		$("#editMaas").val((data.Maas));
+		$("#peditMaas").val((data.Maas));
 		$("#editdogumTarihi").val(dateConvert(data.DogumTarihi));
 		$("#editgirisTarihi").val(dateConvert(data.GirisTarihi));
 		$("#editcikisTarihi").val(dateConvert(data.CikisTarihi));
 		$("#editizinTarihi").val(dateConvert(data.izinTarihi));
+		if (data.CalismaDurumu === false) {
+			$('#editcalisma').prop("checked", true);
+		}
 		$("#editcalisma").val((data.CalismaDurumu));
+		//$('#editamir').change(function () {
+		//	if ($(this).is(":checked")) {
+		//		$("#txtAge").show();
+		//	}
+		//	else {
+		//		$("#txtAge").hide();
+		//	}
+		//});
 		$("#editamir").val((data.AmirMi));
 		
 	};
@@ -345,6 +356,8 @@
 				PersonelAd: $("#pName").val(),
 				PersonelSoyAd: $("#pLastName").val(),
 				UnvanID: $("#dropUnvan").val(),
+				EgitimID: $("#dropEgitim").val(),
+				VardiyaID: $("#dropVardiya").val(),
 				Maas: $("#pMaas").val(),
 				DogumTarihi: $("#dogumTarihi").val(),
 				GirisTarihi: $("#girisTarihi").val(),
@@ -469,7 +482,7 @@
 			success: function (data) {
 				console.log(data);
 				$.each((data), function () {
-					myDropDownList.append($('<option></option>').val(this['VardiyaID']).html(this['Aciklama']));
+					myDropDownList.append($('<option></option>').val(this['VardiyaID']).html(this['VardiyaAd']));
 				});
 			},
 			failure: function (response) {
