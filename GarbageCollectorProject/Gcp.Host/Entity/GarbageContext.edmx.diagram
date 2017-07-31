@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5ceb6037c68a40198f8f7568be4e1365" Name="Diagram1">
+      <Diagram DiagramId="f0d1c93a81e8403d9522729465b8160d" Name="Diagram1">
         <EntityTypeShape EntityType="GarbageCollectorsModel.Araclar" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GarbageCollectorsModel.AraclarDetay" Width="1.5" PointX="7.5" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="GarbageCollectorsModel.Egitim" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
@@ -18,10 +18,10 @@
         <AssociationConnector Association="GarbageCollectorsModel.FK_Araclar_Marka" ManuallyRouted="false" />
         <AssociationConnector Association="GarbageCollectorsModel.FK_Araclar_Personel" ManuallyRouted="false" />
         <AssociationConnector Association="GarbageCollectorsModel.FK_AraclarDetay_Araclar" ManuallyRouted="false" />
-        <AssociationConnector Association="GarbageCollectorsModel.FK_Personel_Egitim" ManuallyRouted="false" />
+        <AssociationConnector Association="GarbageCollectorsModel.FK_Personel_Egitim1" ManuallyRouted="false" />
         <AssociationConnector Association="GarbageCollectorsModel.FK_Model_Marka" ManuallyRouted="false" />
-        <AssociationConnector Association="GarbageCollectorsModel.FK_Personel_Unvanlar" ManuallyRouted="false" />
-        <AssociationConnector Association="GarbageCollectorsModel.FK_Personel_Vardiya" ManuallyRouted="false" />
+        <AssociationConnector Association="GarbageCollectorsModel.FK_Personel_Unvanlar1" ManuallyRouted="false" />
+        <AssociationConnector Association="GarbageCollectorsModel.FK_Personel_Vardiya1" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

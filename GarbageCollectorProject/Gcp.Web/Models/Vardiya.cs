@@ -9,8 +9,8 @@ namespace Gcp.Web.Models
     {
         public int VardiyaID { get; set; }
         public string Aciklama { get; set; }
-        public DateTime? BaslamaSaati { get; set; }
-        public DateTime? BitirmeSaati { get; set; }
+		public string BaslamaSaati { get; set; }
+		public string BitirmeSaati { get; set; }
 
         public IEnumerable<Personel> Personel { get; set; }
     }

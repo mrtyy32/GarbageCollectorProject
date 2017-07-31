@@ -15,7 +15,8 @@ namespace Gcp.Host.Controllers
         // GET: api/Personel
         public dynamic GetPersonel()
         {
-            return db.Personel;
+			var personels = db.Personel.Include(i=> i.Vardiya).Include(i=> i.Egitim).Include(i=> i.Unvanlar).ToList();
+	        return personels;
 
         }
 

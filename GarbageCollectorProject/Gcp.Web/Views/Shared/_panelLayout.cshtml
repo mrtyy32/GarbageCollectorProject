@@ -459,14 +459,24 @@ License: You must have a valid license purchased only from themeforest(the above
             <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
             <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
             <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-                <li class="nav-item start">
-                    <a href="javascript:;" class="nav-link nav-toggle">
-                        <i class="icon-home"></i>
+                <li class="nav-item start @RenderSection("activepersonel",false)">
+                    <a href="/Personel/Index" class="nav-link nav-toggle">
+                        <i class="icon-briefcase"></i>
                         <span class="title">Personel</span>
-                        <span class="selected"></span>
-                        <span class="arrow open"></span>
+                        @RenderSection("personelMenu",false)
+                        
                     </a>
     
+                </li>
+                <li class="nav-item @RenderSection("activevardiya",false)">
+                    <a href="/Vardiya/Index" class="nav-link nav-toggle">
+                        <i class="icon-clock"></i>
+                        <span class="title">Vardiyalar</span>
+                        @RenderSection("vardiyaMenu",false)
+                        @*<span class="selected"></span>
+                        <span class="arrow open"></span>*@
+                    </a>
+
                 </li>
 
             </ul>

@@ -22,8 +22,8 @@ namespace Gcp.Host.Entity
     
         public int VardiyaID { get; set; }
         public string Aciklama { get; set; }
-        public System.DateTime BaslamaSaati { get; set; }
-        public System.DateTime BitirmeSaati { get; set; }
+        public string BaslamaSaati { get; set; }
+        public string BitirmeSaati { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Personel> Personel { get; set; }

@@ -5836,6 +5836,8 @@
     <Content Include="assets\pages\media\pages\Thumbs.db" />
     <Content Include="Views\Personel\Index.cshtml" />
     <Content Include="Views\Personel\GetPersonelHtml.cshtml" />
+    <Content Include="Views\Vardiya\Index.cshtml" />
+    <Content Include="Views\Vardiya\GetVardiyaHtml.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -5849,7 +5851,6 @@
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
     <Folder Include="Views\Egitim\" />
     <Folder Include="Views\Unvan\" />
-    <Folder Include="Views\Vardiya\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -27,7 +27,7 @@
           <Key>
             <PropertyRef Name="EgitimID" />
           </Key>
-          <Property Name="EgitimID" Type="int" Nullable="false" />
+          <Property Name="EgitimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EgitimAd" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Kurumlar">
@@ -100,10 +100,10 @@
           <Key>
             <PropertyRef Name="VardiyaID" />
           </Key>
-          <Property Name="VardiyaID" Type="int" Nullable="false" />
+          <Property Name="VardiyaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Aciklama" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="BaslamaSaati" Type="datetime" Nullable="false" />
-          <Property Name="BitirmeSaati" Type="datetime" Nullable="false" />
+          <Property Name="BaslamaSaati" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="BitirmeSaati" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <Association Name="FK_Araclar_Marka">
           <End Role="Marka" Type="Self.Marka" Multiplicity="1" />
@@ -153,7 +153,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Personel_Egitim">
+        <Association Name="FK_Personel_Egitim1">
           <End Role="Egitim" Type="Self.Egitim" Multiplicity="0..1" />
           <End Role="Personel" Type="Self.Personel" Multiplicity="*" />
           <ReferentialConstraint>
@@ -165,7 +165,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Personel_Unvanlar">
+        <Association Name="FK_Personel_Unvanlar1">
           <End Role="Unvanlar" Type="Self.Unvanlar" Multiplicity="0..1" />
           <End Role="Personel" Type="Self.Personel" Multiplicity="*" />
           <ReferentialConstraint>
@@ -177,7 +177,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Personel_Vardiya">
+        <Association Name="FK_Personel_Vardiya1">
           <End Role="Vardiya" Type="Self.Vardiya" Multiplicity="0..1" />
           <End Role="Personel" Type="Self.Personel" Multiplicity="*" />
           <ReferentialConstraint>
@@ -216,15 +216,15 @@
             <End Role="Marka" EntitySet="Marka" />
             <End Role="Model" EntitySet="Model" />
           </AssociationSet>
-          <AssociationSet Name="FK_Personel_Egitim" Association="Self.FK_Personel_Egitim">
+          <AssociationSet Name="FK_Personel_Egitim1" Association="Self.FK_Personel_Egitim1">
             <End Role="Egitim" EntitySet="Egitim" />
             <End Role="Personel" EntitySet="Personel" />
           </AssociationSet>
-          <AssociationSet Name="FK_Personel_Unvanlar" Association="Self.FK_Personel_Unvanlar">
+          <AssociationSet Name="FK_Personel_Unvanlar1" Association="Self.FK_Personel_Unvanlar1">
             <End Role="Unvanlar" EntitySet="Unvanlar" />
             <End Role="Personel" EntitySet="Personel" />
           </AssociationSet>
-          <AssociationSet Name="FK_Personel_Vardiya" Association="Self.FK_Personel_Vardiya">
+          <AssociationSet Name="FK_Personel_Vardiya1" Association="Self.FK_Personel_Vardiya1">
             <End Role="Vardiya" EntitySet="Vardiya" />
             <End Role="Personel" EntitySet="Personel" />
           </AssociationSet>
@@ -260,9 +260,9 @@
           <Key>
             <PropertyRef Name="EgitimID" />
           </Key>
-          <Property Name="EgitimID" Type="Int32" Nullable="false" />
+          <Property Name="EgitimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EgitimAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Personel" Relationship="Self.FK_Personel_Egitim" FromRole="Egitim" ToRole="Personel" />
+          <NavigationProperty Name="Personel" Relationship="Self.FK_Personel_Egitim1" FromRole="Egitim" ToRole="Personel" />
         </EntityType>
         <EntityType Name="Kurumlar">
           <Key>
@@ -316,9 +316,9 @@
           <Property Name="AmirID" Type="Int32" />
           <Property Name="AmirMi" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Araclar" Relationship="Self.FK_Araclar_Personel" FromRole="Personel" ToRole="Araclar" />
-          <NavigationProperty Name="Egitim" Relationship="Self.FK_Personel_Egitim" FromRole="Personel" ToRole="Egitim" />
-          <NavigationProperty Name="Unvanlar" Relationship="Self.FK_Personel_Unvanlar" FromRole="Personel" ToRole="Unvanlar" />
-          <NavigationProperty Name="Vardiya" Relationship="Self.FK_Personel_Vardiya" FromRole="Personel" ToRole="Vardiya" />
+          <NavigationProperty Name="Egitim" Relationship="Self.FK_Personel_Egitim1" FromRole="Personel" ToRole="Egitim" />
+          <NavigationProperty Name="Unvanlar" Relationship="Self.FK_Personel_Unvanlar1" FromRole="Personel" ToRole="Unvanlar" />
+          <NavigationProperty Name="Vardiya" Relationship="Self.FK_Personel_Vardiya1" FromRole="Personel" ToRole="Vardiya" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -336,17 +336,17 @@
           </Key>
           <Property Name="UnvanID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UnvanAd" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Personel" Relationship="Self.FK_Personel_Unvanlar" FromRole="Unvanlar" ToRole="Personel" />
+          <NavigationProperty Name="Personel" Relationship="Self.FK_Personel_Unvanlar1" FromRole="Unvanlar" ToRole="Personel" />
         </EntityType>
         <EntityType Name="Vardiya">
           <Key>
             <PropertyRef Name="VardiyaID" />
           </Key>
-          <Property Name="VardiyaID" Type="Int32" Nullable="false" />
+          <Property Name="VardiyaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Aciklama" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="BaslamaSaati" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="BitirmeSaati" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Personel" Relationship="Self.FK_Personel_Vardiya" FromRole="Vardiya" ToRole="Personel" />
+          <Property Name="BaslamaSaati" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BitirmeSaati" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Personel" Relationship="Self.FK_Personel_Vardiya1" FromRole="Vardiya" ToRole="Personel" />
         </EntityType>
         <Association Name="FK_Araclar_Marka">
           <End Role="Marka" Type="Self.Marka" Multiplicity="1" />
@@ -384,7 +384,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Personel_Egitim">
+        <Association Name="FK_Personel_Egitim1">
           <End Role="Egitim" Type="Self.Egitim" Multiplicity="0..1" />
           <End Role="Personel" Type="Self.Personel" Multiplicity="*" />
           <ReferentialConstraint>
@@ -408,7 +408,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Personel_Unvanlar">
+        <Association Name="FK_Personel_Unvanlar1">
           <End Role="Unvanlar" Type="Self.Unvanlar" Multiplicity="0..1" />
           <End Role="Personel" Type="Self.Personel" Multiplicity="*" />
           <ReferentialConstraint>
@@ -420,7 +420,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Personel_Vardiya">
+        <Association Name="FK_Personel_Vardiya1">
           <End Role="Vardiya" Type="Self.Vardiya" Multiplicity="0..1" />
           <End Role="Personel" Type="Self.Personel" Multiplicity="*" />
           <ReferentialConstraint>
@@ -455,7 +455,7 @@
             <End Role="Araclar" EntitySet="Araclar" />
             <End Role="AraclarDetay" EntitySet="AraclarDetay" />
           </AssociationSet>
-          <AssociationSet Name="FK_Personel_Egitim" Association="Self.FK_Personel_Egitim">
+          <AssociationSet Name="FK_Personel_Egitim1" Association="Self.FK_Personel_Egitim1">
             <End Role="Egitim" EntitySet="Egitim" />
             <End Role="Personel" EntitySet="Personel" />
           </AssociationSet>
@@ -463,11 +463,11 @@
             <End Role="Marka" EntitySet="Marka" />
             <End Role="Model" EntitySet="Model" />
           </AssociationSet>
-          <AssociationSet Name="FK_Personel_Unvanlar" Association="Self.FK_Personel_Unvanlar">
+          <AssociationSet Name="FK_Personel_Unvanlar1" Association="Self.FK_Personel_Unvanlar1">
             <End Role="Unvanlar" EntitySet="Unvanlar" />
             <End Role="Personel" EntitySet="Personel" />
           </AssociationSet>
-          <AssociationSet Name="FK_Personel_Vardiya" Association="Self.FK_Personel_Vardiya">
+          <AssociationSet Name="FK_Personel_Vardiya1" Association="Self.FK_Personel_Vardiya1">
             <End Role="Vardiya" EntitySet="Vardiya" />
             <End Role="Personel" EntitySet="Personel" />
           </AssociationSet>

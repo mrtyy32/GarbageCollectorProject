@@ -9,9 +9,9 @@ namespace Gcp.Host.Controllers
         public BaseController()
         {
             db = new GarbageCollectorsEntities();
-            db.Configuration.LazyLoadingEnabled = false;
-            db.Configuration.ProxyCreationEnabled = false;
-        }
+			db.Configuration.LazyLoadingEnabled = false;
+			db.Configuration.ProxyCreationEnabled = false;
+		}
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

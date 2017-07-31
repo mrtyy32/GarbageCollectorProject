@@ -30,8 +30,8 @@ namespace Gcp.Web.Models
         [ForeignKey("AmirID")]
         public Personel Amir { get; set; }
         public Egitim Egitim { get; set; }
-        public Unvanlar Unvan { get; set; }
-        public Vardiya Vardiya { get; set; }
+        public Unvanlar Unvanlar { get; set; }
+		public Vardiya Vardiya { get; set; }
 
 
     }

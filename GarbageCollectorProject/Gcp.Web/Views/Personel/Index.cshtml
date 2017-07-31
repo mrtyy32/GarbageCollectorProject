@@ -15,6 +15,13 @@
 	<link href="../assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
 	<link href="../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
 }
+@section personelMenu{
+    <span class="selected"></span>
+    <span class="arrow open"></span>
+}
+@section activepersonel{
+	active open
+}
 
 <div class="row">
 
@@ -154,8 +161,8 @@
 
 
 			<div class="modal-footer">
-				<button data-bb-handler="ok" type="button" class="btn green" id="saveBtn" data-dismiss="modal">Kaydet</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
+				<button data-bb-handler="ok" type="button" class="btn green" id="saveBtn" data-dismiss="modal" onclick="clearKayit()">Kaydet</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearKayit()">Vazgeç</button>
 			</div>
 		</div>
 	</div>
@@ -267,7 +274,12 @@
 	getDropDownVardiya();
 	getDropDownEgitim();
 	getDropDownUnvan();
-	
+	function clearKayit() {
+		$('#vAciklama').val('');
+		$('#baslamaDrop option')[0].selected = true;
+		$('#bitirmeDrop option')[0].selected = true;
+
+	}
 	
 	var _url = "http://localhost:53723/api/Personel";
 	function getListe() {
