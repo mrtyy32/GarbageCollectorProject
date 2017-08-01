@@ -338,7 +338,6 @@
 		////	}
 		////});
 		//$("#editamir").val((data.AmirMi));
-		getListe();
 	};
 
 	function getPersonel(id) {
@@ -437,7 +436,7 @@
 			dataType: "json",
 			success: function (data) {
 				$.each((data), function () {
-					myDropDownList.append($('option').val(this['UnvanID']).html(this['UnvanAd']));
+					myDropDownList.append($('<option></option>').val(this['UnvanID']).html(this['UnvanAd']));
 				});
 			},
 			failure: function (response) {
@@ -457,7 +456,7 @@
 			success: function (data) {
 				$.each((data),
 					function () {
-						myDropDownList.append($('option').val(this['EgitimID']).html(this['EgitimAd']));
+						myDropDownList.append($('<option></option>').val(this['EgitimID']).html(this['EgitimAd']));
 					});
 			},
 			failure: function (response) {
