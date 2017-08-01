@@ -459,35 +459,53 @@ License: You must have a valid license purchased only from themeforest(the above
             <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
             <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
             <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-            <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-                <li class="nav-item start @RenderSection("activepersonel",false)">
-                    <a href="/Personel/Index" class="nav-link nav-toggle">
-                        <i class="icon-briefcase"></i>
-                        <span class="title">Personel</span>
-                        @RenderSection("personelMenu",false)
-                        
-                    </a>
-    
-                </li>
-                <li class="nav-item @RenderSection("activevardiya",false)">
-                    <a href="/Vardiya/Index" class="nav-link nav-toggle">
-                        <i class="icon-clock"></i>
-                        <span class="title">Vardiyalar</span>
-                        @RenderSection("vardiyaMenu",false)
-                       
-                    </a>
+	        <ul class="page-sidebar-menu   " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+				<li class="nav-item start @RenderSection("activehome",false)">
+					<a href="/Home/Index" class="nav-link nav-toggle">
+						<i class="icon-home"></i>
+						<span class="title">Anasayfa</span>
+						@RenderSection("homeMenu", false)
 
-                </li>
-				<li class="nav-item @RenderSection("activeEgitim",false)">
-					<a href="/Egitim/Index" class="nav-link nav-toggle">
-						<i class="icon-certificate"></i>
-						<span class="title">Eğitimler</span>
-						@RenderSection("egitimMenu", false)
-						
 					</a>
 
 				</li>
-            </ul>
+		        <li class="nav-item start @RenderSection("activepersonel", false)">
+			        <a href="/Personel/Index" class="nav-link nav-toggle">
+				        <i class="icon-briefcase"></i>
+				        <span class="title">Personel</span>
+				        @RenderSection("personelMenu", false)
+
+			        </a>
+
+		        </li>
+		        <li class="nav-item @RenderSection("activevardiya", false)">
+			        <a href="/Vardiya/Index" class="nav-link nav-toggle">
+				        <i class="icon-clock"></i>
+				        <span class="title">Vardiyalar</span>
+				        @RenderSection("vardiyaMenu", false)
+
+			        </a>
+
+		        </li>
+		        <li class="nav-item @RenderSection("activeEgitim", false)">
+			        <a href="/Egitim/Index" class="nav-link nav-toggle">
+				        <i class="icon-diamond"></i>
+				        <span class="title">Eğitimler</span>
+				        @RenderSection("egitimMenu", false)
+
+			        </a>
+
+		        </li>
+				<li class="nav-item @RenderSection("activeUnvan", false)">
+					<a href="/Unvan/Index" class="nav-link nav-toggle">
+						<i class="icon-energy"></i>
+						<span class="title">Unvanlar</span>
+						@RenderSection("unvanMenu", false)
+
+					</a>
+
+				</li>
+	        </ul>
             <!-- END SIDEBAR MENU -->
         </div>
         <!-- END SIDEBAR -->

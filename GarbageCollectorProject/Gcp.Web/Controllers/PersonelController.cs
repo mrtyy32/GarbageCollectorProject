@@ -24,35 +24,23 @@ namespace Gcp.Web.Controllers
 
 
         // GET: Personel
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            var responseMessage = await _client.GetAsync(_url);
-
-            if (!responseMessage.IsSuccessStatusCode) return Json("Error", JsonRequestBehavior.DenyGet);
-
-            var responseData = responseMessage.Content.ReadAsStringAsync().Result;
-            var personel = JsonConvert.DeserializeObject<List<Personel>>(responseData);
-            return View(personel.ToList());
+           return View();
         }
-
-        //public async Task<ActionResult> GetAllAsync()
-        //{
-        //    var responseMessage = await _client.GetAsync(_url);
-
-        //    if (!responseMessage.IsSuccessStatusCode) return Json("Error", JsonRequestBehavior.DenyGet);
-
-        //    var responseData = responseMessage.Content.ReadAsStringAsync().Result;
-        //    //var serializer = new JavaScriptSerializer();
-        //    //var personel = serializer.Serialize(responseData);
-        //    var personel = JsonConvert.DeserializeObject<List<Personel>>(responseData);
-        //    return Json(personel,JsonRequestBehavior.AllowGet);
-        //}
 
         public ActionResult Create()
         {
             return View(new Personel());
         }
 
+	    public async Task<ActionResult> Count()
+	    {
+			var responseMessage = await _client.GetAsync(_url);
+			var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+			var personel = JsonConvert.DeserializeObject<List<Personel>>(responseData);
+		    return Json(personel.Count(), JsonRequestBehavior.AllowGet);
+	    }
         //The Post method
         [HttpPost]
         public async Task<ActionResult> Create(Personel p)

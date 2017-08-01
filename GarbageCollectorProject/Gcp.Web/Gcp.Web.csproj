@@ -5457,6 +5457,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\EgitimController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonelController.cs" />
     <Compile Include="Controllers\UnvanController.cs" />
     <Compile Include="Controllers\VardiyaController.cs" />
@@ -5838,6 +5839,9 @@
     <Content Include="Views\Vardiya\GetVardiyaHtml.cshtml" />
     <Content Include="Views\Egitim\GetEgitimHtml.cshtml" />
     <Content Include="Views\Egitim\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Unvan\GetUnvanHtml.cshtml" />
+    <Content Include="Views\Unvan\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -5849,7 +5853,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="assets\apps\img\" />
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
-    <Folder Include="Views\Unvan\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

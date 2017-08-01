@@ -1,0 +1,21 @@
+﻿@model List<Gcp.Web.Models.Unvanlar>
+@{
+	Layout = null;
+}
+
+@foreach (var e in Model)
+{
+	<tr role="row" class="odd" data-id="@e.UnvanID">
+		<th class=" control"></th>
+		<td class="sorting_1">@e.UnvanAd</td>
+		<td>
+
+			<a data-toggle="modal" data-target="#guncelleKayit" onclick="getUnvan(@e.UnvanID)" class="btn btn-circle btn-icon-only btn-default">
+				<i class="icon-pencil"></i>
+			</a>
+			<a data-toggle="confirmation" data-on-confirm="deleteUnvan" data-id="@e.UnvanID" data-original-title="@e.UnvanAd eğitimini silmek istediğinize emin misiniz?" class="btn btn-circle btn-icon-only btn-default">
+				<i class="icon-trash"></i>
+			</a>
+		</td>
+	</tr>
+}
