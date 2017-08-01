@@ -60,7 +60,7 @@ namespace Gcp.Web.Controllers
             var responseMessage = await _client.PutAsync($"{_url}/{v.VardiyaID}", content);
             return RedirectToAction(responseMessage.IsSuccessStatusCode ? "Index" : "Error");
         }
-        public async Task<ActionResult> forDropDown()
+		public async Task<ActionResult> forDropDown()
 		{
 			var responseMessage = await _client.GetAsync(_url);
 
@@ -70,7 +70,8 @@ namespace Gcp.Web.Controllers
 			var vardiya = JsonConvert.DeserializeObject<List<Vardiya>>(responseData);
 			return Json(vardiya, JsonRequestBehavior.AllowGet);
 		}
-        public async Task<ActionResult> GetVardiyaHtml()
+
+		public async Task<ActionResult> GetVardiyaHtml()
         {
             var responseMessage = await _client.GetAsync(_url);
 

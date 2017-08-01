@@ -36,5 +36,15 @@ namespace Gcp.Web.Controllers
 			var egitim = JsonConvert.DeserializeObject<List<Egitim>>(responseData);
 			return Json(egitim, JsonRequestBehavior.AllowGet);
 		}
+		public async Task<ActionResult> GetEgitimHtml()
+		{
+			var responseMessage = await _client.GetAsync(_url);
+
+			if (!responseMessage.IsSuccessStatusCode) return Json("Error", JsonRequestBehavior.DenyGet);
+
+			var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+			var egitim = JsonConvert.DeserializeObject<List<Egitim>>(responseData);
+			return Json(egitim, JsonRequestBehavior.AllowGet);
+		}
 	}
 }

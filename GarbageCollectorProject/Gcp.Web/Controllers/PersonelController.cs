@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Gcp.Web.Models;
 using Newtonsoft.Json;
-using System.Net;
 using System.Text;
 
 namespace Gcp.Web.Controllers

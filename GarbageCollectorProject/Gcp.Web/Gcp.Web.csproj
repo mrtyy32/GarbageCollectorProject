@@ -5448,9 +5448,7 @@
     <Content Include="assets\pages\scripts\v,..min.js" />
     <Content Include="assets\pages\scripts\widgets.js" />
     <Content Include="assets\pages\scripts\widgets.min.js" />
-    <Content Include="deneme.html" />
     <Content Include="Global.asax" />
-    <Content Include="panelApp.js" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
@@ -5838,6 +5836,8 @@
     <Content Include="Views\Personel\GetPersonelHtml.cshtml" />
     <Content Include="Views\Vardiya\Index.cshtml" />
     <Content Include="Views\Vardiya\GetVardiyaHtml.cshtml" />
+    <Content Include="Views\Egitim\GetEgitimHtml.cshtml" />
+    <Content Include="Views\Egitim\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -5849,7 +5849,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="assets\apps\img\" />
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
-    <Folder Include="Views\Egitim\" />
     <Folder Include="Views\Unvan\" />
   </ItemGroup>
   <PropertyGroup>

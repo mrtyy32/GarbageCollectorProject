@@ -3,8 +3,6 @@
     Layout = null;
 }
 
-
-
 @foreach (var p in Model)
 {
     <tr role="row" class="odd" data-id="@p.PersonelID">
@@ -18,7 +16,6 @@
         <td>@p.Maas TL</td>
         <td style="display: none;">@p.Egitim.EgitimAd</td>
         <td>
-
             <a data-toggle="modal"  data-target="#guncelleKayit" data-id="@p.PersonelID" onclick="getPersonel(@p.PersonelID)"  class="btn btn-circle btn-icon-only btn-default">
                 <i class="icon-pencil"></i>
             </a>
@@ -28,4 +25,5 @@
         </td>
     </tr>
 }
+<script src="~/Scripts/personelApp.js"></script>
 

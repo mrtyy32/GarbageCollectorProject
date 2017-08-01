@@ -3,6 +3,7 @@
 	Layout = "~/Views/Shared/_panelLayout.cshtml";
 }
 @section pagescript{
+
 	<script src="../assets/global/scripts/datatable.js" type="text/javascript"></script>
 	<script src="../assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
 	<script src="../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
@@ -16,13 +17,18 @@
 	<link href="../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
 }
 @section personelMenu{
-    <span class="selected"></span>
-    <span class="arrow open"></span>
+	<span class="selected"></span>
+	<span class="arrow open"></span>
 }
 @section activepersonel{
 	active open
 }
-
+@section pagehead{
+	Personel Sayfası
+}
+@section pagesubhead{
+	personelleri görüntüle,düzenle,ekle ve sil
+}
 <div class="row">
 
 	<div class="col-md-12">
@@ -201,9 +207,7 @@
 								</div>
 								<div class="form-group">
 									<label>Ünvan</label>
-									<select class="form-control" id="dropUnvanEdit">
-										
-									</select>
+									<select class="form-control" id="dropUnvanEdit"></select>
 								</div>
 								<div class="form-group">
 									<label>Maaş:</label>
@@ -211,14 +215,12 @@
 								</div>
 								<div class="form-group">
 									<label>Eğitim</label>
-									<select class="form-control">
-										<option>Eğitim 1</option>
+									<select class="form-control" id="dropEgitimEdit">
 									</select>
 								</div>
 								<div class="form-group">
 									<label>Vardiya</label>
-									<select class="form-control">
-										<option>Vardiya 1</option>
+									<select class="form-control" id="dropVardiyaEdit">
 									</select>
 								</div>
 								<div class="form-group">
@@ -267,21 +269,20 @@
 		</div>
 	</div>
 </div>
-
-
 <script>
-	getListe();
-	getDropDownVardiya();
-	getDropDownEgitim();
-	getDropDownUnvan();
+		getListe();
+
+		getDropDownVardiya();
+		getDropDownEgitim();
+		getDropDownUnvan();
+		
 	function clearKayit() {
 		$('#vAciklama').val('');
 		$('#baslamaDrop option')[0].selected = true;
 		$('#bitirmeDrop option')[0].selected = true;
 
 	}
-	
-	var _url = "http://localhost:53723/api/Personel";
+
 	function getListe() {
 		$.ajax({
 			url: "/Personel/GetPersonelHtml",
@@ -290,6 +291,7 @@
 			}
 		});
 	};
+
 	function deletePersonel() {
 		var id = $(this)[0].getAttribute('data-id');
 		$.ajax({
@@ -300,6 +302,7 @@
 			}
 		});
 	};
+
 	function dateConvert(dateJ) {
 		var dateString = dateJ.substr(6);
 		var currentTime = new Date(parseInt(dateString));
@@ -309,9 +312,11 @@
 		var date = day + "/" + month + "/" + year;
 		return date;
 	}
+
 	function editDoldur(data) {
-		$('#dropUnvanEdit').empty();
 		getDropDownUnvanEdit();
+		getDropDownEgitimEdit();
+		getDropDownVardiyaEdit();
 		$("#peditId").val((data.PersonelID));
 		$("#peditName").val((data.PersonelAd));
 		$("#peditLastName").val((data.PersonelSoyad));
@@ -320,21 +325,22 @@
 		$("#editgirisTarihi").val(dateConvert(data.GirisTarihi));
 		$("#editcikisTarihi").val(dateConvert(data.CikisTarihi));
 		$("#editizinTarihi").val(dateConvert(data.izinTarihi));
-		if (data.CalismaDurumu === false) {
-			$('#editcalisma').prop("checked", true);
-		}
-		$("#editcalisma").val((data.CalismaDurumu));
-		//$('#editamir').change(function () {
-		//	if ($(this).is(":checked")) {
-		//		$("#txtAge").show();
-		//	}
-		//	else {
-		//		$("#txtAge").hide();
-		//	}
-		//});
-		$("#editamir").val((data.AmirMi));
-		
+		//if (data.CalismaDurumu === false) {
+		//	$('#editcalisma').prop("checked", true);
+		//}
+		//$("#editcalisma").val((data.CalismaDurumu));
+		////$('#editamir').change(function () {
+		////	if ($(this).is(":checked")) {
+		////		$("#txtAge").show();
+		////	}
+		////	else {
+		////		$("#txtAge").hide();
+		////	}
+		////});
+		//$("#editamir").val((data.AmirMi));
+		getListe();
 	};
+
 	function getPersonel(id) {
 
 		$.ajax({
@@ -348,6 +354,7 @@
 			}
 		});
 	};
+
 	$("#saveBtn").click(() => {
 		$.ajax({
 			url: "/Personel/Create",
@@ -381,6 +388,8 @@
 				PersonelAd: $("#peditName").val(),
 				PersonelSoyAd: $("#peditLastName").val(),
 				UnvanID: $("#dropUnvanEdit").val(),
+				EgitimID: $("#dropEgitimEdit").val(),
+				VardiyaID: $("#dropVardiyaEdit").val(),
 				Maas: $("#editMaas").val(),
 				DogumTarihi: $("#editdogumTarihi").val(),
 				GirisTarihi: $("#editgirisTarihi").val(),
@@ -407,15 +416,17 @@
 			dataType: "json",
 			success: function (data) {
 				console.log(data);
-				$.each((data), function () {
-					myDropDownList.append($('<option></option>').val(this['UnvanID']).html(this['UnvanAd']));
-				});
+				$.each((data),
+					function () {
+						myDropDownList.append($('<option></option>').val(this['UnvanID']).html(this['UnvanAd']));
+					});
 			},
 			failure: function (response) {
 				alert(response.d);
 			}
 		});
-	}
+	};
+
 	function getDropDownUnvanEdit() {
 		var myDropDownList = $('#dropUnvanEdit');
 
@@ -434,8 +445,9 @@
 			}
 		});
 	}
+
 	function getDropDownEgitimEdit() {
-		var myDropDownList = $('#dropUnvanEgitim');
+		var myDropDownList = $('#dropEgitimEdit');
 
 		$.ajax({
 			type: "GET",
@@ -443,15 +455,17 @@
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: function (data) {
-				$.each((data), function () {
-					myDropDownList.append($('option').val(this['UnvanID']).html(this['UnvanAd']));
-				});
+				$.each((data),
+					function () {
+						myDropDownList.append($('option').val(this['EgitimID']).html(this['EgitimAd']));
+					});
 			},
 			failure: function (response) {
 				alert(response.d);
 			}
 		});
-	}
+	};
+
 	function getDropDownEgitim() {
 		var myDropDownList = $('#dropEgitim');
 
@@ -462,15 +476,17 @@
 			dataType: "json",
 			success: function (data) {
 				console.log(data);
-				$.each((data), function () {
-					myDropDownList.append($('<option></option>').val(this['EgitimID']).html(this['EgitimAd']));
-				});
+				$.each((data),
+					function () {
+						myDropDownList.append($('<option></option>').val(this['EgitimID']).html(this['EgitimAd']));
+					});
 			},
 			failure: function (response) {
 				alert(response.d);
 			}
 		});
-	}
+	};
+
 	function getDropDownVardiya() {
 		var myDropDownList = $('#dropVardiya');
 
@@ -481,14 +497,35 @@
 			dataType: "json",
 			success: function (data) {
 				console.log(data);
-				$.each((data), function () {
-					myDropDownList.append($('<option></option>').val(this['VardiyaID']).html(this['VardiyaAd']));
-				});
+				$.each((data),
+					function () {
+						myDropDownList.append($('<option></option>').val(this['VardiyaID']).html(this['VardiyaAd']));
+					});
 			},
 			failure: function (response) {
 				alert(response.d);
 			}
 		});
-	}
-</script>
+	};
+	function getDropDownVardiyaEdit() {
+		var myDropDownList = $('#dropVardiyaEdit');
 
+		$.ajax({
+			type: "GET",
+			url: "/Vardiya/forDropDown",
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success: function (data) {
+				console.log(data);
+				$.each((data),
+					function () {
+						myDropDownList.append($('<option></option>').val(this['VardiyaID']).html(this['VardiyaAd']));
+					});
+			},
+			failure: function (response) {
+				alert(response.d);
+			}
+		});
+	};
+
+</script>

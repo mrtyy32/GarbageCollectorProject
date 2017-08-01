@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html">
+﻿<!DOCTYPE html>
 <!-- 
 Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.7
 Version: 4.7.5
@@ -51,7 +51,8 @@ License: You must have a valid license purchased only from themeforest(the above
     <link href="../assets/layouts/layout4/css/themes/default.min.css" rel="stylesheet" type="text/css" id="style_color" />
     <link href="../assets/layouts/layout4/css/custom.min.css" rel="stylesheet" type="text/css" />
     <!-- END THEME LAYOUT STYLES -->
-    <link rel="shortcut icon" href="favicon.ico" /> </head>
+	<link rel="shortcut icon" href="favicon.ico" /> 
+</head>
 <!-- END HEAD -->
 
 <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
@@ -473,12 +474,19 @@ License: You must have a valid license purchased only from themeforest(the above
                         <i class="icon-clock"></i>
                         <span class="title">Vardiyalar</span>
                         @RenderSection("vardiyaMenu",false)
-                        @*<span class="selected"></span>
-                        <span class="arrow open"></span>*@
+                       
                     </a>
 
                 </li>
+				<li class="nav-item @RenderSection("activeEgitim",false)">
+					<a href="/Egitim/Index" class="nav-link nav-toggle">
+						<i class="icon-certificate"></i>
+						<span class="title">Eğitimler</span>
+						@RenderSection("egitimMenu", false)
+						
+					</a>
 
+				</li>
             </ul>
             <!-- END SIDEBAR MENU -->
         </div>
@@ -500,11 +508,12 @@ License: You must have a valid license purchased only from themeforest(the above
                 <!-- END PAGE TITLE -->
                 <!-- BEGIN PAGE TOOLBAR -->
                 <div class="page-toolbar">
-                    <div id="dashboard-report-range" data-display-range="0" class="pull-right tooltips btn btn-fit-height green" data-placement="left" data-original-title="Change dashboard date range">
+	                @*<div id="dashboard-report-range" data-display-range="0" class="pull-right tooltips btn btn-fit-height green" data-placement="left" data-original-title="Change dashboard date range">
                         <i class="icon-calendar"></i>&nbsp;
                         <span class="thin uppercase hidden-xs"></span>&nbsp;
                         <i class="fa fa-angle-down"></i>
-                    </div>
+                    </div>*@
+	                
                     <!-- BEGIN THEME PANEL -->
         
                     <!-- END THEME PANEL -->
@@ -515,7 +524,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <!-- BEGIN PAGE BREADCRUMB -->
             <ul class="page-breadcrumb breadcrumb">
                 <li>
-                    <a href="Home/Index">Panel</a>
+                    <a href="/Home/Index">Panel</a>
                     <i class="fa fa-circle"></i>
                 </li>
                 <li>

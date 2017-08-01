@@ -36,5 +36,15 @@ namespace Gcp.Web.Controllers
 			var unvan = JsonConvert.DeserializeObject<List<Unvanlar>>(responseData);
 			return Json(unvan, JsonRequestBehavior.AllowGet);
 		}
+		public async Task<ActionResult> GetUnvanHtml()
+		{
+			var responseMessage = await _client.GetAsync(_url);
+
+			if (!responseMessage.IsSuccessStatusCode) return Json("Error", JsonRequestBehavior.DenyGet);
+
+			var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+			var unvan = JsonConvert.DeserializeObject<List<Personel>>(responseData);
+			return View(unvan.ToList());
+		}
 	}
 }
