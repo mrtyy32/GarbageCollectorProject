@@ -5456,6 +5456,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AraclarController.cs" />
     <Compile Include="Controllers\EgitimController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonelController.cs" />
@@ -5842,6 +5843,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Unvan\GetUnvanHtml.cshtml" />
     <Content Include="Views\Unvan\Index.cshtml" />
+    <Content Include="Views\Araclar\GetAraclarHtml.cshtml" />
+    <Content Include="Views\Araclar\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

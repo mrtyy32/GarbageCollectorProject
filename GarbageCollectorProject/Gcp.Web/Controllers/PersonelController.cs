@@ -46,17 +46,9 @@ namespace Gcp.Web.Controllers
 			var responseMessage = await _client.GetAsync(_url);
 			var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 			var personel = JsonConvert.DeserializeObject<List<Personel>>(responseData);
-			var maasToplam = 0;
-			foreach (var item in personel)
-			{
-				if (item.Maas != null)
-				{
-					var pmaas = (decimal)(item.Maas);
-					maasToplam += (int)pmaas;
-				}
-			}
+			var maasToplam = (from item in personel where item.Maas != null select (decimal) (item.Maas) into pmaas select (int) pmaas).Sum();
 
-			return Json((float)maasToplam, JsonRequestBehavior.AllowGet);
+			return Json((decimal)maasToplam, JsonRequestBehavior.AllowGet);
 		}
 		//The Post method
 		[HttpPost]
@@ -103,6 +95,16 @@ namespace Gcp.Web.Controllers
 		{
 			var responseMessage = await _client.DeleteAsync(_url + "/" + id);
 			return RedirectToAction(responseMessage.IsSuccessStatusCode ? "Index" : "Error");
+		}
+		public async Task<ActionResult> forDropDown()
+		{
+			var responseMessage = await _client.GetAsync(_url);
+
+			if (!responseMessage.IsSuccessStatusCode) return Json("Error", JsonRequestBehavior.DenyGet);
+
+			var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+			var personel = JsonConvert.DeserializeObject<List<Vardiya>>(responseData);
+			return Json(personel, JsonRequestBehavior.AllowGet);
 		}
 	}
 }

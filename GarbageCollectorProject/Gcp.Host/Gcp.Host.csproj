@@ -184,9 +184,13 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AraclarController.cs" />
+    <Compile Include="Controllers\AraclarDetayController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\EgitimController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MarkaController.cs" />
+    <Compile Include="Controllers\ModelController.cs" />
     <Compile Include="Controllers\PersonelController.cs" />
     <Compile Include="Controllers\UnvanlarController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
