@@ -1,0 +1,22 @@
+﻿@model List<Gcp.Web.Models.Model>
+@{
+	Layout = null;
+}
+
+@foreach (var e in Model)
+{
+	<tr role="row" class="odd" data-id="@e.ModelID">
+		<th class=" control"></th>
+		<td class="sorting_1">@e.ModelAd</td>
+		<td>@e.Marka.MarkaAd</td>
+		<td>
+
+			<a data-toggle="modal" data-target="#guncelleKayit" onclick="getModel(@e.ModelID)" class="btn btn-circle btn-icon-only btn-default">
+				<i class="icon-pencil"></i>
+			</a>
+			<a data-toggle="confirmation" data-on-confirm="deleteModel" data-id="@e.ModelID" data-original-title="@e.ModelAd Modelsını silmek istediğinize emin misiniz?" class="btn btn-circle btn-icon-only btn-default">
+				<i class="icon-trash"></i>
+			</a>
+		</td>
+	</tr>
+}

@@ -9,8 +9,9 @@ namespace Gcp.Web.Models
     {
         public int ModelID { get; set; }
         public string ModelAd { get; set; }
-        public int? MarkaID { get; set; }
+        public int MarkaID { get; set; }
 
         public Marka Marka { get; set; }
+		public List<Araclar> Araclar { get; set; }
     }
 }

@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+
 
 namespace Gcp.Web.Models
 {
     public class AraclarDetay
     {
-        public string AracID { get; set; }
+        public int AracDetayID { get; set; }
         public DateTime? AlinisTarihi { get; set; }
         public DateTime? BakimTarihi { get; set; }
         public DateTime? MuayeneTarihi { get; set; }
-        
-        public Araclar Araclar { get; set; }
+		public int AracID { get; set; }
+
+		public Araclar Araclar { get; set; }
     }
 }

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Gcp.Host.Entity;
+﻿using System.Linq;
+using Gcp.Host.Data;
 
 namespace Gcp.Host.Models
 {

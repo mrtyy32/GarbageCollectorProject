@@ -8,18 +8,54 @@
 	<tr role="row" class="odd" data-id="@p.AracID">
 		<th class=" control"></th>
 		<td class="sorting_1">@p.Marka.MarkaAd</td>
-		<td>@p.Marka.Model</td>
-		<td>@p.Personel.PersonelAd @p.Personel.PersonelSoyad</td>
-		<td style="display: none;">@p.AraclarDetay.AlinisTarihi</td>
-		<td style="display: none;">@p.AraclarDetay.BakimTarihi</td>
-		<td style="display: none;">@p.AraclarDetay.MuayeneTarihi</td>
-		@*<td>@p.Maas TL</td>
-		<td style="display: none;">@p.Egitim.EgitimAd</td>*@
+		<td>@p.Model.ModelAd</td>
+		<td>@p.AracPlaka</td>
+		<td>
+			@foreach (var personel in @p.Personel)
+			{
+				<label>@personel.PersonelAd @personel.PersonelSoyad</label>
+			}
+		</td>
+		<td style="display: none;">
+			@if (@p.AraclarDetay.Count == 0)
+			{
+				<label>Girilmemiş</label>
+			}
+			else
+			{
+				@p.AraclarDetay.Last().AlinisTarihi
+			}
+		</td>
+
+		<td style="display: none;">
+			@if (@p.AraclarDetay.Count == 0)
+			{
+				<label>Girilmemiş</label>
+			}
+			else
+			{
+				@p.AraclarDetay.Last().BakimTarihi
+			}
+		</td>
+		<td style="display: none;">
+			@if (@p.AraclarDetay.Count == 0)
+			{
+				<label>Girilmemiş</label>
+			}
+			else
+			{
+				@p.AraclarDetay.Last().MuayeneTarihi
+			}
+			<br />
+			<a data-toggle="modal" data-target="#detayKayit" data-book-id="@p.AracID" class="btn btn-success btn-xs">Detay Ekle</a>
+			<a data-toggle="modal" data-target="#detayGoruntule" data-book-id="@p.AracID" onclick="getAracDetay(@p.AracID)" class="btn btn-info btn-xs">Detay Görüntüle</a>
+		</td>
+
 		<td>
 			<a data-toggle="modal" data-target="#guncelleKayit" data-id="@p.AracID" onclick="getArac(@p.AracID)" class="btn btn-circle btn-icon-only btn-default">
 				<i class="icon-pencil"></i>
 			</a>
-			<a data-toggle="confirmation" data-on-confirm="deleteArac" data-id="@p.AracID" data-original-title="@p.Marka.MarkaAd aracını silmek istediğinize emin misiniz?" class="btn btn-circle btn-icon-only btn-default">
+			<a data-toggle="confirmation" data-on-confirm="deleteArac" data-id="@p.AracID" data-original-title="@p.MarkaID aracını silmek istediğinize emin misiniz?" class="btn btn-circle btn-icon-only btn-default">
 				<i class="icon-trash"></i>
 			</a>
 		</td>

@@ -5,23 +5,25 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using Gcp.Web.Models;
 using Newtonsoft.Json;
 
 namespace Gcp.Web.Controllers
 {
-    public class EgitimController : Controller
+	[Authorize(Roles = "admin")]
+	public class EgitimController : Controller
     {
 		readonly HttpClient _client;
-		string _url = "http://localhost:53723/api/Egitim";
+		//string _url = "http://localhost:53723/api/Egitim";
+		string _url = "http://garbgabe.azurewebsites.net/api/Egitim";
 		public EgitimController()
 		{
 			_client = new HttpClient { BaseAddress = new Uri(_url) };
 			_client.DefaultRequestHeaders.Accept.Clear();
 			_client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 		}
+		[Authorize(Roles = "admin")]
 		// GET: Egitim
 		public ActionResult Index()
         {
@@ -68,8 +70,8 @@ namespace Gcp.Web.Controllers
 
 			var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-			var vardiya = JsonConvert.DeserializeObject<Egitim>(responseData);
-			return Json(vardiya, JsonRequestBehavior.AllowGet);
+			var egitim = JsonConvert.DeserializeObject<Egitim>(responseData);
+			return Json(egitim, JsonRequestBehavior.AllowGet);
 
 		}
 		//PUT (Update) Method

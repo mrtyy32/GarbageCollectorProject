@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Gcp.Host.Entity;
+using Gcp.Host.Data;
 
 namespace Gcp.Host.Controllers
 {
@@ -19,7 +19,7 @@ namespace Gcp.Host.Controllers
 
         // GET: api/AraclarDetay/5
         [ResponseType(typeof(AraclarDetay))]
-        public IHttpActionResult GetAraclarDetay(string id)
+        public IHttpActionResult GetAraclarDetay(int id)
         {
 	        var araclarDetay = db.AraclarDetay.Find(id);
 	        return araclarDetay == null ? (IHttpActionResult) NotFound() : Ok(araclarDetay);
@@ -27,7 +27,7 @@ namespace Gcp.Host.Controllers
 
         // PUT: api/AraclarDetay/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutAraclarDetay(string id, AraclarDetay araclarDetay)
+        public IHttpActionResult PutAraclarDetay(int id, AraclarDetay araclarDetay)
         {
             if (!ModelState.IsValid)
             {
@@ -61,32 +61,16 @@ namespace Gcp.Host.Controllers
         [ResponseType(typeof(AraclarDetay))]
         public IHttpActionResult PostAraclarDetay(AraclarDetay araclarDetay)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+	        if (!ModelState.IsValid) return BadRequest(ModelState);
+	        db.AraclarDetay.Add(araclarDetay);
+	        db.SaveChanges();
 
-            db.AraclarDetay.Add(araclarDetay);
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-	            if (AraclarDetayExists(araclarDetay.AracDetayID))
-                {
-                    return Conflict();
-                }
-	            throw;
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = araclarDetay.AracDetayID }, araclarDetay);
+	        return CreatedAtRoute("DefaultApi", new {id = araclarDetay.AracDetayID}, araclarDetay);
         }
 
         // DELETE: api/AraclarDetay/5
         [ResponseType(typeof(AraclarDetay))]
-        public IHttpActionResult DeleteAraclarDetay(string id)
+        public IHttpActionResult DeleteAraclarDetay(int id)
         {
             var araclarDetay = db.AraclarDetay.Find(id);
 	        if (araclarDetay == null) return NotFound();
@@ -96,10 +80,19 @@ namespace Gcp.Host.Controllers
 	        return Ok(araclarDetay);
         }
 
-
-        private bool AraclarDetayExists(string id)
+        private bool AraclarDetayExists(int id)
         {
             return db.AraclarDetay.Count(e => e.AracDetayID == id) > 0;
         }
-    }
+
+	    [Route("api/AraclarDetay/DetayDokum/{aracId}")]
+	    [HttpGet]
+	    [ResponseType(typeof(AraclarDetay))]
+	    public IHttpActionResult DetayDokum(int aracId)
+	    {
+		    var detaydokum = db.AraclarDetay.Where(x => x.AracID == aracId);
+		    if (detaydokum == null) return NotFound();
+			return Ok(detaydokum);
+	    }
+	}
 }

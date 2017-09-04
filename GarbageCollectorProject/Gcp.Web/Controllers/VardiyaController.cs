@@ -11,16 +11,20 @@ using Newtonsoft.Json;
 
 namespace Gcp.Web.Controllers
 {
-    public class VardiyaController : Controller
+	[Authorize(Roles = "admin")]
+	public class VardiyaController : Controller
     {
 		readonly HttpClient _client;
-		string _url = "http://localhost:53723/api/Vardiya";
+		
+		//string _url = "http://localhost:53723/api/Vardiya";
+		string _url = "http://garbgabe.azurewebsites.net/api/Vardiya";
 		public VardiyaController()
 		{
 			_client = new HttpClient { BaseAddress = new Uri(_url) };
 			_client.DefaultRequestHeaders.Accept.Clear();
 			_client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 		}
+		[Authorize(Roles = "admin")]
 		// GET: Vardiya
 		public ActionResult Index()
         {
@@ -88,7 +92,7 @@ namespace Gcp.Web.Controllers
             return RedirectToAction(responseMessage.IsSuccessStatusCode ? "Index" : "Error");
         }
 
-	    public async Task<ActionResult> Hours()
+	    public ActionResult Hours()
 	    {
 		    string[] hours =
 		    {
@@ -96,10 +100,7 @@ namespace Gcp.Web.Controllers
 			    "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00",
 			    "19:00", "20:00", "21:00", "22:00", "23:00"
 			};
-		    //var jsonString = @"{""hourList"": [
-      //        {
-      //          ""hours"": ""00:00"",
-      //        },
+
 		    return Json(hours, JsonRequestBehavior.AllowGet);
 	    }
     }

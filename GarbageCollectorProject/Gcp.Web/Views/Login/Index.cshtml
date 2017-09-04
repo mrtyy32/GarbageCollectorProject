@@ -1,0 +1,75 @@
+﻿
+@{
+	ViewBag.Title = "Login";
+	Layout = "~/Views/Shared/_loginLayout.cshtml";
+}
+@section login{login}
+@section pagescript{
+	<script src="../assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+	<script src="../assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
+	<script src="../assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+	<script src="../assets/global/plugins/backstretch/jquery.backstretch.min.js" type="text/javascript"></script>
+	<script src="../assets/pages/scripts/login-4.min.js" type="text/javascript"></script>
+}
+@section pagestyle{
+	<link href="../assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/pages/css/login-4.min.css" rel="stylesheet" type="text/css" />
+}
+<div class="logo">
+	<a href="/Home/Index">
+		<img src="../assets/pages/img/logo-big.png" alt="" />
+	</a>
+</div>
+<!-- END LOGO -->
+<!-- BEGIN LOGIN -->
+<div class="content">
+	<!-- BEGIN LOGIN FORM -->
+	<h3 class="form-title"><center>Panel Girişi</center></h3>
+	<div class="alert alert-danger display-hide">
+		<button class="close" data-close="alert"></button>
+		<span> kullanıcı adı ve şifrenizi giriniz. </span>
+	</div>
+	<div class="form-group">
+		<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+		<label class="control-label visible-ie8 visible-ie9">Kullanıcı Adı</label>
+		<div class="input-icon">
+			<i class="fa fa-user"></i>
+			<input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Kullanıcı Adı" id="kullaniciadi" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label visible-ie8 visible-ie9">Şifre</label>
+		<div class="input-icon">
+			<i class="fa fa-lock"></i>
+			<input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Şifre" id="kullanicisifre" />
+		</div>
+	</div>
+	<div class="form-actions">
+		<button type="button" class="btn green pull-right" id="login"> Giriş Yap </button>
+	</div>
+	<br />
+	<!-- END LOGIN FORM -->
+</div>
+<div class="copyright">
+	@DateTime.Now.Year &copy; powered by
+	mOzyy &nbsp;
+</div>
+
+<script>
+
+	$("#login").click(() => {
+		var ad = $("#kullaniciadi").val();
+		var sifre = $("#kullanicisifre").val();
+		location.href = "/Login/Login/?name=" + ad + "&password=" + sifre;
+	});
+	$(window).keydown(function (event) {
+		if (event.keyCode == 13) {
+			var ad = $("#kullaniciadi").val();
+			var sifre = $("#kullanicisifre").val();
+			location.href = "/Login/Login/?name=" + ad + "&password=" + sifre;
+		}
+	});
+
+
+</script>

@@ -15,9 +15,15 @@
 	<link href="../assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
 	<link href="../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
 }
+@section veriMenu{
+	<span class="selected"></span>
+}
+@section activeveri{
+	active open
+}
+
 @section vardiyaMenu{
 	<span class="selected"></span>
-	<span class="arrow open"></span>
 }
 @section activevardiya{
 	active open
@@ -116,7 +122,7 @@
 
 
 				<div class="modal-footer">
-					<button data-bb-handler="ok" type="button" class="btn green" id="saveBtn" data-dismiss="modal" onclick="clearKayit()">Kaydet</button>
+					<button data-bb-handler="ok" type="button" class="btn green" id="saveBtn" data-dismiss="modal" >Kaydet</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearKayit()">Vazgeç</button>
 				</div>
 			</div>
@@ -177,7 +183,7 @@
 			</div>
 			<div class="modal-footer">
 				<button data-bb-handler="ok" type="button" class="btn green" id="updateBtn" data-dismiss="modal">Güncelle</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearKayit()">Vazgeç</button>
 			</div>
 		</div>
 	</div>
@@ -218,7 +224,7 @@
 		$("#peditAciklama").val((data.VardiyaAd));
 		//$("#peditBaslama").val((data.BaslamaSaati));
 		//$("#peditBitirme").val((data.BitirmeSaati));
-		vardiyaSaatleriEdit();
+		vardiyaSaatleriEdit(data);
 	};
 
 	function getVardiya(id) {
@@ -249,6 +255,7 @@
 			}
 		});
 	});
+
 	$("#updateBtn").click((id, data) => {
 
 		$.ajax({
@@ -275,7 +282,6 @@
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: function (data) {
-				console.log(data);
 				for (var i = 0; i < 24; i++) {
 					myDropDownList.append($('<option></option>').val(data[i]).html(data[i]));
 				}
@@ -303,7 +309,7 @@
 		});
 	}
 
-	function vardiyaSaatleriEdit() {
+	function vardiyaSaatleriEdit(vardiya) {
 		var myDropDownList = $('#baslamaDropEdit');
 		$.ajax({
 			type: "GET",
@@ -311,8 +317,10 @@
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: function (data) {
-				console.log(data);
 				for (var i = 0; i < 24; i++) {
+					if(vardiya.BaslamaSaati == data[i] ){
+						myDropDownList.append($('<option></option>').val(data[i]).html(data[i]).attr('selected', 'selected'));
+					}
 					myDropDownList.append($('<option></option>').val(data[i]).html(data[i]));
 				}
 			},
@@ -330,7 +338,10 @@
 			success: function (data) {
 				console.log(data);
 				for (var i = 0; i < 24; i++) {
-					myDropDownList2.append($('<option></option>').val(data[i]).html(data[i]));
+					if (vardiya.BitirmeSaati == data[i]) {
+						myDropDownList2.append($('<option></option>').val(data[i]).html(data[i]).attr('selected', 'selected'));
+					}
+					myDropDownList.append($('<option></option>').val(data[i]).html(data[i]));
 				}
 			},
 			failure: function (response) {

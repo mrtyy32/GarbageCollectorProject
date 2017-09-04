@@ -1,0 +1,40 @@
+﻿@model List<Gcp.Web.Models.Kurumlar>
+@{
+	Layout = null;
+}
+
+@foreach (var e in Model)
+{
+	<tr role="row" class="odd" data-id="@e.KurumID">
+		<th class=" control"></th>
+		<td class="sorting_1">@e.KurumIsmi</td>
+		<td>@e.KurumAdresi</td>
+		<td>@e.TemsilciKisi</td>
+		
+		<td>@e.TemsilciKisiNo</td>
+		<td>
+			@if (@e.CalismaDurumu == true)
+			{
+				<label>Çalışılıyor</label>
+			}
+					
+			@if (@e.CalismaDurumu == false)
+			{
+				<label>Çalışılmıyor</label>
+			}
+		</td>
+		<td style="display: none">@e.TemsilciKisiEmail</td>
+		<td style="display: none">@e.VergiDairesi</td>
+		<td style="display: none">@e.VergiNo</td>
+		
+		<td>
+
+			<a data-toggle="modal" data-target="#guncelleKayit" onclick="getKurum(@e.KurumID)" class="btn btn-circle btn-icon-only btn-default">
+				<i class="icon-pencil"></i>
+			</a>
+			<a data-toggle="confirmation" data-on-confirm="deleteKurum" data-id="@e.KurumID" data-original-title="@e.KurumIsmi kurumunu silmek istediğinize emin misiniz?" class="btn btn-circle btn-icon-only btn-default">
+				<i class="icon-trash"></i>
+			</a>
+		</td>
+	</tr>
+}

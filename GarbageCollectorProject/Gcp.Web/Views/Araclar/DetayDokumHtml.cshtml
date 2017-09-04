@@ -1,0 +1,15 @@
+﻿@model List<Gcp.Web.Models.AraclarDetay>
+@{
+	Layout = null;
+}
+
+@foreach (var e in Model)
+{
+	<tr role="row" class="odd" data-id="@e.AracDetayID">
+		<th class=" control"></th>
+		<td class="sorting_1">@e.AlinisTarihi</td>
+		<td>@e.BakimTarihi</td>
+		<td>@e.MuayeneTarihi</td>
+	</tr>
+
+}

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Gcp.Web.Controllers
 {
-    public class HomeController : Controller
+	[Authorize]
+	public class HomeController : Controller
     {
-        // GET: Home
-        public ActionResult Index()
+		// GET: Home
+		[Authorize(Roles = "admin")]
+		public ActionResult Index()
         {
             return View();
         }

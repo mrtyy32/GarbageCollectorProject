@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<Gcp.Web.Models.Unvanlar>
+@{
 	ViewBag.Title = "Unvan Index";
 	Layout = "~/Views/Shared/_panelLayout.cshtml";
 }
@@ -21,9 +22,14 @@
 	<link href="../assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
 	<link href="../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
 }
+@section veriMenu{
+	<span class="selected"></span>
+}
+@section activeveri{
+	active open
+}
 @section unvanMenu{
 	<span class="selected"></span>
-	<span class="arrow open"></span>
 }
 @section activeUnvan{
 	active open
@@ -54,7 +60,6 @@
 									<th id="detail" class="control sorting_disabled"></th>
 									<th class="all sorting_asc col-md-11">Açıklama</th>
 									<th>İşlemler</th>
-
 								</tr>
 							</thead>
 							<tbody id="tableBody"></tbody>
@@ -92,7 +97,7 @@
 						<div class="form-body">
 							<div class="form-group">
 								<label>Unvan Adı:</label>
-								<input id="eAciklama" class="form-control spinner" type="text" placeholder="Unvan Adı">
+								<input id="uAciklama" class="form-control spinner" type="text" placeholder="Unvan Adı">
 							</div>
 						</div>
 					</div>
@@ -107,6 +112,7 @@
 		</div>
 	</div>
 </div>
+
 <div class="modal fade" id="guncelleKayit" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -149,6 +155,7 @@
 		</div>
 	</div>
 </div>
+
 <script>
 	getListe();
 
@@ -157,12 +164,12 @@
 	}
 
 	function getListe() {
-		$.ajax({
-			url: "/Unvan/GetUnvanHtml",
-			success: (data) => {
-				$("#tableBody").html(data);
-			}
-		});
+		//$.ajax({
+		//url: "/Unvan/GetUnvanHtml",
+		//success: (data) => {
+		$("#tableBody").load("/Unvan/GetUnvanHtml");
+		//}
+		//});
 	};
 
 	function deleteUnvan() {
@@ -182,7 +189,6 @@
 	};
 
 	function getUnvan(id) {
-
 		$.ajax({
 			url: "/Unvan/Edit/" + id,
 			type: "GET",
@@ -197,10 +203,10 @@
 
 	$("#saveBtn").click(() => {
 		$.ajax({
-			url: "/Egitim/Create",
+			url: "/Unvan/Create",
 			type: "POST",
 			data: {
-				UnvanAd: $("#eAciklama").val()
+				UnvanAd: $("#uAciklama").val()
 			},
 			success: () => {
 				getListe();
@@ -208,7 +214,6 @@
 		});
 	});
 	$("#updateBtn").click((id, data) => {
-
 		$.ajax({
 			url: "/Unvan/Edit/" + id + data,
 			type: "POST",
@@ -222,6 +227,3 @@
 		});
 	});
 </script>
-
-
-

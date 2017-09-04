@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Gcp.Host.Entity;
+using Gcp.Host.Data;
 
 namespace Gcp.Host.Controllers
 {

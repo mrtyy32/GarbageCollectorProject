@@ -11,6 +11,6 @@ namespace Gcp.Web.Models
         public string EgitimAd { get; set; }
 
 
-        public IEnumerable<Personel> Personel { get; set; }
+        public List<Personel> Personel { get; set; }
     }
 }

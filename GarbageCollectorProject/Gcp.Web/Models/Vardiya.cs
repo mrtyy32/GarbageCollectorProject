@@ -12,6 +12,6 @@ namespace Gcp.Web.Models
 		public string BaslamaSaati { get; set; }
 		public string BitirmeSaati { get; set; }
 
-        public IEnumerable<Personel> Personel { get; set; }
+        public List<Personel> Personel { get; set; }
     }
 }

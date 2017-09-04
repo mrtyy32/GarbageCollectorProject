@@ -11,10 +11,13 @@ using System.Text;
 
 namespace Gcp.Web.Controllers
 {
+	[Authorize(Roles = "admin")]
 	public class PersonelController : Controller
 	{
 		readonly HttpClient _client;
-		string _url = "http://localhost:53723/api/Personel";
+		
+		//string _url = "http://localhost:53723/api/Personel";
+		string _url = "http://garbgabe.azurewebsites.net/api/Personel";
 		public PersonelController()
 		{
 			_client = new HttpClient { BaseAddress = new Uri(_url) };
@@ -103,7 +106,18 @@ namespace Gcp.Web.Controllers
 			if (!responseMessage.IsSuccessStatusCode) return Json("Error", JsonRequestBehavior.DenyGet);
 
 			var responseData = responseMessage.Content.ReadAsStringAsync().Result;
-			var personel = JsonConvert.DeserializeObject<List<Vardiya>>(responseData);
+			var personel = JsonConvert.DeserializeObject<List<Personel>>(responseData);
+			return Json(personel, JsonRequestBehavior.AllowGet);
+		}
+
+		public async Task<ActionResult> amirDropDown()
+		{
+			var responseMessage = await _client.GetAsync($"{_url}/amirDropDown");
+
+			if (!responseMessage.IsSuccessStatusCode) return Json("Error", JsonRequestBehavior.DenyGet);
+
+			var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+			var personel = JsonConvert.DeserializeObject<List<Personel>>(responseData);
 			return Json(personel, JsonRequestBehavior.AllowGet);
 		}
 	}

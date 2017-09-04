@@ -25,14 +25,14 @@ namespace Gcp.Web.Models
         public bool CalismaDurumu { get; set; }
         public int? AmirID { get; set; }
         public bool AmirMi { get; set; }
+		public int? AracID { get; set; }
 
-        public IEnumerable<Araclar> Arac { get; set; }
-        [ForeignKey("AmirID")]
+		//   public List<Araclar> Arac { get; set; }
+		[ForeignKey("AmirID")]
         public Personel Amir { get; set; }
         public Egitim Egitim { get; set; }
         public Unvanlar Unvanlar { get; set; }
 		public Vardiya Vardiya { get; set; }
-
-
+	    public Araclar Araclar { get; set; }
     }
 }

@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -189,77 +190,45 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\EgitimController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KurumlarController.cs" />
     <Compile Include="Controllers\MarkaController.cs" />
     <Compile Include="Controllers\ModelController.cs" />
     <Compile Include="Controllers\PersonelController.cs" />
     <Compile Include="Controllers\UnvanlarController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\VardiyaController.cs" />
-    <Compile Include="Entity\Araclar.cs">
-      <DependentUpon>GarbageContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\AraclarDetay.cs">
-      <DependentUpon>GarbageContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Egitim.cs">
-      <DependentUpon>GarbageContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\GarbageContext.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GarbageContext.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\GarbageContext.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GarbageContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\GarbageContext.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GarbageContext.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Kurumlar.cs">
-      <DependentUpon>GarbageContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Marka.cs">
-      <DependentUpon>GarbageContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Model.cs">
-      <DependentUpon>GarbageContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Personel.cs">
-      <DependentUpon>GarbageContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\sysdiagrams.cs">
-      <DependentUpon>GarbageContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Unvanlar.cs">
-      <DependentUpon>GarbageContext.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entity\Vardiya.cs">
-      <DependentUpon>GarbageContext.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Data\Araclar.cs" />
+    <Compile Include="Data\AraclarDetay.cs" />
+    <Compile Include="Data\Egitim.cs" />
+    <Compile Include="Data\GarbageCollectorsEntities.cs" />
+    <Compile Include="Data\Kurumlar.cs" />
+    <Compile Include="Data\Marka.cs" />
+    <Compile Include="Data\Model.cs" />
+    <Compile Include="Data\Personel.cs" />
+    <Compile Include="Data\Unvanlar.cs" />
+    <Compile Include="Data\User.cs" />
+    <Compile Include="Data\Vardiya.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709020553270_d1.cs" />
+    <Compile Include="Migrations\201709020553270_d1.Designer.cs">
+      <DependentUpon>201709020553270_d1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\PersonelModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Entity\GarbageContext.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GarbageContext.edmx</DependentUpon>
-      <LastGenOutput>GarbageContext.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entity\GarbageContext.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GarbageContext.edmx</DependentUpon>
-      <LastGenOutput>GarbageContext.cs</LastGenOutput>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -287,13 +256,13 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Entity\GarbageContext.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>GarbageContext.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Entity\GarbageContext.edmx.diagram">
-      <DependentUpon>GarbageContext.edmx</DependentUpon>
-    </Content>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\garbgabe - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\garbgabe - Web Deploy.pubxml" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -335,6 +304,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201709020553270_d1.resx">
+      <DependentUpon>201709020553270_d1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

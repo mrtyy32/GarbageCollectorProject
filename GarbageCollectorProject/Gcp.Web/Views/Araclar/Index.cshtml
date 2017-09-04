@@ -18,7 +18,14 @@
 }
 @section aracMenu{
 	<span class="selected"></span>
-	<span class="arrow open"></span>
+
+
+}
+@section veriMenu{
+	<span class="selected"></span>
+}
+@section activeveri{
+	active open
 }
 @section activearac{
 	active open
@@ -54,11 +61,13 @@
 								<tr role="row">
 									<th id="detail" class="control sorting_disabled"></th>
 									<th class="all sorting_asc">Marka</th>
-									<th class="min-phone-l sorting">Model</th>
+									<th>Model</th>
+									<th class="min-phone-l sorting">Plaka</th>
 									<th class="min-tablet sorting">Personel</th>
 									<th class="none sorting">Alınış Tarihi : </th>
 									<th class="none sorting">Bakım Tarihi : </th>
 									<th class="none sorting">Muayene Tarihi : </th>
+									@*<th class="none sorting"></th>*@
 									@*<th class="desktop sorting">Maaş</th>
 										<th class="none sorting">Eğitim : </th>*@
 									<th class="col-md-1">İşlemler</th>
@@ -99,6 +108,10 @@
 
 						<div class="form-body">
 							<div class="form-group">
+								<label>Araç Plaka:</label>
+								<input id="pPlaka" class="form-control spinner" type="text" placeholder="Araç Plakası">
+							</div>
+							<div class="form-group">
 								<label>Marka Adı:</label>
 								<select class="form-control" id="dropMarka">
 									<option>Seçiniz</option>
@@ -110,52 +123,43 @@
 								<select class="form-control" id="dropModel">
 									<option>Seçiniz</option>
 								</select>
-							</div>
-							
-							@*<div class="form-group">
-								<label>Doğum Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
-								<input id="dogumTarihi" class="form-control spinner" type="datetime" placeholder="Doğum Tarihi">
-							</div>
+							</div>@*<br />
+								<h4>Araç Detay</h4><hr />
+								<div class="form-group">
+									<label>Alınış Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
+									<input id="alinisTarihi" class="form-control spinner" type="datetime" placeholder="Alınış Tarihi">
+								</div>
+								<div class="form-group">
+									<label>Bakım Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
+									<input id="bakimTarihi" class="form-control spinner" type="datetime" placeholder="Bakım Tarihi">
+								</div>
+								<div class="form-group">
+									<label>Muayene Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
+									<input id="muayeneTarihi" class="form-control spinner" type="datetime" placeholder="Muayene Tarihi">
+								</div>*@
 							<div class="form-group">
-								<label>Giriş Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
-								<input id="girisTarihi" class="form-control spinner" type="datetime" placeholder="Giriş Tarihi">
-							</div>
-							<div class="form-group">
-								<label>Çıkış Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
-								<input id="cikisTarihi" class="form-control spinner" type="datetime" placeholder="Çıkış Tarihi">
-							</div>
-							<div class="form-group">
-								<label>İzin Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
-								<input id="izinTarihi" class="form-control spinner" type="datetime" placeholder="İzin Tarihi">
-							</div>*@
-						</div>
-						@*<div class="form-group">
+								<label class="mt-checkbox">
+									Aktif
+									<input type="checkbox" value="true" id="aktif">
+									<span></span>
+								</label>
 
-							<div class="mt-checkbox-list">
-								<label class="mt-checkbox">
-									Çalışmıyor
-									<input type="checkbox" value="0" id="calisma">
-									<span></span>
-								</label>
-								<label class="mt-checkbox">
-									Amir
-									<input type="checkbox" value="1" id="amir">
-									<span></span>
-								</label>
 							</div>
-						</div>*@
+
+						</div>
 					</div>
 				</div>
 			</div>
 
 
 			<div class="modal-footer">
-				<button data-bb-handler="ok" type="button" class="btn green" id="saveBtn" data-dismiss="modal" onclick="clearKayit()">Kaydet</button>
+				<button data-bb-handler="ok" type="button" class="btn green" id="saveBtn" data-dismiss="modal">Kaydet</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearKayit()">Vazgeç</button>
 			</div>
 		</div>
 	</div>
 </div>
+
 <div class="modal fade" id="guncelleKayit" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -179,68 +183,169 @@
 
 							<div class="form-body">
 								<div class="form-group">
+									<label>Araç Plaka:</label>
+									<input id="peditPlaka" class="form-control spinner" type="text" placeholder="Araç Plakası">
+									<input id="peditId" class="form-control spinner" type="hidden">
+
+								</div>
+								<div class="form-group">
 									<label>Marka Adı:</label>
 									<select class="form-control" id="dropMarkaEdit">
 										<option>Seçiniz</option>
 									</select>
 									<input id="peditId" class="form-control spinner" type="hidden">
 								</div>
-								
+
 								<div class="form-group">
 									<label>Model Adı:</label>
 									<select class="form-control" id="dropModelEdit">
 										<option>Seçiniz</option>
 									</select>
 								</div>
-								
-								@*<div class="form-group">
-									<label>Doğum Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
-									<input id="editdogumTarihi" class="form-control spinner" type="datetime">
-								</div>
+
 								<div class="form-group">
-									<label>Giriş Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
-									<input id="editgirisTarihi" class="form-control spinner" type="datetime">
-								</div>
-								<div class="form-group">
-									<label>Çıkış Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
-									<input id="editcikisTarihi" class="form-control spinner" type="datetime">
-								</div>
-								<div class="form-group">
-									<label>İzin Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
-									<input id="editizinTarihi" class="form-control spinner" type="datetime">
-								</div>*@
+
+									<label class="mt-checkbox">
+										Aktif
+										<input type="checkbox" value="true" id="editaktif">
+										<span></span>
+									</label>
+
+								</div>@*<br />
+									<h4>Araç Detay</h4><hr />
+									<div class="form-group">
+										<label>Alınış Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
+										<input id="editalinisTarihi" class="form-control spinner" type="datetime">
+									</div>
+									<div class="form-group">
+										<label>Bakım Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
+										<input id="editcikisTarihi" class="form-control spinner" type="datetime">
+									</div>
+									<div class="form-group">
+										<label>Muayene Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
+										<input id="editizinTarihi" class="form-control spinner" type="datetime">
+									</div>*@
 							</div>
-							
+
 						</div>
 					</div>
 				</div>
-
-
-
 			</div>
 			<div class="modal-footer">
 				<button data-bb-handler="ok" type="button" class="btn green" id="updateBtn" data-dismiss="modal">Güncelle</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearKayit()">Vazgeç</button>
 			</div>
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" id="detayKayit" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Yeni Detay</h4>
+			</div>
+			<div class="modal-body">
+				<div class="portlet light bordered">
+					<div class="portlet-title">
+						<div class="caption font-red-sunglo">
+							<i class="icon-settings font-red-sunglo"></i>
+							<span class="caption-subject bold uppercase"> Araç Detay Formu</span>
+						</div>
+					</div>
+					<div class="portlet-body form">
+						<div class="form-body">
+							<div class="form-group">
+								<label>Alınış Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
+								<input id="aracId" type="hidden"/>
+								<input id="alinisTarihi" class="form-control spinner" type="datetime" placeholder="Alınış Tarihi">
+							</div>
+							<div class="form-group">
+								<label>Bakım Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
+								<input id="bakimTarihi" class="form-control spinner" type="datetime" placeholder="Bakım Tarihi">
+							</div>
+							<div class="form-group">
+								<label>Muayene Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
+								<input id="muayeneTarihi" class="form-control spinner" type="datetime" placeholder="Muayene Tarihi">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="modal-footer">
+				<button data-bb-handler="ok" type="button" class="btn green" id="savedetayBtn" data-dismiss="modal">Ekle</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearKayit()">Vazgeç</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="detayGoruntule" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Detayları Görüntüle</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="portlet light bordered">
+					<div class="portlet-title">
+						<div class="caption font-red-sunglo">
+							<i class="icon-settings font-red-sunglo"></i>
+							<span class="caption-subject bold uppercase"> Araç Detay Tablosu</span>
+						</div>
+
+					</div>
+					<div class="portlet-body form">
+
+						<table class="table table-responsive table-condensed">
+							<thead>
+							<tr>
+								<th id="detail" class="control sorting_disabled"></th>
+								<th>Alınış Tarihi</th>
+								<th>Bakım Tarihi</th>
+								<th>Muayene Tarihi</th>
+							</tr>
+							</thead>
+							<tbody id="tableDetay"></tbody>
+						</table>
+
+					</div>
+				</div>
+			</div>
+
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearKayit()">Kapat</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <script>
 	getListe();
 
 	getDropDownMarka();
-	getDropDownModel();
+	getDropDownPersonel();
 
 	function clearKayit() {
-		$('#vAciklama').val('');
-		$('#baslamaDrop option')[0].selected = true;
-		$('#bitirmeDrop option')[0].selected = true;
+		$('#dropPersonel').empty();
+		$('#dropPersonelEdit').empty();
+		$('#dropMarka').empty();
+		$('#dropModel').empty();
+		$('#dropModelEdit').empty();
+		$('#dropMarkaEdit').empty();
 
 	}
 
 	function getListe() {
 		$.ajax({
-			url: "/Araclar/GetAracHtml",
+			url: "/Araclar/GetAraclarHtml",
+			datatype: 'json',
 			success: (data) => {
 				$("#tableBody").html(data);
 			}
@@ -269,33 +374,22 @@
 	}
 
 	function editDoldur(data) {
-		getDropDownMarkaEdit();
-		getDropDownModelEdit();
-		getDropDownPersonelEdit();
+		clearKayit();
+		getDropDownMarkaEdit(data.MarkaID, data.ModelID);
+		getDropDownModelEdit(data.ModelID);
+		getDropDownPersonelEdit(data.PersonelID);
+		$("#peditPlaka").val((data.AracPlaka));
 		$("#peditId").val((data.AracID));
-		$("#peditName").val((data.PersonelAd));
-		$("#peditLastName").val((data.PersonelSoyad));
-		$("#peditMaas").val((data.Maas));
-		$("#editalinisTarihi").val(dateConvert(data.AlinisTarihi));
-		$("#editbakimTarihi").val(dateConvert(data.BakimTarihi));
-		$("#editmuayeneTarihi").val(dateConvert(data.MuayeneTarihi));
-		//if (data.CalismaDurumu === false) {
-		//	$('#editcalisma').prop("checked", true);
-		//}
-		//$("#editcalisma").val((data.CalismaDurumu));
-		////$('#editamir').change(function () {
-		////	if ($(this).is(":checked")) {
-		////		$("#txtAge").show();
-		////	}
-		////	else {
-		////		$("#txtAge").hide();
-		////	}
-		////});
-		//$("#editamir").val((data.AmirMi));
+		if (data.AktifMi === true) {
+			$("#editaktif").prop('checked', true);
+			$("#editaktif").attr('checked', 'checked');
+			$("#editaktif").checked = checked;
+		}
+		$("#editaktif").prop("checked", false);
+
 	};
 
 	function getArac(id) {
-
 		$.ajax({
 			url: "/Araclar/Edit/" + id,
 			type: "GET",
@@ -308,45 +402,65 @@
 		});
 	};
 
+	function getAracDetay(id) {
+		$.ajax({
+			url: "/Araclar/DetayDokumHtml",
+			data: {aracId: id},
+			success: (data) => {
+				$("#tableDetay").html(data);
+			}
+		});
+	};
+
 	$("#saveBtn").click(() => {
-			$.ajax({
-				url: "/Araclar/Create",
-				type: "POST",
-				data: {
-				PersonelID: $("#dropPersonel").val(),
+
+		$.ajax({
+			url: "/Araclar/Create",
+			type: "POST",
+			data: {
+				AracPlaka: $("#pPlaka").val(),
 				MarkaID: $("#dropMarka").val(),
 				ModelID: $("#dropModel").val(),
-				//AlinisTarihi: $("#dogumTarihi").val(),
-				//BakimTarihi: $("#girisTarihi").val(),
-				//MuayeneTarihi: $("#cikisTarihi").val(),
+				AktifMi: $("#aktif:checked").val()
 			},
 			success: () => {
 				getListe();
 			}
 		});
 	});
+	
+	$('#detayKayit').on('show.bs.modal', function (e) {
+		var id = $(e.relatedTarget).data('book-id');
+		$(e.currentTarget).find('input[id="aracId"]').val(id);
+	});
+
+	$("#savedetayBtn").click(() => {
+		$.ajax({
+			url: "/Araclar/DetayCreate",
+			type: "POST",
+			data: {
+				AracID: $("#aracId").val(),
+				AlinisTarihi: $("#alinisTarihi").val(),
+				BakimTarihi: $("#bakimTarihi").val(),
+				MuayeneTarihi: $("#muayeneTarihi").val()
+			},
+			success: () => {
+				getListe();
+			}
+		});
+	});
+
 	$("#updateBtn").click((id, data) => {
 
 		$.ajax({
 			url: "/Araclar/Edit/" + id + data,
 			type: "POST",
 			data: {
+				AracID: $('#peditId').val(),
 				PersonelID: $("#dropPersonel").val(),
 				MarkaID: $("#dropMarka").val(),
 				ModelID: $("#dropModel").val(),
-				//PersonelID: $("#peditId").val(),
-				//PersonelAd: $("#peditName").val(),
-				//PersonelSoyAd: $("#peditLastName").val(),
-				//UnvanID: $("#dropUnvanEdit").val(),
-				//EgitimID: $("#dropEgitimEdit").val(),
-				//VardiyaID: $("#dropVardiyaEdit").val(),
-				//Maas: $("#editMaas").val(),
-				//DogumTarihi: $("#editdogumTarihi").val(),
-				//GirisTarihi: $("#editgirisTarihi").val(),
-				//CikisTarihi: $("#editcikisTarihi").val(),
-				//izinTarihi: $("#editizinTarihi").val(),
-				//CalismaDurumu: $("#editcalisma").val(),
-				//AmirMi: $("#editamir").val()
+				AktifMi: $('#editaktif:checked').val()
 			},
 			success: () => {
 				getListe();
@@ -365,7 +479,6 @@
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: function (data) {
-				console.log(data);
 				$.each((data),
 					function () {
 						myDropDownList.append($('<option></option>').val(this['MarkaID']).html(this['MarkaAd']));
@@ -377,36 +490,45 @@
 		});
 	};
 
-	function getDropDownMarkaEdit() {
+	function getDropDownMarkaEdit(id, id2) {
 		var myDropDownList = $('#dropMarkaEdit');
-
+		myDropDownList.empty();
 		$.ajax({
 			type: "GET",
 			url: "/Marka/forDropDown",
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: function (data) {
-				$.each((data), function () {
-					myDropDownList.append($('<option></option>').val(this['MarkaID']).html(this['MarkaAd']));
-				});
+				$.each((data),
+					function () {
+						if (id == this.MarkaID) {
+							myDropDownList.append($('<option selected="selected"></option>').val(this['MarkaID']).html(this['MarkaAd']).attr('selected', 'selected'));
+						}
+						myDropDownList.append($('<option></option>').val(this['MarkaID']).html(this['MarkaAd']));
+					});
+				getDropDownModelEdit(this.MarkaID, id2);
 			},
 			failure: function (response) {
 				alert(response.d);
 			}
+
 		});
 	}
 
-	function getDropDownModelEdit() {
-		var myDropDownList = $('#dropModelEdit');
+	function getDropDownModelEdit(id, id2) {
+		var myDropDownList = $('#dropModelEdit').empty();
 
 		$.ajax({
 			type: "GET",
-			url: "/Model/forDropDown",
+			url: "/Model/forDropDown?markaId=" + id,
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: function (data) {
 				$.each((data),
 					function () {
+						if (id2 == this.ModelID) {
+							myDropDownList.append($('<option selected="selected"></option>').val(this['ModelID']).html(this['ModelAd']).attr('selected', 'selected'));
+						}
 						myDropDownList.append($('<option></option>').val(this['ModelID']).html(this['ModelAd']));
 					});
 			},
@@ -416,12 +538,18 @@
 		});
 	};
 
-	function getDropDownModel() {
+	$('#dropMarka').on('change', function () {
+		$('#dropModel').empty();
+		var markaId = $(this).val();
+		getDropDownModel(markaId);
+	});
+
+	function getDropDownModel(id) {
 		var myDropDownList = $('#dropModel');
 
 		$.ajax({
 			type: "GET",
-			url: "/Model/forDropDown",
+			url: "/Model/forDropDown?markaID=" + id,
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: function (data) {
@@ -445,10 +573,10 @@
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: function (data) {
-				console.log(data);
 				$.each((data),
 					function () {
-						myDropDownList.append($('<option></option>').val(this['PersonelID']).html(this['Personel Ad','PersonelSoyad']));
+						var adsoyad = this.PersonelAd + " " + this.PersonelSoyad;
+						myDropDownList.append($('<option></option>').val(this['PersonelID']).html(adsoyad));
 					});
 			},
 			failure: function (response) {
@@ -456,7 +584,8 @@
 			}
 		});
 	};
-	function getDropDownPersonelEdit() {
+
+	function getDropDownPersonelEdit(id) {
 		var myDropDownList = $('#dropPersonelEdit');
 
 		$.ajax({
@@ -465,10 +594,13 @@
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: function (data) {
-				console.log(data);
 				$.each((data),
 					function () {
-						myDropDownList.append($('<option></option>').val(this['PersonelID']).html(this['Personel Ad', 'PersonelSoyad']));
+						var adsoyad = this.PersonelAd + " " + this.PersonelSoyad;
+						if (id == this.PersonelID) {
+							myDropDownList.append($('<option selected="selected"></option>').val(this['PersonelID']).html(adsoyad).attr('selected', 'selected'));
+						}
+						myDropDownList.append($('<option></option>').val(this['PersonelID']).html(adsoyad));
 					});
 			},
 			failure: function (response) {

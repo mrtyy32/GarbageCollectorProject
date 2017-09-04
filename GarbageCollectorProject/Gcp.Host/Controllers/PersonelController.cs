@@ -1,13 +1,11 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Gcp.Host.Entity;
+using Gcp.Host.Data;
 using Gcp.Host.Models;
-using Microsoft.Ajax.Utilities;
 
 namespace Gcp.Host.Controllers
 {
@@ -18,7 +16,9 @@ namespace Gcp.Host.Controllers
         {
 			var personels = db.Personel.Include(i=> i.Vardiya).Where(i=> i.VardiyaID == i.Vardiya.VardiyaID)
 				.Include(i=> i.Egitim).Where(i=> i.EgitimID == i.Egitim.EgitimID)
-				.Include(i=> i.Unvanlar).Where(i=> i.UnvanID == i.Unvanlar.UnvanID).ToList();
+				.Include(i=> i.Unvanlar).Where(i=> i.UnvanID == i.Unvanlar.UnvanID)
+				.Include(i=> i.Amir).Where(i => i.AmirID == i.Amir.AmirID)
+				.Include(i=> i.Araclar).Where(x=> x.AracID == x.Araclar.AracID).ToList();
 	        return personels;
 
         }
@@ -82,20 +82,20 @@ namespace Gcp.Host.Controllers
 
             db.Personel.Add(personel);
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateException)
-            {
-                if (PersonelExists(personel.PersonelID))
-                {
-                    return Conflict();
-                }
-                throw;
-            }
+			try
+			{
+				db.SaveChanges();
+			}
+			catch (DbUpdateException)
+			{
+				if (PersonelExists(personel.PersonelID))
+				{
+					return Conflict();
+				}
+				throw;
+			}
 
-            return CreatedAtRoute("DefaultApi", new { id = personel.PersonelID }, personel);
+			return CreatedAtRoute("DefaultApi", new { id = personel.PersonelID }, personel);
         }
 
         // DELETE: api/Personel/5
@@ -118,5 +118,15 @@ namespace Gcp.Host.Controllers
         {
             return db.Personel.Count(e => e.PersonelID == id) > 0;
         }
-    }
+
+	    [Route("api/Personel/amirDropDown")]
+	    [HttpGet]
+	    [ResponseType(typeof(Personel))]
+	    public IHttpActionResult amirDropDown()
+	    {
+		    var amir = db.Personel.Where(x => x.AmirMi == true);
+			if (amir != null) return Ok(amir);
+			return NotFound();
+		}
+	}
 }

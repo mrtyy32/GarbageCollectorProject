@@ -10,6 +10,14 @@
         <td class="sorting_1">@p.PersonelAd</td>
         <td>@p.PersonelSoyad</td>
         <td>@p.Unvanlar.UnvanAd</td>
+	    <td style="display: none;">
+		    @if(@p.Araclar.AracPlaka != null){
+				@p.Araclar.AracPlaka
+		    }
+		    @if(@p.Araclar.AracPlaka == null){
+		    <label>Araç Yok</label>
+			}			
+	    </td>
         <td style="display: none;">@p.GirisTarihi</td>
         <td style="display: none;">@p.DogumTarihi</td>
         <td style="display: none;">@p.Vardiya.VardiyaAd</td>
@@ -25,5 +33,4 @@
         </td>
     </tr>
 }
-<script src="~/Scripts/personelApp.js"></script>
 

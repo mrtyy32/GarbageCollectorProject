@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Web.Mvc;
 
 namespace Gcp.Web.Models
 {
@@ -7,8 +6,7 @@ namespace Gcp.Web.Models
     {
         public int UnvanID { get; set; }
         public string UnvanAd { get; set; }
-        //public List<SelectListItem> ListUnvan { get; set; }
-        public IEnumerable<Personel> Personel { get; set; }
+        public List<Personel> Personel { get; set; }
 
     }
 }

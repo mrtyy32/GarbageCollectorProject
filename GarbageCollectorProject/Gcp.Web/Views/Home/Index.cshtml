@@ -12,7 +12,7 @@
 		<div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
 			<h4 class="widget-thumb-heading">Aylık Personel Gideri</h4>
 			<div class="widget-thumb-wrap">
-				<i class="widget-thumb-icon bg-green icon-diamond"></i>
+				<i class="widget-thumb-icon bg-green fa fa-money"></i>
 				<div class="widget-thumb-body">
 					<span class="widget-thumb-subtitle">TL</span>
 					<span id="countaylik" class="widget-thumb-body-stat" data-counter="counterup"></span>
@@ -42,8 +42,8 @@
 			<div class="widget-thumb-wrap">
 				<i class="widget-thumb-icon bg-purple icon-screen-desktop"></i>
 				<div class="widget-thumb-body">
-					<span class="widget-thumb-subtitle">USD</span>
-					<span class="widget-thumb-body-stat" data-counter="counterup" data-value="815">815</span>
+					<span class="widget-thumb-subtitle">Araç</span>
+					<span id="countarac" class="widget-thumb-body-stat" data-counter="counterup"></span>
 				</div>
 			</div>
 		</div>
@@ -56,8 +56,8 @@
 			<div class="widget-thumb-wrap">
 				<i class="widget-thumb-icon bg-blue icon-bar-chart"></i>
 				<div class="widget-thumb-body">
-					<span class="widget-thumb-subtitle">USD</span>
-					<span class="widget-thumb-body-stat" data-counter="counterup" data-value="5,071">5,071</span>
+					<span class="widget-thumb-subtitle">Firma</span>
+					<span id="countfirma" class="widget-thumb-body-stat" data-counter="counterup"></span>
 				</div>
 			</div>
 		</div>
@@ -67,6 +67,8 @@
 <script>
 	personelCount();
 	giderCount();
+	firmaCount();
+	aracCount();
 	function personelCount() {
 		$.ajax({
 			url: "/Personel/Count",
@@ -83,6 +85,26 @@
 			url: "/Personel/aylikGider",
 			success: (data) => {
 				$('#countaylik').attr("data-value", data);
+				return data;
+			}
+		});
+
+	};
+	function firmaCount() {
+		$.ajax({
+			url: "/Kurumlar/Count",
+			success: (data) => {
+				$('#countfirma').attr("data-value", data);
+				return data;
+			}
+		});
+
+	};
+	function aracCount() {
+		$.ajax({
+			url: "/Araclar/Count",
+			success: (data) => {
+				$('#countarac').attr("data-value", data);
 				return data;
 			}
 		});

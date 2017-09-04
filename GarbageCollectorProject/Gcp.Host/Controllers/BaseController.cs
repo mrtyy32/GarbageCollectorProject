@@ -1,5 +1,5 @@
 ﻿using System.Web.Http;
-using Gcp.Host.Entity;
+using Gcp.Host.Data;
 
 namespace Gcp.Host.Controllers
 {

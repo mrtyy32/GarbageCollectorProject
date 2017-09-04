@@ -16,9 +16,14 @@
 	<link href="../assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
 	<link href="../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
 }
+@section veriMenu{
+	<span class="selected"></span>
+}
+@section activeveri{
+	active open
+}
 @section personelMenu{
 	<span class="selected"></span>
-	<span class="arrow open"></span>
 }
 @section activepersonel{
 	active open
@@ -56,6 +61,7 @@
 									<th class="all sorting_asc">Ad</th>
 									<th class="min-phone-l sorting">Soyad</th>
 									<th class="min-tablet sorting">Pozisyon</th>
+									<th class="min-tablet sorting">Araç</th>
 									<th class="none sorting">Giriş Tarihi : </th>
 									<th class="none sorting">Doğum Tarihi : </th>
 									<th class="none sorting">Vardiya : </th>
@@ -130,6 +136,18 @@
 								</select>
 							</div>
 							<div class="form-group">
+								<label>Araç</label>
+								<select class="form-control" id="dropArac">
+									<option>Seçiniz</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Amir</label><small><i class="pull-right">Amir değilse seçiniz</i></small>
+								<select class="form-control" id="dropAmir">
+									<option>Seçiniz</option>
+								</select>
+							</div>
+							<div class="form-group">
 								<label>Doğum Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
 								<input id="dogumTarihi" class="form-control spinner" type="datetime" placeholder="Doğum Tarihi">
 							</div>
@@ -150,13 +168,13 @@
 
 							<div class="mt-checkbox-list">
 								<label class="mt-checkbox">
-									Çalışmıyor
-									<input type="checkbox" value="0" id="calisma">
+									Çalışıyor
+									<input type="checkbox" value="true" id="calisma">
 									<span></span>
 								</label>
 								<label class="mt-checkbox">
 									Amir
-									<input type="checkbox" value="1" id="amir">
+									<input type="checkbox" value="true" id="amir">
 									<span></span>
 								</label>
 							</div>
@@ -167,12 +185,13 @@
 
 
 			<div class="modal-footer">
-				<button data-bb-handler="ok" type="button" class="btn green" id="saveBtn" data-dismiss="modal" onclick="clearKayit()">Kaydet</button>
+				<button data-bb-handler="ok" type="button" class="btn green" id="saveBtn" data-dismiss="modal">Kaydet</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearKayit()">Vazgeç</button>
 			</div>
 		</div>
 	</div>
 </div>
+
 <div class="modal fade" id="guncelleKayit" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -224,6 +243,12 @@
 									</select>
 								</div>
 								<div class="form-group">
+									<label>Amir</label>
+									<select class="form-control" id="dropAmirEdit">
+										<option>Seçiniz</option>
+									</select>
+								</div>
+								<div class="form-group">
 									<label>Doğum Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
 									<input id="editdogumTarihi" class="form-control spinner" type="datetime">
 								</div>
@@ -244,13 +269,13 @@
 
 								<div class="mt-checkbox-list">
 									<label class="mt-checkbox">
-										Çalışmıyor
-										<input type="checkbox" value="0" id="editcalisma" name="editcalisma">
+										Çalışıyor
+										<input type="checkbox" id="editcalisma" name="editcalisma">
 										<span></span>
 									</label>
 									<label class="mt-checkbox">
 										Amir
-										<input type="checkbox" value="1" id="editamir" name="editamir">
+										<input type="checkbox" id="editamir" name="editamir">
 										<span></span>
 									</label>
 								</div>
@@ -264,7 +289,7 @@
 			</div>
 			<div class="modal-footer">
 				<button data-bb-handler="ok" type="button" class="btn green" id="updateBtn" data-dismiss="modal">Güncelle</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Vazgeç</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearKayit()">Vazgeç</button>
 			</div>
 		</div>
 	</div>
@@ -275,7 +300,9 @@
 		getDropDownVardiya();
 		getDropDownEgitim();
 		getDropDownUnvan();
-		
+		getDropDownArac();
+		getDropDownAmir();
+
 	function clearKayit() {
 		$('#vAciklama').val('');
 		$('#baslamaDrop option')[0].selected = true;
@@ -294,6 +321,8 @@
 
 	function deletePersonel() {
 		var id = $(this)[0].getAttribute('data-id');
+		var table = $('#sample_2');
+		var oTable = table.dataTable();
 		$.ajax({
 			url: "/Personel/Delete/" + id,
 			type: "POST",
@@ -301,6 +330,7 @@
 				getListe();
 			}
 		});
+		dataTable.reload();
 	};
 
 	function dateConvert(dateJ) {
@@ -314,30 +344,32 @@
 	}
 
 	function editDoldur(data) {
-		getDropDownUnvanEdit();
-		getDropDownEgitimEdit();
-		getDropDownVardiyaEdit();
+
 		$("#peditId").val((data.PersonelID));
 		$("#peditName").val((data.PersonelAd));
 		$("#peditLastName").val((data.PersonelSoyad));
 		$("#peditMaas").val((data.Maas));
 		$("#editdogumTarihi").val(dateConvert(data.DogumTarihi));
 		$("#editgirisTarihi").val(dateConvert(data.GirisTarihi));
-		$("#editcikisTarihi").val(dateConvert(data.CikisTarihi));
-		$("#editizinTarihi").val(dateConvert(data.izinTarihi));
-		//if (data.CalismaDurumu === false) {
-		//	$('#editcalisma').prop("checked", true);
-		//}
-		//$("#editcalisma").val((data.CalismaDurumu));
-		////$('#editamir').change(function () {
-		////	if ($(this).is(":checked")) {
-		////		$("#txtAge").show();
-		////	}
-		////	else {
-		////		$("#txtAge").hide();
-		////	}
-		////});
-		//$("#editamir").val((data.AmirMi));
+		if (data.CikisTarihi != null) {
+			$("#editcikisTarihi").val(dateConvert(data.CikisTarihi));
+		}
+		if (data.izinTarihi != null) {
+			$("#editizinTarihi").val(dateConvert(data.izinTarihi));
+		}
+		if (data.CalismaDrumu === true) {
+			$("#editcalisma").prop('checked', true);
+			$("#editcalisma").attr('checked', 'checked');
+			$("#editcalisma").checked = checked;
+		}
+		$("#editcalisma").prop("checked", false);
+		if (data.AmirMi === true) {
+			$("#editamir").prop('checked', true);
+			$("#editamir").attr('checked', 'checked');
+			$("#editamir").checked = checked;
+		}
+		$("#editamir").prop("checked", false);
+
 	};
 
 	function getPersonel(id) {
@@ -350,6 +382,10 @@
 			dataType: "json",
 			success: (data) => {
 				editDoldur(data);
+				getDropDownUnvanEdit(data.UnvanID);
+				getDropDownEgitimEdit(data.EgitimID);
+				getDropDownVardiyaEdit(data.VardiyaID);
+				getDropDownAmirEdit(data.AmirID);
 			}
 		});
 	};
@@ -364,19 +400,22 @@
 				UnvanID: $("#dropUnvan").val(),
 				EgitimID: $("#dropEgitim").val(),
 				VardiyaID: $("#dropVardiya").val(),
+				AracID: $("#dropArac").val(),
+				AmirID: $("#dropAmir").val(),
 				Maas: $("#pMaas").val(),
 				DogumTarihi: $("#dogumTarihi").val(),
 				GirisTarihi: $("#girisTarihi").val(),
 				CikisTarihi: $("#cikisTarihi").val(),
 				izinTarihi: $("#izinTarihi").val(),
-				CalismaDurumu: $("#calisma").val(),
-				AmirMi: $("#amir").val()
+				CalismaDurumu: $("#calisma:checked").val(),
+				AmirMi: $("#amir:checked").val()
 			},
 			success: () => {
 				getListe();
 			}
 		});
 	});
+
 	$("#updateBtn").click((id, data) => {
 
 		$.ajax({
@@ -389,13 +428,15 @@
 				UnvanID: $("#dropUnvanEdit").val(),
 				EgitimID: $("#dropEgitimEdit").val(),
 				VardiyaID: $("#dropVardiyaEdit").val(),
+				AracID: $("#dropArac").val(),
+				AmirID: $("#dropAmir").val(),
 				Maas: $("#editMaas").val(),
 				DogumTarihi: $("#editdogumTarihi").val(),
 				GirisTarihi: $("#editgirisTarihi").val(),
 				CikisTarihi: $("#editcikisTarihi").val(),
 				izinTarihi: $("#editizinTarihi").val(),
 				CalismaDurumu: $("#editcalisma").val(),
-				AmirMi: $("#editamir").val()
+				AmirMi: $("#amir:checked").val()
 			},
 			success: () => {
 				getListe();
@@ -404,6 +445,51 @@
 	});
 
 	//Dropdowns
+	function getDropDownAmir() {
+		var myDropDownList = $('#dropAmir');
+
+		$.ajax({
+			type: "GET",
+			url: "/Personel/amirDropDown",
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success: function (data) {
+				$.each((data),
+					function () {
+						var adsoyad = this.PersonelAd + " " + this.PersonelSoyad;
+						myDropDownList.append($('<option></option>').val(this['PersonelID']).html(adsoyad));
+					});
+			},
+			failure: function (response) {
+				alert(response.d);
+			}
+		});
+	};
+
+	function getDropDownAmirEdit(id) {
+		var myDropDownList = $('#dropAmirEdit');
+
+		$.ajax({
+			type: "GET",
+			url: "/Personel/amirDropDown",
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success: function (data) {
+				$.each((data),
+					function () {
+						var adsoyad = this.PersonelAd + " " + this.PersonelSoyad;
+						if (id == this.PersonelID) {
+							console.log(id);
+							myDropDownList.append($('<option selected="selected"></option>').val(this['PersonelID']).html(adsoyad).attr('selected', 'selected'));
+						}
+						myDropDownList.append($('<option></option>').val(this['PersonelID']).html(adsoyad));
+					});
+			},
+			failure: function (response) {
+				alert(response.d);
+			}
+		});
+	};
 
 	function getDropDownUnvan() {
 		var myDropDownList = $('#dropUnvan');
@@ -414,7 +500,6 @@
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: function (data) {
-				console.log(data);
 				$.each((data),
 					function () {
 						myDropDownList.append($('<option></option>').val(this['UnvanID']).html(this['UnvanAd']));
@@ -426,8 +511,9 @@
 		});
 	};
 
-	function getDropDownUnvanEdit() {
+	function getDropDownUnvanEdit(id) {
 		var myDropDownList = $('#dropUnvanEdit');
+		$('#dropUnvanEdit').empty();
 
 		$.ajax({
 			type: "GET",
@@ -435,9 +521,14 @@
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",
 			success: function (data) {
-				$.each((data), function () {
-					myDropDownList.append($('<option></option>').val(this['UnvanID']).html(this['UnvanAd']));
-				});
+				$.each((data),
+					function () {
+						if (id == this.UnvanID) {
+							console.log(id);
+							myDropDownList.append($('<option selected="selected"></option>').val(this['UnvanID']).html(this['UnvanAd']).attr('selected', 'selected'));
+						}
+						myDropDownList.append($('<option></option>').val(this['UnvanID']).html(this['UnvanAd']));
+					});
 			},
 			failure: function (response) {
 				alert(response.d);
@@ -445,8 +536,9 @@
 		});
 	}
 
-	function getDropDownEgitimEdit() {
+	function getDropDownEgitimEdit(id) {
 		var myDropDownList = $('#dropEgitimEdit');
+		$('#dropEgitimEdit').empty();
 
 		$.ajax({
 			type: "GET",
@@ -456,6 +548,9 @@
 			success: function (data) {
 				$.each((data),
 					function () {
+						if (id == this.EgitimID) {
+							myDropDownList.append($('<option selected="selected"></option>').val(this['EgitimID']).html(this['EgitimAd']).attr('selected', 'selected'));
+						}
 						myDropDownList.append($('<option></option>').val(this['EgitimID']).html(this['EgitimAd']));
 					});
 			},
@@ -486,6 +581,27 @@
 		});
 	};
 
+	function getDropDownArac() {
+		var myDropDownList = $('#dropArac');
+
+		$.ajax({
+			type: "GET",
+			url: "/Araclar/forDropDown",
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+			success: function (data) {
+				console.log(data);
+				$.each((data),
+					function () {
+						myDropDownList.append($('<option></option>').val(this['AracID']).html(this['AracPlaka']));
+					});
+			},
+			failure: function (response) {
+				alert(response.d);
+			}
+		});
+	};
+
 	function getDropDownVardiya() {
 		var myDropDownList = $('#dropVardiya');
 
@@ -506,8 +622,10 @@
 			}
 		});
 	};
-	function getDropDownVardiyaEdit() {
+
+	function getDropDownVardiyaEdit(id) {
 		var myDropDownList = $('#dropVardiyaEdit');
+		$('#dropVardiyaEdit').empty();
 
 		$.ajax({
 			type: "GET",
@@ -518,6 +636,9 @@
 				console.log(data);
 				$.each((data),
 					function () {
+						if (id == this.VardiyaID) {
+							myDropDownList.append($('<option selected="selected"></option>').val(this['VardiyaID']).html(this['VardiyaAd']).attr('selected', 'selected'));
+						}
 						myDropDownList.append($('<option></option>').val(this['VardiyaID']).html(this['VardiyaAd']));
 					});
 			},

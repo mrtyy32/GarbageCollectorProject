@@ -7,7 +7,6 @@ namespace Gcp.Web.Models
         public int MarkaID { get; set; }
         public string MarkaAd { get; set; }
 
-        public IEnumerable<Araclar> Araclar { get; set; }
-        public IEnumerable<Model> Model { get; set; }
+        public List<Model> Model { get; set; }
     }
 }
