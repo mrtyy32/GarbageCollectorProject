@@ -9,8 +9,8 @@ namespace Gcp.Web.Models
     {
         public int EgitimID { get; set; }
         public string EgitimAd { get; set; }
+		//public int Deger { get; set; }
 
-
-        public List<Personel> Personel { get; set; }
+		public List<Personel> Personel { get; set; }
     }
 }

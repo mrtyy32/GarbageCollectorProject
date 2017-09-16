@@ -49,18 +49,18 @@ var Datatable = function() {
                         "metronicAjaxRequestGeneralError": "Could not complete request. Please check your internet connection",
 
                         // data tables spesific
-                        "lengthMenu": "<span class='seperator'>|</span>View _MENU_ records",
-                        "info": "<span class='seperator'>|</span>Found total _TOTAL_ records",
-                        "infoEmpty": "No records found to show",
-                        "emptyTable": "No data available in table",
-                        "zeroRecords": "No matching records found",
+                        "lengthMenu": "<span class='seperator'>|</span>View _MENU_ kayýt",
+                        "info": "<span class='seperator'>|</span>Found total _TOTAL_ kayýt",
+                        "infoEmpty": "Gösterilecek kayýt bulunamadý.",
+                        "emptyTable": "Tabloda herhangi bir veri yok.",
+                        "zeroRecords": "Sonuç bulunamadý.",
                         "paginate": {
-                            "previous": "Prev",
-                            "next": "Next",
-                            "last": "Last",
-                            "first": "First",
-                            "page": "Page",
-                            "pageOf": "of"
+                            "previous": "Geri",
+                            "next": "Ýleri",
+                            "last": "Son",
+                            "first": "Ýlk",
+                            "page": "Sayfa",
+                            "pageOf": "Sayfadan"
                         }
                     },
 

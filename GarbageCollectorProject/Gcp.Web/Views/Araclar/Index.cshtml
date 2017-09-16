@@ -3,18 +3,19 @@
 	Layout = "~/Views/Shared/_panelLayout.cshtml";
 }
 @section pagescript{
-
-	<script src="../assets/global/scripts/datatable.js" type="text/javascript"></script>
-	<script src="../assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
-	<script src="../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
-	<script src="../assets/pages/scripts/table-datatables-responsive.js" type="text/javascript"></script>
-	<script src="../assets/pages/scripts/ui-confirmations.js" type="text/javascript"></script>
-	<script src="../assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.js" type="text/javascript"></script>
+	<script src="../Scripts/araclarJS.js?=@DateTime.Now" charset="utf-8"></script>
+	<script src="../assets/global/scripts/datatable.js?=@DateTime.Now" type="text/javascript"></script>
+	<script src="../assets/global/plugins/datatables/datatables.min.js?=@DateTime.Now" type="text/javascript"></script>
+	<script src="../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js?=@DateTime.Now" type="text/javascript"></script>
+	<script src="../assets/pages/scripts/table-datatables-responsive.js?=@DateTime.Now" type="text/javascript"></script>
+	<script src="../assets/pages/scripts/ui-confirmations.js?=@DateTime.Now" type="text/javascript"></script>
+	<script src="../assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.js?=@DateTime.Now" type="text/javascript"></script>
+	<script src="../assets/global/plugins/bootstrap-toastr/toastr.js" type="text/javascript" charset="utf-8"></script>
 }
 @section pagestyle{
-
-	<link href="../assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
-	<link href="../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+	<link href="../assets/global/plugins/datatables/datatables.min.css?=@DateTime.Now" rel="stylesheet" type="text/css" />
+	<link href="../assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css?=@DateTime.Now" rel="stylesheet" type="text/css" />
 }
 @section aracMenu{
 	<span class="selected"></span>
@@ -60,16 +61,13 @@
 							<thead>
 								<tr role="row">
 									<th id="detail" class="control sorting_disabled"></th>
-									<th class="all sorting_asc">Marka</th>
-									<th>Model</th>
+									<th class="desktop sorting_asc">Marka</th>
+									<th class="desktop">Model</th>
 									<th class="min-phone-l sorting">Plaka</th>
-									<th class="min-tablet sorting">Personel</th>
-									<th class="none sorting">Alınış Tarihi : </th>
-									<th class="none sorting">Bakım Tarihi : </th>
-									<th class="none sorting">Muayene Tarihi : </th>
-									@*<th class="none sorting"></th>*@
-									@*<th class="desktop sorting">Maaş</th>
-										<th class="none sorting">Eğitim : </th>*@
+									<th class="desktop">Personel</th>
+									<th class="none">Alınış Tarihi : </th>
+									<th class="none">Bakım Tarihi : </th>
+									<th class="none">Muayene Tarihi : </th>
 									<th class="col-md-1">İşlemler</th>
 
 								</tr>
@@ -211,20 +209,8 @@
 										<span></span>
 									</label>
 
-								</div>@*<br />
-									<h4>Araç Detay</h4><hr />
-									<div class="form-group">
-										<label>Alınış Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
-										<input id="editalinisTarihi" class="form-control spinner" type="datetime">
-									</div>
-									<div class="form-group">
-										<label>Bakım Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
-										<input id="editcikisTarihi" class="form-control spinner" type="datetime">
-									</div>
-									<div class="form-group">
-										<label>Muayene Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
-										<input id="editizinTarihi" class="form-control spinner" type="datetime">
-									</div>*@
+								</div>
+
 							</div>
 
 						</div>
@@ -258,7 +244,7 @@
 						<div class="form-body">
 							<div class="form-group">
 								<label>Alınış Tarihi:</label><small><i class="pull-right">(Örn: 01.01.1990 & 01/01/1990)</i></small>
-								<input id="aracId" type="hidden"/>
+								<input id="aracId" type="hidden" />
 								<input id="alinisTarihi" class="form-control spinner" type="datetime" placeholder="Alınış Tarihi">
 							</div>
 							<div class="form-group">
@@ -304,12 +290,12 @@
 
 						<table class="table table-responsive table-condensed">
 							<thead>
-							<tr>
-								<th id="detail" class="control sorting_disabled"></th>
-								<th>Alınış Tarihi</th>
-								<th>Bakım Tarihi</th>
-								<th>Muayene Tarihi</th>
-							</tr>
+								<tr>
+									<th id="detail" class="control sorting_disabled"></th>
+									<th>Alınış Tarihi</th>
+									<th>Bakım Tarihi</th>
+									<th>Muayene Tarihi</th>
+								</tr>
 							</thead>
 							<tbody id="tableDetay"></tbody>
 						</table>
@@ -325,288 +311,45 @@
 		</div>
 	</div>
 </div>
+<div class="modal fade" id="gecmisGoruntule" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Araç Geçmişi Görüntüle</h4>
+			</div>
+			<div class="modal-body">
 
-<script>
-	getListe();
+				<div class="portlet light bordered">
+					<div class="portlet-title">
+						<div class="caption font-red-sunglo">
+							<i class="icon-settings font-red-sunglo"></i>
+							<span class="caption-subject bold uppercase"> Araç Geçmiş Tablosu</span>
+						</div>
 
-	getDropDownMarka();
-	getDropDownPersonel();
+					</div>
+					<div class="portlet-body form">
 
-	function clearKayit() {
-		$('#dropPersonel').empty();
-		$('#dropPersonelEdit').empty();
-		$('#dropMarka').empty();
-		$('#dropModel').empty();
-		$('#dropModelEdit').empty();
-		$('#dropMarkaEdit').empty();
+						<table class="table table-responsive table-condensed">
+							<thead>
+								<tr>
+									<th>Teslim Tarihi</th>
+									<th>Plaka</th>
+									<th>Personel</th>
+									<th>Vardiya</th>
+								</tr>
+							</thead>
+							<tbody id="tableGecmis"></tbody>
+						</table>
 
-	}
+					</div>
+				</div>
+			</div>
 
-	function getListe() {
-		$.ajax({
-			url: "/Araclar/GetAraclarHtml",
-			datatype: 'json',
-			success: (data) => {
-				$("#tableBody").html(data);
-			}
-		});
-	};
 
-	function deleteArac() {
-		var id = $(this)[0].getAttribute('data-id');
-		$.ajax({
-			url: "/Araclar/Delete/" + id,
-			type: "POST",
-			success: () => {
-				getListe();
-			}
-		});
-	};
-
-	function dateConvert(dateJ) {
-		var dateString = dateJ.substr(6);
-		var currentTime = new Date(parseInt(dateString));
-		var month = currentTime.getMonth() + 1;
-		var day = currentTime.getDate();
-		var year = currentTime.getFullYear();
-		var date = day + "/" + month + "/" + year;
-		return date;
-	}
-
-	function editDoldur(data) {
-		clearKayit();
-		getDropDownMarkaEdit(data.MarkaID, data.ModelID);
-		getDropDownModelEdit(data.ModelID);
-		getDropDownPersonelEdit(data.PersonelID);
-		$("#peditPlaka").val((data.AracPlaka));
-		$("#peditId").val((data.AracID));
-		if (data.AktifMi === true) {
-			$("#editaktif").prop('checked', true);
-			$("#editaktif").attr('checked', 'checked');
-			$("#editaktif").checked = checked;
-		}
-		$("#editaktif").prop("checked", false);
-
-	};
-
-	function getArac(id) {
-		$.ajax({
-			url: "/Araclar/Edit/" + id,
-			type: "GET",
-			data: { id: id },
-			contentType: "application/json; charset=utf-8",
-			dataType: "json",
-			success: (data) => {
-				editDoldur(data);
-			}
-		});
-	};
-
-	function getAracDetay(id) {
-		$.ajax({
-			url: "/Araclar/DetayDokumHtml",
-			data: {aracId: id},
-			success: (data) => {
-				$("#tableDetay").html(data);
-			}
-		});
-	};
-
-	$("#saveBtn").click(() => {
-
-		$.ajax({
-			url: "/Araclar/Create",
-			type: "POST",
-			data: {
-				AracPlaka: $("#pPlaka").val(),
-				MarkaID: $("#dropMarka").val(),
-				ModelID: $("#dropModel").val(),
-				AktifMi: $("#aktif:checked").val()
-			},
-			success: () => {
-				getListe();
-			}
-		});
-	});
-	
-	$('#detayKayit').on('show.bs.modal', function (e) {
-		var id = $(e.relatedTarget).data('book-id');
-		$(e.currentTarget).find('input[id="aracId"]').val(id);
-	});
-
-	$("#savedetayBtn").click(() => {
-		$.ajax({
-			url: "/Araclar/DetayCreate",
-			type: "POST",
-			data: {
-				AracID: $("#aracId").val(),
-				AlinisTarihi: $("#alinisTarihi").val(),
-				BakimTarihi: $("#bakimTarihi").val(),
-				MuayeneTarihi: $("#muayeneTarihi").val()
-			},
-			success: () => {
-				getListe();
-			}
-		});
-	});
-
-	$("#updateBtn").click((id, data) => {
-
-		$.ajax({
-			url: "/Araclar/Edit/" + id + data,
-			type: "POST",
-			data: {
-				AracID: $('#peditId').val(),
-				PersonelID: $("#dropPersonel").val(),
-				MarkaID: $("#dropMarka").val(),
-				ModelID: $("#dropModel").val(),
-				AktifMi: $('#editaktif:checked').val()
-			},
-			success: () => {
-				getListe();
-			}
-		});
-	});
-
-	//Dropdowns
-
-	function getDropDownMarka() {
-		var myDropDownList = $('#dropMarka');
-
-		$.ajax({
-			type: "GET",
-			url: "/Marka/forDropDown",
-			contentType: "application/json; charset=utf-8",
-			dataType: "json",
-			success: function (data) {
-				$.each((data),
-					function () {
-						myDropDownList.append($('<option></option>').val(this['MarkaID']).html(this['MarkaAd']));
-					});
-			},
-			failure: function (response) {
-				alert(response.d);
-			}
-		});
-	};
-
-	function getDropDownMarkaEdit(id, id2) {
-		var myDropDownList = $('#dropMarkaEdit');
-		myDropDownList.empty();
-		$.ajax({
-			type: "GET",
-			url: "/Marka/forDropDown",
-			contentType: "application/json; charset=utf-8",
-			dataType: "json",
-			success: function (data) {
-				$.each((data),
-					function () {
-						if (id == this.MarkaID) {
-							myDropDownList.append($('<option selected="selected"></option>').val(this['MarkaID']).html(this['MarkaAd']).attr('selected', 'selected'));
-						}
-						myDropDownList.append($('<option></option>').val(this['MarkaID']).html(this['MarkaAd']));
-					});
-				getDropDownModelEdit(this.MarkaID, id2);
-			},
-			failure: function (response) {
-				alert(response.d);
-			}
-
-		});
-	}
-
-	function getDropDownModelEdit(id, id2) {
-		var myDropDownList = $('#dropModelEdit').empty();
-
-		$.ajax({
-			type: "GET",
-			url: "/Model/forDropDown?markaId=" + id,
-			contentType: "application/json; charset=utf-8",
-			dataType: "json",
-			success: function (data) {
-				$.each((data),
-					function () {
-						if (id2 == this.ModelID) {
-							myDropDownList.append($('<option selected="selected"></option>').val(this['ModelID']).html(this['ModelAd']).attr('selected', 'selected'));
-						}
-						myDropDownList.append($('<option></option>').val(this['ModelID']).html(this['ModelAd']));
-					});
-			},
-			failure: function (response) {
-				alert(response.d);
-			}
-		});
-	};
-
-	$('#dropMarka').on('change', function () {
-		$('#dropModel').empty();
-		var markaId = $(this).val();
-		getDropDownModel(markaId);
-	});
-
-	function getDropDownModel(id) {
-		var myDropDownList = $('#dropModel');
-
-		$.ajax({
-			type: "GET",
-			url: "/Model/forDropDown?markaID=" + id,
-			contentType: "application/json; charset=utf-8",
-			dataType: "json",
-			success: function (data) {
-				$.each((data),
-					function () {
-						myDropDownList.append($('<option></option>').val(this['ModelID']).html(this['ModelAd']));
-					});
-			},
-			failure: function (response) {
-				alert(response.d);
-			}
-		});
-	};
-
-	function getDropDownPersonel() {
-		var myDropDownList = $('#dropPersonel');
-
-		$.ajax({
-			type: "GET",
-			url: "/Personel/forDropDown",
-			contentType: "application/json; charset=utf-8",
-			dataType: "json",
-			success: function (data) {
-				$.each((data),
-					function () {
-						var adsoyad = this.PersonelAd + " " + this.PersonelSoyad;
-						myDropDownList.append($('<option></option>').val(this['PersonelID']).html(adsoyad));
-					});
-			},
-			failure: function (response) {
-				alert(response.d);
-			}
-		});
-	};
-
-	function getDropDownPersonelEdit(id) {
-		var myDropDownList = $('#dropPersonelEdit');
-
-		$.ajax({
-			type: "GET",
-			url: "/Personel/forDropDown",
-			contentType: "application/json; charset=utf-8",
-			dataType: "json",
-			success: function (data) {
-				$.each((data),
-					function () {
-						var adsoyad = this.PersonelAd + " " + this.PersonelSoyad;
-						if (id == this.PersonelID) {
-							myDropDownList.append($('<option selected="selected"></option>').val(this['PersonelID']).html(adsoyad).attr('selected', 'selected'));
-						}
-						myDropDownList.append($('<option></option>').val(this['PersonelID']).html(adsoyad));
-					});
-			},
-			failure: function (response) {
-				alert(response.d);
-			}
-		});
-	};
-
-</script>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" onclick="clearKayit()">Kapat</button>
+			</div>
+		</div>
+	</div>
+</div>

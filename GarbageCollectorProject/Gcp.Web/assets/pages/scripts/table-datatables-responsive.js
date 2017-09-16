@@ -1,4 +1,4 @@
-var TableDatatablesResponsive = function () {
+ï»¿var TableDatatablesResponsive = function () {
 
     var initTable1 = function () {
         var table = $('#sample_1');
@@ -68,13 +68,13 @@ var TableDatatablesResponsive = function () {
                     "sortAscending": ": activate to sort column ascending",
                     "sortDescending": ": activate to sort column descending"
                 },
-                "emptyTable": "Tablo için herhangi bir veri bulunamadý.",
+                "emptyTable": "Tablo iÃ§in herhangi bir veri bulunamadÄ±.",
                 "info": "_START_ ile _END_ arasindaki _TOTAL_ girdi gosteriliyor",
-                "infoEmpty": "Girdi bulunamadý.",
+                "infoEmpty": "Girdi bulunamadÄ±.",
                 "infoFiltered": "(filtered1 from _MAX_ toplam girdi)",
                 "lengthMenu": "Filtre _MENU_",
                 "search": "Arama:",
-                "zeroRecords": "Eþleþen bir sonuç yok."
+                "zeroRecords": "EÅŸleÅŸen bir sonuÃ§ yok."
             },
 
             // Or you can use remote translation file
@@ -107,7 +107,7 @@ var TableDatatablesResponsive = function () {
             // pagination control
             "lengthMenu": [
                 [5, 10, 15, 20, -1],
-                [5, 10, 15, 20, "Tümü"] // change per page values here
+                [5, 10, 15, 20, "TÃ¼mÃ¼"] // change per page values here
             ],
             // set the initial value
             "pageLength": 10,

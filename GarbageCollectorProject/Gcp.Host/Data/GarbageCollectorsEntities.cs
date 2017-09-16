@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data.Entity.Migrations;
+﻿using System.Data.Entity.Migrations;
 
 namespace Gcp.Host.Data
 {
@@ -28,6 +27,11 @@ namespace Gcp.Host.Data
 		public virtual DbSet<Unvanlar> Unvanlar { get; set; }
 		public virtual DbSet<User> User { get; set; }
 		public virtual DbSet<Vardiya> Vardiya { get; set; }
+		public virtual DbSet<Islem> Islem { get; set; }
+		public virtual DbSet<IslemDetay> IslemDetay { get; set; }
+		public virtual DbSet<AraclarGecmis> AraclarGecmis { get; set; }
+		public virtual DbSet<AylikGider> AylikGider { get; set; }
+		public virtual DbSet<Aylar> Aylar { get; set; }
 
 		public void Seed(GarbageCollectorsEntities context)
 		{
@@ -69,94 +73,25 @@ namespace Gcp.Host.Data
 				new Vardiya { VardiyaAd = "Gece", BaslamaSaati = "22:00", BitirmeSaati = "06:00" }
 				);
 
-			//context.Araclar.AddOrUpdate(a => new { a.AracPlaka, a.AktifMi, a.MarkaID, a.ModelID, a.PersonelID, a.AracID },
-			//	new Araclar { AracPlaka = "34asd1907", MarkaID = 1, ModelID = 1, PersonelID = 1, /*AktifMi = true as bool?*/ },
-			//	new Araclar { AracPlaka = "34gf147", MarkaID = 2, ModelID = 1, PersonelID = 2, /*AktifMi = true as bool?*/ }
-			//	);
+			context.Islem.AddOrUpdate(i=> new{ i.IslemID, i.IslemTuru },
+				new Islem {IslemTuru = "Kayıt"},
+				new Islem {IslemTuru = "Güncelleme"},
+				new Islem {IslemTuru = "Silme"}
+			);
 
-			//context.Personel.AddOrUpdate(
-			//	p =>
-			//		new
-			//		{
-			//			p.PersonelAd,
-			//			p.PersonelSoyad,
-			//			p.EgitimID,
-			//			p.UnvanID,
-			//			p.VardiyaID,
-			//			p.AmirID,
-			//			p.AmirMi,
-			//			p.PersonelID,
-			//			p.DogumTarihi,
-			//			p.CalismaDurumu,
-			//			p.GirisTarihi,
-			//			p.CikisTarihi,
-			//			p.Maas,
-			//			p.izinTarihi
-			//		},
-			//		new Personel
-			//		{
-			//			PersonelAd = "Murat",
-			//			PersonelSoyad = "Savran",
-			//			EgitimID = 3,
-			//			VardiyaID = 1,
-			//			UnvanID = 2,
-			//			AmirMi = false,
-			//			CalismaDurumu = true,
-			//			Maas = 2500,
-			//			GirisTarihi = DateTime.Parse("2014-10-29 00:00:00:0000"),
-			//			DogumTarihi = DateTime.Parse("1992-06-29 00:00:00:0000"),
-			//			AmirID = 0
-			//		},
-			//		new Personel
-			//		{
-			//			PersonelAd = "Özlem",
-			//			PersonelSoyad = "Sakallı",
-			//			EgitimID = 4,
-			//			VardiyaID = 1,
-			//			UnvanID = 3,
-			//			AmirMi = true,
-			//			CalismaDurumu = true,
-			//			Maas = 4500,
-			//			GirisTarihi = DateTime.Parse("2014-10-29 00:00:00:0000"),
-			//			DogumTarihi = DateTime.Parse("1989-02-15 00:00:00:0000"),
-			//			AmirID = 0
-			//		}
-			//	);
+			context.Aylar.AddOrUpdate(ay=> new { ay.AyID, ay.AyAd },
+				new Aylar { AyAd = "Ocak"},new Aylar { AyAd = "Şubat"},new Aylar { AyAd = "Mart"},new Aylar { AyAd = "Nisan"},new Aylar { AyAd = "Mayıs"},
+				new Aylar { AyAd = "Haziran"},new Aylar { AyAd = "Temmuz"},new Aylar { AyAd = "Ağustos"},new Aylar { AyAd = "Eylül"},new Aylar { AyAd = "Ekim"},
+				new Aylar { AyAd = "Kasım"},new Aylar { AyAd = "Aralık"}
+				);
 
-			//context.Kurumlar.AddOrUpdate(
-			//	k =>
-			//		new
-			//		{
-			//			k.KurumID,
-			//			k.KurumIsmi,
-			//			k.KurumAdresi,
-			//			k.TemsilciKisi,
-			//			k.TemsilciKisiNo,
-			//			k.TemsilciKisiEmail,
-			//			k.CalismaDurumu,
-			//			k.VergiDairesi,
-			//			k.VergiDairesiAdresi,
-			//			k.VergiNo
-			//		},
-			//		new Kurumlar
-			//		{
-			//			KurumIsmi = "Örnek Kurum",
-			//			KurumAdresi = "Kurum Adresi",
-			//			TemsilciKisi = "Temsilci Kişi",
-			//			TemsilciKisiNo = "05417412145",
-			//			TemsilciKisiEmail = "temsilciyim@fena.com",
-			//			CalismaDurumu = true as bool?,
-			//			VergiDairesi = "Kadıköy",
-			//			VergiDairesiAdresi = "Osmanağa Mh.",
-			//			VergiNo = int.Parse(12378612387.ToString())
-			//		}
-			//		);
-
+			
 			context.SaveChanges();
 		}
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
+			
 			modelBuilder.Entity<Araclar>()
 				.HasMany(d => d.AraclarDetay)
 				.WithRequired(d => d.Araclar)
@@ -166,6 +101,16 @@ namespace Gcp.Host.Data
 				.HasMany(d => d.Personel)
 				.WithRequired(d => d.Araclar)
 				.HasForeignKey(d => d.AracID);
+
+			modelBuilder.Entity<Araclar>()
+				.HasMany(d => d.AraclarGecmis)
+				.WithRequired(d => d.Araclar)
+				.HasForeignKey(d => d.AracID).WillCascadeOnDelete(false); 
+
+			modelBuilder.Entity<Islem>()
+				.HasMany(i => i.IslemDetay)
+				.WithRequired(i => i.Islem)
+				.HasForeignKey(i => i.IslemID);
 
 			modelBuilder.Entity<Egitim>()
 				.HasMany(d => d.Personel)

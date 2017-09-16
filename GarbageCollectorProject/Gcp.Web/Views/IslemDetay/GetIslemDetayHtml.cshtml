@@ -1,0 +1,91 @@
+﻿@model List<Gcp.Web.Models.IslemDetay>
+@{
+	Layout = null;
+}
+
+@foreach (var e in Model.OrderByDescending(o => o.IslemDetayID))
+{
+	<tr role="row" class="odd">
+		<td class="all">
+			@if (e.Islem.IslemTuru == null)
+			{
+				<label>İşlem Yok</label>
+			}
+			else
+			{
+				switch (e.IslemID)
+				{
+					case 1:
+						<span class="badge badge-success"> @e.Islem.IslemTuru </span>
+						break;
+					case 2:
+						<span class="badge badge-info"> @e.Islem.IslemTuru </span>
+						break;
+					default:
+						<span class="badge badge-danger"> @e.Islem.IslemTuru </span>
+						break;
+				}
+			}
+
+		</td>
+		<td  class="desktop">
+			@if (e.IslemIcerigi == null)
+			{
+
+				<label>İçerik Yok</label>
+			}
+			else
+			{
+				switch (e.IslemID)
+				{
+					case 1:
+						<span class="label label-success">@e.IslemIcerigi</span>
+						break;
+					case 2:
+						<span class="label label-info"> @e.IslemIcerigi </span>
+						break;
+					default:
+						<span class="label label-danger"> @e.IslemIcerigi </span>
+						break;
+				}
+
+			}
+		</td>
+		<td class="desktop">
+			@if (e.IslemTarihi == null)
+			{
+				<label>Tarih Yok</label>
+			}
+			else
+			{
+				<span class="label label-default">
+					@e.IslemTarihi
+				</span>
+			}
+		</td>
+		<td class="desktop">
+			@if (e.Kullanici == null)
+			{
+				<label>----</label>
+			}
+			else
+			{
+				<span class="label label-warning">
+					@e.Kullanici
+				</span>
+			}
+		</td>
+		<td class="all">
+			<a data-toggle="confirmation" data-on-confirm="deleteGecmis" data-id="@e.IslemDetayID" title="Geçmişten Sil" data-original-title="Silmek istediğinize emin misiniz?">
+				<i class="fa fa-trash-o"></i>
+			</a>
+		</td>
+	</tr>
+}
+
+<script>
+	$('[data-toggle="confirmation"]').confirmation({
+		singleton: true,
+		placement: 'left'
+	});
+</script>

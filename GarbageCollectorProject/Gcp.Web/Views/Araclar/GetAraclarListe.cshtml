@@ -1,0 +1,25 @@
+﻿@model List<Gcp.Web.Models.Araclar>
+@{
+	Layout = null;
+}
+@foreach (var p in Model)
+{
+	if (p != null)
+	{
+		<tr role="row">
+			<td class="sorting_1">
+				@p.AracPlaka
+			</td>
+			<td>@p.Marka.MarkaAd</td>
+		</tr>
+	}
+	else
+	{
+		<tr role="row">
+			<td class="sorting_1">
+				---
+			</td>
+			<td>---</td>
+		</tr>
+	}
+}

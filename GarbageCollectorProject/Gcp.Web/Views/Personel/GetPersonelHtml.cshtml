@@ -1,36 +1,89 @@
 ﻿@model List<Gcp.Web.Models.Personel>
 @{
-    Layout = null;
+	Layout = null;
 }
 
 @foreach (var p in Model)
 {
-    <tr role="row" class="odd" data-id="@p.PersonelID">
-        <th class=" control"></th>
-        <td class="sorting_1">@p.PersonelAd</td>
-        <td>@p.PersonelSoyad</td>
-        <td>@p.Unvanlar.UnvanAd</td>
-	    <td style="display: none;">
-		    @if(@p.Araclar.AracPlaka != null){
-				@p.Araclar.AracPlaka
-		    }
-		    @if(@p.Araclar.AracPlaka == null){
-		    <label>Araç Yok</label>
-			}			
-	    </td>
-        <td style="display: none;">@p.GirisTarihi</td>
-        <td style="display: none;">@p.DogumTarihi</td>
-        <td style="display: none;">@p.Vardiya.VardiyaAd</td>
-        <td>@p.Maas TL</td>
-        <td style="display: none;">@p.Egitim.EgitimAd</td>
-        <td>
-            <a data-toggle="modal"  data-target="#guncelleKayit" data-id="@p.PersonelID" onclick="getPersonel(@p.PersonelID)"  class="btn btn-circle btn-icon-only btn-default">
-                <i class="icon-pencil"></i>
-            </a>
-            <a  data-toggle="confirmation" data-on-confirm="deletePersonel" data-id="@p.PersonelID" data-original-title="@p.PersonelAd @p.PersonelSoyad personelini silmek istediğinize emin misiniz?" class="btn btn-circle btn-icon-only btn-default">
-                <i class="icon-trash"></i>
-            </a>
-        </td>
-    </tr>
-}
+	if (p != null)
+	{
+		<tr role="row" class="odd" data-id="@p.PersonelID">
+			<th class="control"></th>
+			<td class="sorting_1">@p.PersonelAd</td>
+			<td>@p.PersonelSoyad</td>
+			<td>@p.Unvanlar.UnvanAd</td>
+			<td style="display: none;">
 
+				@if (@p.AracID == null)
+				{
+					<label>Araç Yok</label>
+				}
+				else
+				{
+					@p.Araclar.AracPlaka
+
+				}
+			</td>
+			<td style="display: none;">
+				@if (p.GirisTarihi != null)
+				{
+					@Convert.ToDateTime(@p.GirisTarihi).Day<label>.</label>@Convert.ToDateTime(@p.GirisTarihi).Month<label>.</label>@Convert.ToDateTime(@p.GirisTarihi).Year
+				}
+				else
+				{<label>Girilmemiş</label> }
+			</td>
+			<td style="display: none;">
+				@if (p.DogumTarihi != null)
+				{
+					@Convert.ToDateTime(@p.DogumTarihi).Day<label>.</label>@Convert.ToDateTime(@p.DogumTarihi).Month<label>.</label>@Convert.ToDateTime(@p.DogumTarihi).Year
+				}
+				else
+				{<label>Girilmemiş</label> }
+			</td>
+			<td style="display: none;">@p.Vardiya.VardiyaAd</td>
+			<td>
+				@if (@p.Maas != null)
+				{
+					<label>@p.Maas TL</label>
+				}
+				else
+				{
+					<label>Girilmemiş</label>
+				}
+			</td>
+			<td style="display: none;">@p.Egitim.EgitimAd</td>
+			<td style="display: none;">
+				@if (p.AmirMi != false && p.AmirMi != null)
+				{
+					<label>Kendisi Amir</label>
+				}
+				else
+				{
+					if (p.AmirID == 0 || p.AmirID == null)
+					{
+						<label>Belirtilmemiş</label>
+					}
+					else
+					{
+						<label>
+							@p.Amir.PersonelAd @p.Amir.PersonelSoyad
+						</label>
+					}
+				}
+			</td>
+			<td>
+				<a data-toggle="modal" data-target="#guncelleKayit" data-id="@p.PersonelID" onclick="getPersonel(@p.PersonelID)" class="btn btn-circle btn-icon-only btn-default">
+					<i class="icon-pencil"></i>
+				</a>
+				<a data-toggle="confirmation" data-on-confirm="deletePersonel" data-id="@p.PersonelID" data-original-title="@p.PersonelAd @p.PersonelSoyad personelini silmek istediğinize emin misiniz?" class="btn btn-circle btn-icon-only btn-default">
+					<i class="icon-trash"></i>
+				</a>
+			</td>
+		</tr>
+	}
+}
+<script>
+	$('[data-toggle="confirmation"]').confirmation({
+		singleton: true
+	});
+</script>

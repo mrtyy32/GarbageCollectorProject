@@ -1,10 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace Gcp.Host.Data
 {
 	[Table("AraclarDetay")]
+	//[JsonObject(IsReference = true)]
 	public class AraclarDetay
 	{
 		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]

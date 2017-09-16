@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace Gcp.Host.Data
 {
 	[Table("Personel")]
+	//[JsonObject(IsReference = true)]
 	public class Personel
 	{
 		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -23,6 +26,7 @@ namespace Gcp.Host.Data
 		public int? AmirID { get; set; }
 		public bool AmirMi { get; set; }
 		public int? AracID { get; set; }
+
 
 		[ForeignKey("AracID")]
 		public virtual Araclar Araclar { get; set; }

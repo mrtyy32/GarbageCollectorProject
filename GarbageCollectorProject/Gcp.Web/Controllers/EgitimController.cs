@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Security;
 using Gcp.Web.Models;
 using Newtonsoft.Json;
 
@@ -17,6 +18,7 @@ namespace Gcp.Web.Controllers
 		readonly HttpClient _client;
 		//string _url = "http://localhost:53723/api/Egitim";
 		string _url = "http://garbgabe.azurewebsites.net/api/Egitim";
+	    
 		public EgitimController()
 		{
 			_client = new HttpClient { BaseAddress = new Uri(_url) };
@@ -61,15 +63,16 @@ namespace Gcp.Web.Controllers
 			var jsonString = JsonConvert.SerializeObject(v);
 			var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 			var responseMessage = await _client.PostAsync(_url, content);
-			return RedirectToAction(responseMessage.IsSuccessStatusCode ? "Index" : "Error");
+			if (!responseMessage.IsSuccessStatusCode) return RedirectToAction($"Error");
+
+			await new IslemOlustur().Create(v.EgitimAd+" eğitimi oluşturuldu", HttpContext.User.Identity.Name);
+			return RedirectToAction("Index");
 		}
 		public async Task<ActionResult> Edit(int id)
 		{
 			var responseMessage = await _client.GetAsync($"{_url}/{id}");
-			if (!responseMessage.IsSuccessStatusCode) return View("Error");
-
+			if (!responseMessage.IsSuccessStatusCode) return View($"Error");
 			var responseData = responseMessage.Content.ReadAsStringAsync().Result;
-
 			var egitim = JsonConvert.DeserializeObject<Egitim>(responseData);
 			return Json(egitim, JsonRequestBehavior.AllowGet);
 
@@ -81,13 +84,19 @@ namespace Gcp.Web.Controllers
 			var jsonString = JsonConvert.SerializeObject(v);
 			var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 			var responseMessage = await _client.PutAsync($"{_url}/{v.EgitimID}", content);
-			return RedirectToAction(responseMessage.IsSuccessStatusCode ? "Index" : "Error");
+			if (!responseMessage.IsSuccessStatusCode) return RedirectToAction($"Error");
+
+			await new IslemOlustur().Update(v.EgitimAd + " eğitimi güncellendi", HttpContext.User.Identity.Name);
+			return RedirectToAction("Index");
 		}
 		[HttpPost]
 		public async Task<ActionResult> Delete(int id)
 		{
 			var responseMessage = await _client.DeleteAsync($"{_url}/{id}");
-			return RedirectToAction(responseMessage.IsSuccessStatusCode ? "Index" : "Error");
+			if (!responseMessage.IsSuccessStatusCode) return RedirectToAction($"Error");
+
+			await new IslemOlustur().Delete("Eğitim silindi", HttpContext.User.Identity.Name);
+			return RedirectToAction("Index");
 		}
 	}
 }

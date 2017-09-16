@@ -7,9 +7,44 @@
 {
 	<tr role="row" class="odd" data-id="@e.AracDetayID">
 		<th class=" control"></th>
-		<td class="sorting_1">@e.AlinisTarihi</td>
-		<td>@e.BakimTarihi</td>
-		<td>@e.MuayeneTarihi</td>
+		<td class="sorting_1">
+			@if (e.AlinisTarihi != null)
+			{
+				@Convert.ToDateTime(@e.AlinisTarihi).Day<label>.</label>
+				@Convert.ToDateTime(@e.AlinisTarihi).Month<label>.</label>
+				@Convert.ToDateTime(@e.AlinisTarihi).Year
+			}
+			else
+			{
+				<label>Girilmemiş</label>
+			}
+		</td>
+		<td>
+			
+			@if (@e.BakimTarihi != null)
+			{
+				@Convert.ToDateTime(@e.BakimTarihi).Day<label>.</label>
+				@Convert.ToDateTime(@e.BakimTarihi).Month<label>.</label>
+				@Convert.ToDateTime(@e.BakimTarihi).Year
+			}
+			else
+			{
+				<label>Girilmemiş</label>
+			}
+		</td>
+		<td>
+			
+			@if (@e.MuayeneTarihi != null)
+			{
+				@Convert.ToDateTime(@e.MuayeneTarihi).Day<label>.</label>
+				@Convert.ToDateTime(@e.MuayeneTarihi).Month<label>.</label>
+				@Convert.ToDateTime(@e.MuayeneTarihi).Year
+			}
+			else
+			{
+				<label>Girilmemiş</label>
+			}
+		</td>
 	</tr>
 
 }

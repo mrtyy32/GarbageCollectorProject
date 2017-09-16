@@ -19,7 +19,8 @@ namespace Gcp.Web.Controllers
 		string _url = "http://garbgabe.azurewebsites.net/api/Araclar";
 		//string _url = "http://localhost:53723/api/Araclar";
 		//string _urlDetay = "http://localhost:53723/api/AraclarDetay";
-		string _urlDetay = "http://localhost:53723/api/AraclarDetay";
+		string _urlDetay = "http://garbgabe.azurewebsites.net/api/AraclarDetay";
+		string _urlGecmis = "http://garbgabe.azurewebsites.net/api/AraclarGecmis";
 
 		public AraclarController()
 		{
@@ -44,7 +45,6 @@ namespace Gcp.Web.Controllers
 			var arac = JsonConvert.DeserializeObject<List<Araclar>>(responseData);
 			return Json(arac, JsonRequestBehavior.AllowGet);
 		}
-
 		public async Task<ActionResult> GetAraclarHtml()
 		{
 			var responseMessage = await _client.GetAsync(_url);
@@ -52,7 +52,18 @@ namespace Gcp.Web.Controllers
 			if (!responseMessage.IsSuccessStatusCode) return Json("Error", JsonRequestBehavior.DenyGet);
 
 			var responseData = responseMessage.Content.ReadAsStringAsync().Result;
-			var arac = JsonConvert.DeserializeObject<IEnumerable<Araclar>>(responseData);
+			var arac = JsonConvert.DeserializeObject<List<Araclar>>(responseData);
+			return View(arac);
+		}
+
+		public async Task<ActionResult> GetAraclarListe()
+		{
+			var responseMessage = await _client.GetAsync(_url);
+
+			if (!responseMessage.IsSuccessStatusCode) return Json("Error", JsonRequestBehavior.DenyGet);
+
+			var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+			var arac = JsonConvert.DeserializeObject<List<Araclar>>(responseData);
 			return View(arac);
 		}
 
@@ -68,7 +79,10 @@ namespace Gcp.Web.Controllers
 			var jsonString = JsonConvert.SerializeObject(v);
 			var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 			var responseMessage = await _client.PostAsync(_url, content);
-			return RedirectToAction(responseMessage.IsSuccessStatusCode ? "Index" : "Error");
+			if (!responseMessage.IsSuccessStatusCode) return RedirectToAction($"Error");
+
+			await new IslemOlustur().Create(v.AracPlaka + " aracı oluşturuldu", HttpContext.User.Identity.Name);
+			return RedirectToAction("Index");
 		}
 
 		public async Task<ActionResult> Edit(int id)
@@ -90,14 +104,19 @@ namespace Gcp.Web.Controllers
 			var jsonString = JsonConvert.SerializeObject(v);
 			var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 			var responseMessage = await _client.PutAsync($"{_url}/{v.AracID}", content);
-			return RedirectToAction(responseMessage.IsSuccessStatusCode ? "Index" : "Error");
+			if (!responseMessage.IsSuccessStatusCode) return RedirectToAction($"Error");
+
+			await new IslemOlustur().Update(v.AracPlaka + " aracı güncellendi", HttpContext.User.Identity.Name);
+			return RedirectToAction("Index");
 		}
 
 		[HttpPost]
 		public async Task<ActionResult> Delete(int id)
 		{
 			var responseMessage = await _client.DeleteAsync($"{_url}/{id}");
-			return RedirectToAction(responseMessage.IsSuccessStatusCode ? "Index" : "Error");
+			if (!responseMessage.IsSuccessStatusCode) return RedirectToAction($"Error");
+			await new IslemOlustur().Delete("Araç silindi", HttpContext.User.Identity.Name);
+			return RedirectToAction("Index");
 		}
 
 		public async Task<ActionResult> Count()
@@ -115,6 +134,15 @@ namespace Gcp.Web.Controllers
 			var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 			var detaydokum = JsonConvert.DeserializeObject<List<AraclarDetay>>(responseData);
 			return View(detaydokum);
+		}
+
+		public async Task<ActionResult> GecmisDokumHtml(int aracId)
+		{
+			var responseMessage = await _client.GetAsync($"{_urlGecmis}/AracGecmis/{aracId}");
+			if (!responseMessage.IsSuccessStatusCode) return Json("Error", JsonRequestBehavior.DenyGet);
+			var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+			var gecmisdokum = JsonConvert.DeserializeObject<List<AraclarGecmis>>(responseData);
+			return View(gecmisdokum);
 		}
 
 		[HttpPost]

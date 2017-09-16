@@ -6,19 +6,19 @@
 @foreach (var e in Model)
 {
 	<tr role="row" class="odd" data-id="@e.KurumID">
-		<th class=" control"></th>
+		<th class="control"></th>
 		<td class="sorting_1">@e.KurumIsmi</td>
-		<td>@e.KurumAdresi</td>
-		<td>@e.TemsilciKisi</td>
+		<td class="desktop">@e.KurumAdresi</td>
+		<td class="desktop">@e.TemsilciKisi</td>
 		
-		<td>@e.TemsilciKisiNo</td>
-		<td>
+		<td class="desktop">@e.TemsilciKisiNo</td>
+		<td class="desktop">
 			@if (@e.CalismaDurumu == true)
 			{
 				<label>Çalışılıyor</label>
 			}
 					
-			@if (@e.CalismaDurumu == false)
+			@if (@e.CalismaDurumu == false || e.CalismaDurumu == null )
 			{
 				<label>Çalışılmıyor</label>
 			}
@@ -38,3 +38,9 @@
 		</td>
 	</tr>
 }
+<script>
+	$('[data-toggle="confirmation"]').confirmation({
+		singleton: true
+		
+	});
+</script>

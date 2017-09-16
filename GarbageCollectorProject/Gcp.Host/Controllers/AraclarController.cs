@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -11,20 +10,18 @@ namespace Gcp.Host.Controllers
 {
 	public class AraclarController : BaseController
 	{
-
 		// GET: api/Araclar
 		public dynamic GetAraclar()
 		{
-			//var araclar = db.Araclar.SelectMany(s=> s.Personel).AsQueryable();
-			//var arac = araclar.OfType<Araclar>().ToList();
 			var araclar =
 				db.Araclar
 					.Include("Marka")
 					.Where(x => x.MarkaID == x.Marka.MarkaID)
 					.Include("Model")
 					.Where(x => x.ModelID == x.Model.ModelID)
-					.Include(i => i.AraclarDetay)
-					.Include(i=> i.Personel).ToList();
+					.Include("AraclarDetay").DefaultIfEmpty()
+					.Include("AraclarGecmis").DefaultIfEmpty()
+					.Include("Personel").ToList();
 			return araclar;
 		}
 

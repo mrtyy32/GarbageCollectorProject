@@ -6,7 +6,7 @@
 @foreach (var e in Model)
 {
 	<tr role="row" class="odd" data-id="@e.UnvanID">
-		<th class=" control"></th>
+		<th class="control"></th>
 		<td class="sorting_1">@e.UnvanAd</td>
 		<td>
 
@@ -19,3 +19,9 @@
 		</td>
 	</tr>
 }
+<script>
+	$('[data-toggle="confirmation"]').confirmation({
+		singleton: true
+		
+	});
+</script>

@@ -39,6 +39,16 @@ namespace Gcp.Web.Controllers
 			var kurum = JsonConvert.DeserializeObject<List<Kurumlar>>(responseData);
 			return View(kurum.ToList());
 		}
+		public async Task<ActionResult> GetKurumlarListe()
+		{
+			var responseMessage = await _client.GetAsync(_url);
+
+			if (!responseMessage.IsSuccessStatusCode) return Json("Error", JsonRequestBehavior.DenyGet);
+
+			var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+			var kurum = JsonConvert.DeserializeObject<List<Kurumlar>>(responseData);
+			return View(kurum.ToList());
+		}
 		public ActionResult Create()
 		{
 			return View(new Kurumlar());
@@ -50,7 +60,10 @@ namespace Gcp.Web.Controllers
 			var jsonString = JsonConvert.SerializeObject(k);
 			var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 			var responseMessage = await _client.PostAsync(_url, content);
-			return RedirectToAction(responseMessage.IsSuccessStatusCode ? "Index" : "Error");
+			if (!responseMessage.IsSuccessStatusCode) return RedirectToAction($"Error");
+
+			await new IslemOlustur().Create(k.KurumIsmi + " kurumu oluşturuldu", HttpContext.User.Identity.Name);
+			return RedirectToAction("Index");
 		}
 		//GET Method
 		public async Task<ActionResult> Edit(int id)
@@ -71,13 +84,19 @@ namespace Gcp.Web.Controllers
 			var jsonString = JsonConvert.SerializeObject(k);
 			var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 			var responseMessage = await _client.PutAsync($"{_url}/{k.KurumID}", content);
-			return RedirectToAction(responseMessage.IsSuccessStatusCode ? "Index" : "Error");
+			if (!responseMessage.IsSuccessStatusCode) return RedirectToAction($"Error");
+
+			await new IslemOlustur().Update(k.KurumIsmi + " kurumu güncellendi", HttpContext.User.Identity.Name);
+			return RedirectToAction("Index");
 		}
 		[HttpPost]
 		public async Task<ActionResult> Delete(int id)
 		{
-			var responseMessage = await _client.DeleteAsync(_url + "/" + id);
-			return RedirectToAction(responseMessage.IsSuccessStatusCode ? "Index" : "Error");
+			var responseMessage = await _client.DeleteAsync($"{_url}/{id}");
+			if (!responseMessage.IsSuccessStatusCode) return RedirectToAction($"Error");
+
+			await new IslemOlustur().Delete("Kurum silindi", HttpContext.User.Identity.Name);
+			return RedirectToAction("Index");
 		}
 		public async Task<ActionResult> Count()
 		{

@@ -61,7 +61,10 @@ namespace Gcp.Web.Controllers
 			var jsonString = JsonConvert.SerializeObject(v);
 			var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 			var responseMessage = await _client.PostAsync(_url, content);
-			return RedirectToAction(responseMessage.IsSuccessStatusCode ? "Index" : "Error");
+			if (!responseMessage.IsSuccessStatusCode) return RedirectToAction($"Error");
+
+			await new IslemOlustur().Create(v.ModelAd + " modeli oluşturuldu", HttpContext.User.Identity.Name);
+			return RedirectToAction("Index");
 		}
 		public async Task<ActionResult> Edit(int id)
 		{
@@ -81,13 +84,19 @@ namespace Gcp.Web.Controllers
 			var jsonString = JsonConvert.SerializeObject(v);
 			var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 			var responseMessage = await _client.PutAsync($"{_url}/{v.ModelID}", content);
-			return RedirectToAction(responseMessage.IsSuccessStatusCode ? "Index" : "Error");
+			if (!responseMessage.IsSuccessStatusCode) return RedirectToAction($"Error");
+
+			await new IslemOlustur().Update(v.ModelAd + " modeli güncellendi", HttpContext.User.Identity.Name);
+			return RedirectToAction("Index");
 		}
 		[HttpPost]
 		public async Task<ActionResult> Delete(int id)
 		{
 			var responseMessage = await _client.DeleteAsync($"{_url}/{id}");
-			return RedirectToAction(responseMessage.IsSuccessStatusCode ? "Index" : "Error");
+			if (!responseMessage.IsSuccessStatusCode) return RedirectToAction($"Error");
+
+			await new IslemOlustur().Delete("Model silindi", HttpContext.User.Identity.Name);
+			return RedirectToAction("Index");
 		}
 	}
 }

@@ -2,6 +2,7 @@
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Gcp.Host.Data;
@@ -85,14 +86,10 @@ namespace Gcp.Host.Controllers
 		}
 		[Route("api/Users/Login/{UserName}/{UserPassword}")]
 		[HttpGet]
-		public bool Login(string UserName, string UserPassword)
+		public HttpResponseMessage Login(string UserName, string UserPassword)
 		{
 			var us = db.User.SingleOrDefault(x => x.UserName == UserName && x.UserPassword == UserPassword);
-			if (us == null)
-			{
-				return false;
-			}
-			return true;
+			return us != null ? Request.CreateResponse(HttpStatusCode.OK, true) : Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "error");
 		}
 	}
 }

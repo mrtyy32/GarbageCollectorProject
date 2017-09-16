@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Gcp.Web.Controllers
@@ -12,5 +15,6 @@ namespace Gcp.Web.Controllers
         {
             return View();
         }
+
     }
 }

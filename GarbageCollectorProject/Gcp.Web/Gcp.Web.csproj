@@ -4170,8 +4170,14 @@
     <Content Include="assets\global\plugins\owl-carousel\owl.theme.css" />
     <Content Include="assets\global\plugins\owl-carousel\owl.transitions.css" />
     <Content Include="assets\global\plugins\pace\pace.min.js" />
+    <Content Include="assets\global\plugins\pace\themes\pace-theme-barber-shop.css" />
     <Content Include="assets\global\plugins\pace\themes\pace-theme-big-counter.css" />
+    <Content Include="assets\global\plugins\pace\themes\pace-theme-bounce.css" />
+    <Content Include="assets\global\plugins\pace\themes\pace-theme-center-circle.css" />
     <Content Include="assets\global\plugins\pace\themes\pace-theme-flash.css" />
+    <Content Include="assets\global\plugins\pace\themes\pace-theme-flat-top.css" />
+    <Content Include="assets\global\plugins\pace\themes\pace-theme-loading-bar.css" />
+    <Content Include="assets\global\plugins\pace\themes\pace-theme-mac-osx.css" />
     <Content Include="assets\global\plugins\plupload\js\i18n\ar.js" />
     <Content Include="assets\global\plugins\plupload\js\i18n\az.js" />
     <Content Include="assets\global\plugins\plupload\js\i18n\bs.js" />
@@ -5319,6 +5325,20 @@
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\araclarJS.js" />
+    <Content Include="Scripts\dashHome.js" />
+    <Content Include="Scripts\egitimJS.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\kurumJS.js" />
+    <Content Include="Scripts\markaJS.js" />
+    <Content Include="Scripts\modelJS.js" />
+    <Content Include="Scripts\personelJS.js" />
+    <Content Include="Scripts\unvanJS.js" />
+    <Content Include="Scripts\vardiyaJS.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -5328,6 +5348,7 @@
     <Compile Include="Controllers\AraclarController.cs" />
     <Compile Include="Controllers\EgitimController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IslemDetayController.cs" />
     <Compile Include="Controllers\KurumlarController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MarkaController.cs" />
@@ -5340,7 +5361,12 @@
     </Compile>
     <Compile Include="Models\Araclar.cs" />
     <Compile Include="Models\AraclarDetay.cs" />
+    <Compile Include="Models\AraclarGecmis.cs" />
     <Compile Include="Models\Egitim.cs" />
+    <Compile Include="Models\gecmisOlustur.cs" />
+    <Compile Include="Models\Islem.cs" />
+    <Compile Include="Models\IslemDetay.cs" />
+    <Compile Include="Models\islemOlustur.cs" />
     <Compile Include="Models\Kurumlar.cs" />
     <Compile Include="Models\Marka.cs" />
     <Compile Include="Models\Model.cs" />
@@ -5718,6 +5744,13 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\garbagecollectors - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\garbagecollectors - Web Deploy.pubxml" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Views\IslemDetay\GetIslemDetayHtml.cshtml" />
+    <Content Include="Views\Personel\GetPersonelIslemHtml.cshtml" />
+    <Content Include="Views\Araclar\GetAraclarListe.cshtml" />
+    <Content Include="Views\Araclar\GecmisDokumHtml.cshtml" />
+    <Content Include="Views\Kurumlar\GetKurumlarListe.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -5729,7 +5762,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="assets\apps\img\" />
     <Folder Include="assets\global\plugins\angularjs\plugins\angular-file-upload\uploads\" />
-    <Folder Include="Views\Default\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

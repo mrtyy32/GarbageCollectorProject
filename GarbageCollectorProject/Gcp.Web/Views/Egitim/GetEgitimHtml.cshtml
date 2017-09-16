@@ -6,16 +6,22 @@
 @foreach (var e in Model)
 {
 	<tr role="row" class="odd" data-id="@e.EgitimID">
-		<th class=" control"></th>
-		<td class="sorting_1">@e.EgitimAd</td>
+		<th class="control"></th>
+		<td>@e.EgitimAd</td>
 		<td>
 
 			<a data-toggle="modal" data-target="#guncelleKayit" onclick="getEgitim(@e.EgitimID)" class="btn btn-circle btn-icon-only btn-default">
 				<i class="icon-pencil"></i>
 			</a>
-			<a data-toggle="confirmation" data-on-confirm="deleteEgitim" data-id="@e.EgitimID" data-original-title="@e.EgitimAd eğitimini silmek istediğinize emin misiniz?" class="btn btn-circle btn-icon-only btn-default">
+			<a data-on-confirm="deleteEgitim" data-toggle="confirmation" data-on-confirm="deleteEgitim" data-id="@e.EgitimID" data-original-title="@e.EgitimAd eğitimini silmek istediğinize emin misiniz?" class="btn btn-circle btn-icon-only btn-default">
 				<i class="icon-trash"></i>
 			</a>
 		</td>
 	</tr>
 }
+<script>
+	$('[data-toggle="confirmation"]').confirmation({
+		singleton: true
+		
+	});
+</script>

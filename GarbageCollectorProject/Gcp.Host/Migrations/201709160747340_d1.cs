@@ -38,25 +38,22 @@ namespace Gcp.Host.Migrations
                 .Index(t => t.AracID);
             
             CreateTable(
-                "dbo.Marka",
+                "dbo.AraclarGecmis",
                 c => new
                     {
-                        MarkaID = c.Int(nullable: false, identity: true),
-                        MarkaAd = c.String(),
+                        AracGecmisID = c.Int(nullable: false, identity: true),
+                        AracID = c.Int(nullable: false),
+                        PersonelID = c.Int(nullable: false),
+                        VardiyaID = c.Int(),
+                        TeslimTarihi = c.DateTime(nullable: false),
                     })
-                .PrimaryKey(t => t.MarkaID);
-            
-            CreateTable(
-                "dbo.Model",
-                c => new
-                    {
-                        ModelID = c.Int(nullable: false, identity: true),
-                        ModelAd = c.String(),
-                        MarkaID = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.ModelID)
-                .ForeignKey("dbo.Marka", t => t.MarkaID, cascadeDelete: true)
-                .Index(t => t.MarkaID);
+                .PrimaryKey(t => t.AracGecmisID)
+                .ForeignKey("dbo.Personel", t => t.PersonelID, cascadeDelete: true)
+                .ForeignKey("dbo.Vardiya", t => t.VardiyaID)
+                .ForeignKey("dbo.Araclar", t => t.AracID)
+                .Index(t => t.AracID)
+                .Index(t => t.PersonelID)
+                .Index(t => t.VardiyaID);
             
             CreateTable(
                 "dbo.Personel",
@@ -76,7 +73,7 @@ namespace Gcp.Host.Migrations
                         CalismaDurumu = c.Boolean(nullable: false),
                         AmirID = c.Int(),
                         AmirMi = c.Boolean(nullable: false),
-                        AracID = c.Int(nullable: true),
+                        AracID = c.Int(),
                     })
                 .PrimaryKey(t => t.PersonelID)
                 .ForeignKey("dbo.Personel", t => t.AmirID)
@@ -120,6 +117,50 @@ namespace Gcp.Host.Migrations
                 .PrimaryKey(t => t.VardiyaID);
             
             CreateTable(
+                "dbo.Marka",
+                c => new
+                    {
+                        MarkaID = c.Int(nullable: false, identity: true),
+                        MarkaAd = c.String(),
+                    })
+                .PrimaryKey(t => t.MarkaID);
+            
+            CreateTable(
+                "dbo.Model",
+                c => new
+                    {
+                        ModelID = c.Int(nullable: false, identity: true),
+                        ModelAd = c.String(),
+                        MarkaID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ModelID)
+                .ForeignKey("dbo.Marka", t => t.MarkaID, cascadeDelete: true)
+                .Index(t => t.MarkaID);
+            
+            CreateTable(
+                "dbo.Islem",
+                c => new
+                    {
+                        IslemID = c.Int(nullable: false, identity: true),
+                        IslemTuru = c.String(),
+                    })
+                .PrimaryKey(t => t.IslemID);
+            
+            CreateTable(
+                "dbo.IslemDetay",
+                c => new
+                    {
+                        IslemDetayID = c.Int(nullable: false, identity: true),
+                        IslemID = c.Int(nullable: false),
+                        IslemIcerigi = c.String(),
+                        Kullanici = c.String(),
+                        IslemTarihi = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.IslemDetayID)
+                .ForeignKey("dbo.Islem", t => t.IslemID, cascadeDelete: true)
+                .Index(t => t.IslemID);
+            
+            CreateTable(
                 "dbo.Kurumlar",
                 c => new
                     {
@@ -152,32 +193,43 @@ namespace Gcp.Host.Migrations
         
         public override void Down()
         {
+            DropForeignKey("dbo.IslemDetay", "IslemID", "dbo.Islem");
             DropForeignKey("dbo.Personel", "AracID", "dbo.Araclar");
+            DropForeignKey("dbo.Araclar", "ModelID", "dbo.Model");
+            DropForeignKey("dbo.Model", "MarkaID", "dbo.Marka");
+            DropForeignKey("dbo.Araclar", "MarkaID", "dbo.Marka");
+            DropForeignKey("dbo.AraclarGecmis", "AracID", "dbo.Araclar");
+            DropForeignKey("dbo.AraclarGecmis", "VardiyaID", "dbo.Vardiya");
+            DropForeignKey("dbo.AraclarGecmis", "PersonelID", "dbo.Personel");
             DropForeignKey("dbo.Personel", "VardiyaID", "dbo.Vardiya");
             DropForeignKey("dbo.Personel", "UnvanID", "dbo.Unvanlar");
             DropForeignKey("dbo.Personel", "EgitimID", "dbo.Egitim");
             DropForeignKey("dbo.Personel", "AmirID", "dbo.Personel");
-            DropForeignKey("dbo.Araclar", "ModelID", "dbo.Model");
-            DropForeignKey("dbo.Model", "MarkaID", "dbo.Marka");
-            DropForeignKey("dbo.Araclar", "MarkaID", "dbo.Marka");
             DropForeignKey("dbo.AraclarDetay", "AracID", "dbo.Araclar");
+            DropIndex("dbo.IslemDetay", new[] { "IslemID" });
+            DropIndex("dbo.Model", new[] { "MarkaID" });
             DropIndex("dbo.Personel", new[] { "AracID" });
             DropIndex("dbo.Personel", new[] { "AmirID" });
             DropIndex("dbo.Personel", new[] { "VardiyaID" });
             DropIndex("dbo.Personel", new[] { "EgitimID" });
             DropIndex("dbo.Personel", new[] { "UnvanID" });
-            DropIndex("dbo.Model", new[] { "MarkaID" });
+            DropIndex("dbo.AraclarGecmis", new[] { "VardiyaID" });
+            DropIndex("dbo.AraclarGecmis", new[] { "PersonelID" });
+            DropIndex("dbo.AraclarGecmis", new[] { "AracID" });
             DropIndex("dbo.AraclarDetay", new[] { "AracID" });
             DropIndex("dbo.Araclar", new[] { "ModelID" });
             DropIndex("dbo.Araclar", new[] { "MarkaID" });
             DropTable("dbo.User");
             DropTable("dbo.Kurumlar");
+            DropTable("dbo.IslemDetay");
+            DropTable("dbo.Islem");
+            DropTable("dbo.Model");
+            DropTable("dbo.Marka");
             DropTable("dbo.Vardiya");
             DropTable("dbo.Unvanlar");
             DropTable("dbo.Egitim");
             DropTable("dbo.Personel");
-            DropTable("dbo.Model");
-            DropTable("dbo.Marka");
+            DropTable("dbo.AraclarGecmis");
             DropTable("dbo.AraclarDetay");
             DropTable("dbo.Araclar");
         }

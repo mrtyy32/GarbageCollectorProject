@@ -26,7 +26,7 @@ namespace Gcp.Host.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-			context.Seed(context);
+	        //context.Seed(context);
         }
     }
 }

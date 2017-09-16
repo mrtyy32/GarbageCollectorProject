@@ -1,0 +1,56 @@
+﻿@model List<Gcp.Web.Models.Personel>
+@{
+	Layout = null;
+}
+@foreach (var p in Model)
+{
+	if (p != null)
+	{
+		<tr role="row" class="odd">
+			<td>
+				<label>@p.PersonelAd @p.PersonelSoyad</label>
+			</td>
+			<td>
+				@if (@p.VardiyaID == null)
+				{
+					<label>Vardiya Yok</label>
+					<a data-toggle="modal" data-target="#guncelleVardiya" onclick="editVardiya(@p.PersonelID)" class="badge badge-danger">
+						&nbsp; Ekle/Değiştir&nbsp;<i class="fa fa-edit"></i>
+					</a>
+				}
+				else
+				{
+						@p.Vardiya.VardiyaAd
+					<a data-toggle="modal" data-target="#guncelleVardiya" onclick="editVardiya(@p.PersonelID)" class="badge badge-danger">
+						&nbsp; Ekle/Değiştir&nbsp;<i class="fa fa-edit"></i>
+					</a>
+				}
+			</td>
+			<td>
+				@if (@p.AracID == null)
+				{
+					<label>
+						Araç Yok
+					</label>
+					<a data-toggle="modal" data-target="#guncelleArac" onclick="editArac(@p.PersonelID)" class="badge badge-danger">
+						&nbsp; Ekle/Değiştir&nbsp;<i class="fa fa-edit"></i>
+					</a>
+				}
+				else
+				{
+					<label >
+						@p.Araclar.AracPlaka
+					</label>
+					<a data-toggle="modal" data-target="#guncelleArac" onclick="editArac(@p.PersonelID)" class="badge badge-danger">
+						&nbsp; Ekle/Değiştir&nbsp;<i class="fa fa-edit"></i>
+					</a>
+				}
+			</td>
+		</tr>
+	}
+}
+<script>
+	$('[data-toggle="confirmation"]').confirmation({
+		singleton: true
+	});
+</script>

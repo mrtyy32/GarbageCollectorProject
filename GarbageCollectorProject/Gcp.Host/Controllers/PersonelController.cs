@@ -14,11 +14,17 @@ namespace Gcp.Host.Controllers
         // GET: api/Personel
         public dynamic GetPersonel()
         {
-			var personels = db.Personel.Include(i=> i.Vardiya).Where(i=> i.VardiyaID == i.Vardiya.VardiyaID)
-				.Include(i=> i.Egitim).Where(i=> i.EgitimID == i.Egitim.EgitimID)
-				.Include(i=> i.Unvanlar).Where(i=> i.UnvanID == i.Unvanlar.UnvanID)
-				.Include(i=> i.Amir).Where(i => i.AmirID == i.Amir.AmirID)
-				.Include(i=> i.Araclar).Where(x=> x.AracID == x.Araclar.AracID).ToList();
+            var personels =
+                db.Personel
+                    .Include("Vardiya")
+                    .Where(v => v.VardiyaID == v.Vardiya.VardiyaID)
+                    .Include("Egitim")
+                    .Where(e => e.EgitimID == e.Egitim.EgitimID)
+                    .Include("Unvanlar")
+                    .Where(u => u.UnvanID == u.Unvanlar.UnvanID)
+                    .Include("Amir")
+                    .Where(a => a.AmirID == a.Amir.PersonelID)
+                    .Include("Araclar").DefaultIfEmpty().ToList();
 	        return personels;
 
         }
@@ -94,8 +100,8 @@ namespace Gcp.Host.Controllers
 				}
 				throw;
 			}
-
-			return CreatedAtRoute("DefaultApi", new { id = personel.PersonelID }, personel);
+			CreatedAtRoute("DefaultApi", new { id = personel.PersonelID }, personel);
+	        return Ok(personel);
         }
 
         // DELETE: api/Personel/5
@@ -124,9 +130,21 @@ namespace Gcp.Host.Controllers
 	    [ResponseType(typeof(Personel))]
 	    public IHttpActionResult amirDropDown()
 	    {
-		    var amir = db.Personel.Where(x => x.AmirMi == true);
-			if (amir != null) return Ok(amir);
-			return NotFound();
+		    var amir = db.Personel.Where(x=> x.AmirMi);
+		    return Ok(amir);
+	    }
+
+		[Route("api/Personel/personelGiderTablosu")]
+		[HttpGet]
+		[ResponseType(typeof(Personel))]
+		public IHttpActionResult personelGiderTablosu()
+		{
+			var dagilim = db.Personel.Select(x => new
+			{
+				x.PersonelAd, x.PersonelSoyad,
+				x.Maas
+			}).ToList();
+			return Ok(dagilim);
 		}
 	}
 }

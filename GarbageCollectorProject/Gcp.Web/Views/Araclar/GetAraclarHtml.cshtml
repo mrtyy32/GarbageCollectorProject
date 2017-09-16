@@ -2,64 +2,75 @@
 @{
 	Layout = null;
 }
-
 @foreach (var p in Model)
-{
-	<tr role="row" class="odd" data-id="@p.AracID">
-		<th class=" control"></th>
+			{
+	<tr role="row" class="odd">
+		<th class="control"></th>
 		<td class="sorting_1">@p.Marka.MarkaAd</td>
 		<td>@p.Model.ModelAd</td>
 		<td>@p.AracPlaka</td>
 		<td>
 			@foreach (var personel in @p.Personel)
-			{
-				<label>@personel.PersonelAd @personel.PersonelSoyad</label>
-			}
+				{
+					if (personel.PersonelAd != null)
+					{
+					<label>@personel.PersonelAd @personel.PersonelSoyad</label>
+					}
+					else 
+					{
+					<label>Personel Yok</label>
+					}
+				}
 		</td>
 		<td style="display: none;">
-			@if (@p.AraclarDetay.Count == 0)
-			{
+			@if (@p.AraclarDetay.Count > 0)
+				{
+				@Convert.ToDateTime(@p.AraclarDetay.Last().AlinisTarihi).Day<label>.</label>@Convert.ToDateTime(@p.AraclarDetay.Last().AlinisTarihi).Month<label>.</label>@Convert.ToDateTime(@p.AraclarDetay.Last().AlinisTarihi).Year
+				}
+				else
+				{
 				<label>Girilmemiş</label>
-			}
-			else
-			{
-				@p.AraclarDetay.Last().AlinisTarihi
-			}
+				}
 		</td>
 
 		<td style="display: none;">
-			@if (@p.AraclarDetay.Count == 0)
-			{
+			@if (@p.AraclarDetay.Count > 0)
+				{
+				@Convert.ToDateTime(@p.AraclarDetay.Last().BakimTarihi).Day<label>.</label>@Convert.ToDateTime(@p.AraclarDetay.Last().BakimTarihi).Month<label>.</label>@Convert.ToDateTime(@p.AraclarDetay.Last().BakimTarihi).Year
+				}
+				else
+				{
 				<label>Girilmemiş</label>
-			}
-			else
-			{
-				@p.AraclarDetay.Last().BakimTarihi
-			}
+				}
 		</td>
 		<td style="display: none;">
-			@if (@p.AraclarDetay.Count == 0)
-			{
+			@if (@p.AraclarDetay.Count > 0)
+				{
+				@Convert.ToDateTime(@p.AraclarDetay.Last().MuayeneTarihi).Day<label>.</label>@Convert.ToDateTime(@p.AraclarDetay.Last().MuayeneTarihi).Month<label>.</label>@Convert.ToDateTime(@p.AraclarDetay.Last().MuayeneTarihi).Year
+				}
+				else
+				{
 				<label>Girilmemiş</label>
-			}
-			else
-			{
-				@p.AraclarDetay.Last().MuayeneTarihi
-			}
+				}
 			<br />
 			<a data-toggle="modal" data-target="#detayKayit" data-book-id="@p.AracID" class="btn btn-success btn-xs">Detay Ekle</a>
 			<a data-toggle="modal" data-target="#detayGoruntule" data-book-id="@p.AracID" onclick="getAracDetay(@p.AracID)" class="btn btn-info btn-xs">Detay Görüntüle</a>
+			<a data-toggle="modal" data-target="#gecmisGoruntule" data-book-id="@p.AracID" onclick="getAracGecmis(@p.AracID)" class="btn btn-warning btn-xs">Geçmiş Görüntüle</a>
 		</td>
 
 		<td>
 			<a data-toggle="modal" data-target="#guncelleKayit" data-id="@p.AracID" onclick="getArac(@p.AracID)" class="btn btn-circle btn-icon-only btn-default">
 				<i class="icon-pencil"></i>
 			</a>
-			<a data-toggle="confirmation" data-on-confirm="deleteArac" data-id="@p.AracID" data-original-title="@p.MarkaID aracını silmek istediğinize emin misiniz?" class="btn btn-circle btn-icon-only btn-default">
+			<a data-toggle="confirmation" data-on-confirm="deleteArac" data-id="@p.AracID" data-original-title="@p.AracPlaka 'lı' aracı silmek istediğinize emin misiniz?" class="btn btn-circle btn-icon-only btn-default">
 				<i class="icon-trash"></i>
 			</a>
 		</td>
 	</tr>
-}
-
-
+			}
+<script>
+	$('[data-toggle="confirmation"]').confirmation({
+		singleton: true
+		
+	});
+</script>

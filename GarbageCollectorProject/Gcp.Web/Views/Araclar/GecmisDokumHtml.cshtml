@@ -1,0 +1,23 @@
+﻿@model List<Gcp.Web.Models.AraclarGecmis>
+@{
+	Layout = null;
+}
+
+@foreach (var e in Model)
+{
+	<tr role="row" class="odd">
+		<td class="sorting_1">
+			<label>
+				@Convert.ToDateTime(@e.TeslimTarihi).Day.@Convert.ToDateTime(@e.TeslimTarihi).Month.@Convert.ToDateTime(@e.TeslimTarihi).Year
+			</label>
+		</td>
+		<td>@e.Araclar.AracPlaka</td>
+		<td>
+			<label>@e.Personel.PersonelAd @e.Personel.PersonelSoyad</label>
+		</td>
+		<td>
+			@e.Vardiya.VardiyaAd
+		</td>
+	</tr>
+
+}
